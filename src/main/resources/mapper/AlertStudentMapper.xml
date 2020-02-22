@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="csust.mapper.AlertStudentMapper">
+
+   <select id="selectAlertStudent" resultType="Student">
+    select * from alertstudent where studentNo=#{0} 
+   </select> 
+   
+   <select id="listAlertStudent"  resultType="Student">
+    select studentNo, studentName,major,class from alertstudent where status =0
+   </select>
+
+    <delete id="deleteAlertStudent">
+    delete from alertstudent where studentNo=#{0}   
+    </delete>
+    
+    <insert id="addAlertStudent">
+        insert into alertstudent values(#{studentNo},#{studentName},#{termYear},#{major},#{className},#{sex},#{birthday},#{tutor},#{spouse},#{MZ},#{ZZMM},
+		       #{JG},#{personID},#{phone},#{QQ},#{fatherName},#{fatherPhone},#{fatherWorkplace},#{motherName},#{motherPhone},
+		        #{motherWorkplace},#{address},#{buildingName},#{roomNum},#{bedNum},#{TC},#{sfps},#{studyType},#{status},#{stuType}
+		       )   
+    </insert>
+
+   	<update id="updateStatus">
+		        update alertstudent set
+                      status=#{1}
+		       where studentNo=#{0}
+	</update>
+		
+	<update id="updateAlertStudent" parameterType="Student">
+		        update alertstudent set
+		       studentName= #{studentName},termYear=#{termYear},major=#{major},class=#{className},sex=#{sex},birthday=#{birthday},tutor=#{tutor},spouse=#{spouse},MZ=#{MZ},ZZMM=#{ZZMM},
+		       JG= #{JG},personID=#{personID},phone=#{phone},QQ=#{QQ},fatherName=#{fatherName},fatherPhone=#{fatherPhone},motherName=#{motherName},motherPhone=#{motherPhone},
+		        address=#{address},buildingName=#{buildingName},roomNum=#{roomNum},bedNum=#{bedNum},TC=#{TC},studyType=#{studyType},motherWorkplace=#{motherWorkplace},fatherWorkplace=#{fatherWorkplace},
+		        status=#{status},SFPS=#{sfps},stuType=#{stuType}
+		       where studentNo=#{studentNo}
+		</update>
+</mapper>

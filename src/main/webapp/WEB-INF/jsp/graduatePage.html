@@ -1,0 +1,1778 @@
+﻿
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+  
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>研究生信息管理</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- MetisMenu CSS -->
+    <link href="css/metisMenu.min.css" rel="stylesheet">
+
+    <!-- Timeline CSS -->
+    <link href="css/timeline.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="css/startmin.css" rel="stylesheet">
+
+    <!-- Morris Charts CSS -->
+    <link href="css/morris.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    
+
+
+
+
+
+    
+</head>
+<body>
+<div id="wrapper">
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+
+        <!-- Top Navigation: Left Menu -->
+        <ul class="nav navbar-nav navbar-left navbar-top-links">
+            <li><a class="navbar-brand" href="http://www.csust.edu.cn/jgxy/index.htm"><i class="fa fa-home fa-fw"></i> 经济与管理学院</a></li>
+            <li>
+            <input type="hidden" name="hidden" id="userName" value="" />
+            </li>
+        </ul>
+
+        <!-- Top Navigation: Right Menu -->
+        <ul class="nav navbar-right navbar-top-links">
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    <i class="fa fa-user fa-fw"></i> 用户 <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu dropdown-user">
+                    <li id="updateSPassword"><a  href="#"> <i class="fa fa-user fa-fw"></i> 修改密码</a>
+                    </li>
+                    <li class="divider"></li>
+                    <li id="apply"><a href="#"><i class="fa fa-sign-out fa-fw"></i> 查看我的申请</a>
+                    </li>
+                     <li id="myLeave"><a href="#"><i class="fa fa-sign-out fa-fw"></i> 查看我的请假</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+         <!-- 查看个人的请假信息的模态框 -->
+        <div class="modal fade" id="listMyLeave"  data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+             <div class="modal-dialog modal-lg">
+             <div class="modal-content">
+               <div class="modal-header">
+            <button data-dismiss="modal" class="close" type="button"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+             <h4 class="modal-title">请假信息</h4>
+            </div>
+            <div class="modal-body">
+            	<table class="table table-striped table-bordered table-hover  table-condensed">
+            		<thead>
+            			<th>请假时间</th>
+            			<th>原因</th>
+            			<th>请假天数</th>
+            			<th>联系方式</th>
+            			<th>家长联系方式</th>
+            			<th>是否批准</th>
+            		</thead>
+            		<tbody id="tablebody_myleave">
+            			
+            		</tbody>
+            	</table>
+            	
+            </div>
+                                  
+          <div class="modal-footer">
+            <button data-dismiss="modal" class="btn btn-default" type="button">关闭</button>
+            
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->	    
+</div>
+             <!-- 查看个人的申请修改信息的审核状态的模态框 -->
+       <div class="modal fade" id="alertInfo"  data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+             <div class="modal-dialog">
+             <div class="modal-content">
+               <div class="modal-header">
+            <button data-dismiss="modal" class="close" type="button"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+             <h4 class="modal-title">学生信息<span id="status"></span></h4>
+            </div>
+            <div class="modal-body">
+            </div>
+               <table class="table table-striped table-bordered table-hover">
+		       <thead>
+		       	 <th>项目</th>
+		       	 <th>内容</th> 
+		       </thead>
+		       <tbody>
+		       	<tr>
+		       		<td>学号</td>
+		       		<td id="after_no"></td>		       		
+		       	</tr>
+		       	 	<tr>
+		       		<td >姓名</td>
+		       		<td id="after_name"></td>		       		
+		       	</tr>
+		       	 	<tr>
+		       		<td>年级</td>
+		       		<td id="after_termYear"></td>		       		
+		       	</tr>
+		       	 	<tr>
+		       		<td>专业</td>
+		       		<td id="after_major"></td>		       		
+		       	</tr>
+		       	 	<tr>
+		       		<td>班级</td>
+		       		<td id="after_className"></td>		       		
+		       	</tr>
+		       	 	<tr>
+		       		<td>性别</td>
+		       		<td id="after_sex"></td>		       		
+		       	</tr>
+		       	    <tr>
+		       		<td>出生日期</td>
+		       		<td id="after_birthday"></td>		       		
+		       	</tr>
+		       		<tr>
+		       		<td>导师姓名</td>
+		       		<td id="after_tutor"></td>		       		
+		       	</tr>
+		       	    <tr>
+		       		<td>配偶</td>
+		       		<td id="after_spouse"></td>		       		
+		       	</tr>
+		       	 	<tr>
+		       		<td>民族</td>
+		       		<td id="after_mz"></td>		       		
+		       	</tr>
+		       	 	<tr>
+		       		<td>政治面貌</td>
+		       		<td id="after_zzmm"> </td>		       		
+		       	</tr>
+		       	 	<tr>
+		       		<td>籍贯</td>
+		       		<td id="after_jg"> </td>		       		
+		       	</tr>
+		       	 	<tr>
+		       		<td>身份证</td>
+		       		<td id="after_personID"> </td>		       		
+		       	</tr>
+		       	 	<tr>
+		       		<td>手机号码</td>
+		       		<td id="after_phone"> </td>		       		
+		       	</tr>
+		       	 	<tr>
+		       		<td>QQ</td>
+		       		<td id="after_QQ"> </td>		       		
+		       	</tr>
+		       	 	 <tr>
+		       		<td>父亲姓名</td>
+		       		<td id="after_fatherName"> </td>		       		
+		       	</tr>
+		       	 	 <tr>
+		       		<td>父亲联系方式</td>
+		       		<td id="after_fatherPhone"> </td>		       		
+		       	</tr>
+		       	    <tr>
+		       		<td>父亲工作单位</td>
+		       		<td id="after_fatherWorkplace"> </td>		       		
+		       	</tr>
+		       	    <tr>
+		       		<td>母亲姓名</td>
+		       		<td id="after_motherName"> </td>		       		
+		       	</tr>
+		       	 	<tr>
+		       		<td>母亲联系方式</td>
+		       		<td id="after_motherPhone"> </td>		       		
+		       	</tr>
+		       	 	 <tr>
+		       		<td>母亲工作单位</td>
+		       		<td id="after_motherWorkplace"> </td>		       		
+		       	</tr>
+		       		<tr>
+		       		<td>家庭地址</td>
+		       		<td id="after_address"> </td>		       		
+		       	</tr>
+		       		<tr>
+		       		<td>宿舍楼栋</td>
+		       		<td id="after_buildingName"> </td>		       		
+		       	</tr>
+		       		<tr>
+		       		<td>寝室号</td>
+		       		<td id="after_roomNum"> </td>		       		
+		       	</tr>
+		       		<tr>
+		       		<td>床位号</td>
+		       		<td id="after_bedNum"> </td>		       		
+		       	</tr>
+		       	   	<tr>
+		       		<td>特长</td>
+		       		<td id="after_tc"> </td>		       		
+		       	</tr>
+		       	   	<tr>
+		       		<td>是否家困生</td>
+		       		<td id="after_sfps" > </td>		       		
+		       	</tr>
+		       	 	<tr>
+		       		<td>学制</td>
+		       		<td id="after_studyType"> </td>		       		
+		       	</tr>
+
+		       </tbody>
+		    </table>                            
+          <div class="modal-footer">
+            <button data-dismiss="modal" class="btn btn-danger" type="button" id="delete" stuNo="00">删除</button>
+            <button data-dismiss="modal" class="btn btn-default" type="button">关闭</button>
+            
+            
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->	    
+</div>		
+       
+		</nav>
+       <div class="contain">
+        <!-- Sidebar -->
+        <div class="navbar-default sidebar" role="navigation">
+            <div class="sidebar-nav navbar-collapse">
+
+                <ul class="nav" id="side-menu">
+                   
+					
+					<li>
+                       <img src="img/1093957.png" height="37%" width="37%">
+                    </li>
+                     <li  >
+                       <a href="javascript:;" id="luru" ><i class="fa fa-dashboard fa-fw"></i> <font size="+1">信息录入</font></a>
+                    </li>
+                        <ul id="showlist" style="display: none">
+                        	<li><a href="javascript:;" id="Base">基本信息</a></li>
+                        	<li><a href="javascript:;" id="Cj">学期成绩</a></li>
+                        	<li><a href="javascript:;" id="Jiangli">奖励情况</a></li>
+                        	<li><a href="javascript:;" id="Skill">技能情况</a></li>
+                        	<li><a href="javascript:;" id="Practice">社会实践</a></li>
+							<li><a href="javascript:;" id="Zz">课题项目</a></li>
+                        	<li><a href="javascript:;" id="Xjyd">论文发表</a></li>
+                        	<li><a href="javascript:;" id="Xjzc">学籍注册</a></li>
+                        </ul>
+                        
+                    <li>
+                        <a href="javascript:;" id="search" ><i class="fa fa-dashboard fa-fw"></i><font size="+1"> 信息查询</font></a>
+                       
+                    </li>
+                        <li  >
+                       <a href="javascript:;" id="leave" ><i class="fa fa-dashboard fa-fw"></i> <font size="+1">请假</font></a>
+                       </li>
+                      <li>
+                       <a href="javascript:;" id="file_download" ><i class="fa fa-dashboard fa-fw"></i> <font size="+1">文件下载</font></a>
+                      </li> 
+                           <ul id="fileName_list" style="display:none;" class="dropdown-menu">
+                          
+                           </ul>   
+                           <div>
+                              <form action="" id="fileForm" method="post"  style="display:none">
+                              <input type="text" name="fileName" id="fileName">
+                             <button id="download">点击下载文件</button>
+                             </form>
+                              </div>                
+                  
+                </ul>
+
+            </div>
+        </div>
+        
+                           
+	
+	 <!-- Page Content -->
+    <div id="base" style="display: none">
+                <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-3">
+                        <h3 class="page-header" style="display:inline-block">基本信息录入</h3> 
+                           
+                            <form action="">
+                                    <input type="file"  name="file" accept="image/*" style="display:inline" class="text-info" id="imgFile">
+                                    <input id="fileIMG_btn" type="button" class="btn btn-primary" value="头像上传" style="display:inline;margin:3px -100px 10px 0;">
+                                    </form>
+                           </div> 
+                    </div>
+                                  
+                    <!-- /.col-lg-12 -->
+                </div>
+                <!-- /.row -->
+                
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                
+                            </div>
+                    
+                            <div class="panel-body">
+                                <div class="row">
+                                           
+                                    <div class="col-lg-12">
+                                        <form action="" method="post">
+                                            <div class="col-md-5 ">
+                                                <lable>学号&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</lable>
+                                                <input type="text" name="stuNum" value="" id="studentNo1" readonly>
+                                            </div>
+                                           
+                                            <div class="col-md-5">
+                                              <lable>姓名&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</lable>
+                                              <input type="text" name="stuName" value="" id="studentName" readonly>
+                                               
+                                            </div>
+                                           
+                        
+                                           
+                                           <br/><br/>
+                                           <div class="col-md-5 ">
+                                                <lable>年级&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</lable>
+                                                <input style="height: 26px" name="grade" id="termYear" value="">
+	                                           
+                                            </div>
+                                            <div class="col-md-5">
+                                                <lable>专业&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </lable>
+                                  				<input style="height: 26px" name="major" id="major">
+		                                        
+                                            </div>
+                                            <br/><br/>
+                                                <div class="col-md-5">
+                                                    <lable>班级&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</lable>
+                                                    <input type="text" name="class" value="" id="className">
+                                                </div>
+                                            <div class="col-md-5">
+                                                <lable>民族&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </lable>
+                                  				<input style="height: 26px" name="nation" id="MZ">
+	                                            
+	                                      
+                                            </div>
+                                             <br/><br/>
+                                          <div class="col-md-5">
+                                                <lable>政治面貌&nbsp;&nbsp; </lable>
+                                  				<select style="height: 26px" name="status" id="ZZMM">
+                                  				   <option value="群众">群众</option>
+	                                               <option value="共青团员">团员</option>
+	                                               <option value="积极分子">积极分子</option>
+	                                               <option value="预备党员">预备党员</option>
+	                                               <option value="党员">党员</option>
+                                                </select>
+                                            </div>
+                                           
+											<div class="col-md-5">
+												 <lable>性别&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</lable>
+												 <input style="height: 26px" name="sex" id="sex">
+	                                     
+											</div>
+                                         <br/><br/>
+                                         <div class="col-md-5">
+												 <lable>学制&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</lable>
+												 <select style="height: 26px" name="status" id="studyType">
+	                                               <option value="学硕">学硕</option>
+	                                               <option value="专硕">专硕</option>
+                                                </select>
+	                                     
+											</div>
+											  <div class="col-md-5">
+                                         	<lable>特长&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</lable>
+                                         	<input type="text" name="area" value="" id="TC">
+                                         </div>
+											<br><br>
+                                         <div class="col-md-5">
+                                         	<lable>籍贯&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</lable>
+                                         	<input type="text" name="area" value="" id="JG">
+                                         </div>
+                                                                                  
+                                         <div class="col-md-5">
+												 <lable>身份证号&nbsp;&nbsp;</lable>
+												 <input type="text" name="id" value="" id="personID" >
+										</div>
+                                         <br/><br/>
+                                               <div class="col-md-5">
+                                                    <lable>是否家困生在库&nbsp;</lable>
+                                                    <select id="sfps" style="height: 26px" name="zk">
+		                                               <option value="0">否</option>
+		                                               <option value="1">是</option>
+                                                	</select>
+                                                </div>
+                                          <div class="col-md-5">
+                                         	<lable>出生日期&nbsp;&nbsp;</lable>
+                                         	<input type="Date" name="pnumber" value="" id="birthday" >
+                                         </div>    
+                                            <br><br>
+                                         <div class="col-md-5">
+                                         	<lable>导师姓名&nbsp;&nbsp;</lable>
+                                         	<input type="text" name="pnumber" value="" id="tutor" >
+                                         </div>
+                                        
+                                         <div class="col-md-5">
+                                         	<lable>配偶&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</lable>
+                                         	<input type="text" name="QQ" value="" id="spouse" >
+                                         </div>
+                                         <br><br>
+                                         <div class="col-md-5">
+                                         	<lable>手机号码&nbsp;&nbsp;</lable>
+                                         	<input type="text" name="pnumber" value="" id="phone" >
+                                         </div>
+                                        
+                                         <div class="col-md-5">
+                                         	<lable>QQ号&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</lable>
+                                         	<input type="text" name="QQ" value="" id="QQ" >
+                                         </div>
+                                         <br><br>
+                                         <div class="col-md-5">
+                                         	<lable>父亲姓名&nbsp;&nbsp;</lable>
+                                         	<input type="text" name="fathername" value="" id="fatherName" >
+                                         </div>
+                                         <div class="col-md-5">
+                                         	<lable>手机号码&nbsp;&nbsp;</lable>
+                                         	<input type="text" name="fathernum" value="" id="fatherPhone" >
+                                         </div>
+                                         <br><br>
+                                             <div class="col-md-5">
+                                         	<lable>父亲单位&nbsp;&nbsp;</lable>
+                                         	<input type="text" name="fathername" value="" id="fatherWorkplace" >
+                                         </div>
+                                              <div class="col-md-5">
+                                         	<lable>母亲单位&nbsp;&nbsp;</lable>
+                                         	<input type="text" name="fathername" value="" id="motherWorkplace" >
+                                         </div>
+                                         <br><br>
+                                          <div class="col-md-5">
+                                         	<lable>母亲姓名&nbsp;&nbsp;</lable>
+                                         	<input type="text" name="mothername" value="" id="motherName" >
+                                         </div>
+                                         <div class="col-md-5">
+                                         	<lable>手机号码&nbsp;&nbsp;</lable>
+                                         	<input type="text" name="mothernum" value="" id="motherPhone" >
+                                         </div>
+                                         <br><br>
+                                          <div class="col-md-5">
+                                         	<lable>家庭住址&nbsp;&nbsp;</lable>
+                                         	<input type="text" name="home" value="" id="address" >
+                                         </div>
+                                         <div class="col-md-5">
+                                         	<lable>寝室楼栋&nbsp;&nbsp;</lable>
+                                           <input type="text" name="bed" value="" id="buildingName" >
+                                         </div>
+                                         <br><br>
+                                         <div class="col-md-5">
+                                         	<lable>寝室号&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</lable>
+                                         	<input type="text" name="room" value="" id="roomNum" >
+                                         </div>
+                                         <div class="col-md-5">
+                                         	<lable>床号&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</lable>
+                                         	<input type="text" name="bed" value="" id="bedNum" >
+                                         </div>
+                                         <br><br><br>
+                                          <div class="col-md-4 col-md-offset-3">
+                                                <input type="button" id="save1" value="保存">
+                                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                               
+                                          </div>
+                                        </form>
+                                   
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                  <div style="width:150px;height:250px;position: absolute1; margin-left:270px">
+                                               
+    </div>
+	</div>
+     <!-- Page Content -->
+     <div id="cj" style="display: none">
+                <div class="row">
+                    <div class="col-md-4">
+                        <h3 class="page-header">成绩录入</h3>
+                </div>
+                    
+                    <!-- /.col-lg-12 -->
+                </div>
+                <!-- /.row -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                
+                            </div>
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <form action="" method="post">
+                                            <div class="col-md-5 ">
+                                                <lable>学号&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</lable>
+                                                <input type="text" name="stuNum" id="studentNo2" 
+                                                value="" style="width: 150px;" readonly>
+                                            </div>
+                                           
+                                           <br><br>
+                                                <div class="col-md-5">
+                                                    <lable>学期&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</lable>
+                                                    <select style="height: 26px" id="termNo" name="termNo">
+		                                               <option value="11">研一上</option>
+		                                               <option value="12">研一下</option>
+		                                               <option value="13">研二上</option>
+		                                               <option value="14">研二下</option>
+		                                               <option value="15">研三上</option>
+		                                               <option value="16">研三下</option>
+
+                                               		</select>
+											</div>
+                                            <br><br>
+                                            <div class="col-md-6">
+                                                <lable>平均成绩&nbsp; </lable>
+                                                <input type="text" name="grade" id="avgGrade" value="">
+                                            </div>
+                                             
+                                          <br><br>
+											<div class="col-md-6">
+                                                <lable>绩点&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;</lable>
+                                                <input type="text" name="crect" id="avgCPA" value="">
+                                            </div>
+                                             
+                                          <br><br>
+                                         <br/><br/><br/><br/>
+                                         
+                                          <div class="col-md-4 col-md-offset-1">
+                                                <input type="button" name="save" value="保存" id="save2">
+                                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                               
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    </div>
+
+    <div id="jiangli" style="display: none">
+                <div class="row">
+                    <div class="col-md-3">
+                        <h3 class="page-header">奖励信息录入</h3>
+                    </div>
+                    
+                    <!-- /.col-lg-12 -->
+                </div>
+                <!-- /.row -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                
+                            </div>
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <form action="" method="post" enctype="multipart/form-data">
+                                            <div class="col-md-5 ">
+                                                <lable>学号&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</lable>
+                                                <input type="text" name="studentNo" id="studentNo3"
+                                                value="" style="width: 150px;" readonly>
+                                            </div>
+                                           
+                                              <br><br>
+                                                   <div class="col-md-5">
+                                                    <lable>学年&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</lable>
+                                                    <select class="RewardName" id="jl_termYear">
+                                                       <option value="2015-2016">2015-2016学年</option>
+                                                       <option value="2016-2017">2016-2017学年</option>
+                                                       <option value="2017-2018">2017-2018学年</option>
+                                                       <option value="2018-2019">2018-2019学年</option>
+                                                       <option value="2019-2020">2019-2020学年</option>
+                                                       <option value="2020-2021">2020-2021学年</option>
+                                                    </select>
+                                                </div>
+                                                
+                                            <br><br>
+                                                <div class="col-md-5">
+                                                    <lable>级别&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</lable>
+                                                    <select class="RewardName" id="JLlevel">
+                                                        <option value="院级">院级</option>
+                                                        <option value="校级">校级</option>
+                                                        <option value="省级">省级</option>
+                                                        <option value="国家级">国家级</option>
+                                                    </select>
+                                                
+                                                </div>
+                                                
+                                            <br><br>
+                                            
+                                            <div class="col-md-5">
+                                                    <lable>获奖名称&nbsp;&nbsp;</lable>
+                                                    <select name="JLname" id="JLname">
+                                                        <option>请先选择学年和级别</option>
+                                                    </select> 
+                                                    <span id="addRewardinfo"><i style="font-size:10px;color:red;">没有请点击这里</i></span>                                          		                                              
+                                            </div>
+                                            <br><br>
+                                            	<div class="col-md-5">
+												 <lable>主办方&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</lable>
+												 <input type="text"  value="" id="sponsor" readonly>
+											</div>
+											<br><br>
+											<div class="col-md-5">
+												 <lable>具体时间&nbsp;&nbsp;&nbsp;</lable>
+												 <input type="date" name="getTime" id="getJLTime" value="" >
+											</div>
+											<br><br>
+												<div class="col-md-5">
+												 <lable>指导老师&nbsp;&nbsp;&nbsp;</lable>
+												 <input type="text" name="adviser" id="adviser" value="" >										 
+											</div>
+											<br><br>
+											   <div class="col-md-5">
+                                                    <lable>团队&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</lable>
+                                                    <select name="termOrindivadual" id="termOrindividual">
+                                                        <option value="个人">个人</option>
+                                                        <option value="团队">团队</option>
+                                                    </select>
+                                                </div>
+                                         <br/><br/><br/><br/>
+                                                                               上传图片<input type="file" accept="image/*" name="image" id="JLimage">
+                                            <br>                                   
+                                          <div class="col-md-4 col-md-offset-3">
+                                                <input type="button" name="save" value="保存" id="save3">
+                                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                               
+                                            </div>
+                                            
+                                                                              
+                                            
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    </div>
+    
+		<div class="modal fade" id="addRewardInfo"  data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+             <div class="modal-dialog">
+             <div class="modal-content">
+               <div class="modal-header">
+            <button data-dismiss="modal" class="close" type="button"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+             <h4 class="modal-title">增加奖励信息</h4>
+            </div>
+            <div class="modal-body">
+            	<form>
+            		<table>
+            			<tr>
+            				<td>学年</td>
+            				<td> <select id="add_jl_termYear">
+                                                       <option value="2015-2016">2015-2016学年</option>
+                                                       <option value="2016-2017">2016-2017学年</option>
+                                                       <option value="2017-2018">2017-2018学年</option>
+                                                       <option value="2018-2019">2018-2019学年</option>
+                                                       <option value="2019-2020">2019-2020学年</option>
+                                                       <option value="2020-2021">2020-2021学年</option>
+                               </select></td>
+            			</tr>
+            			<tr>
+            				<td>&nbsp;</td>
+            				<td></td>
+            			</tr>
+            			<tr>
+            				<td>级别</td>
+            				<td>  <select  id="add_JLlevel">
+                                                        <option value="院级">院级</option>
+                                                        <option value="校级">校级</option>
+                                                        <option value="省级">省级</option>
+                                                        <option value="国家级">国家级</option>
+                                                    </select></td>
+            			</tr>
+            			<tr>
+            				<td>&nbsp;</td>
+            				<td></td>
+            			</tr>
+            			<tr>
+            				<td>获奖名称&nbsp;</td>
+            				<td><input type="text" id="add_rewardName" ></td>
+            			</tr>
+            			<tr>
+            				<td>&nbsp;</td>
+            				<td></td>
+            			</tr>
+            			<tr>
+            				<td>主办方</td>
+            				<td><input type="text" id="add_sponsor" ></td>
+            			</tr>
+            		</table>
+            	</form>
+            </div>
+                                  
+          <div class="modal-footer">
+            <button class="btn btn-default" type="button" id="btn_addRewardinfo">增加</button>
+            <button data-dismiss="modal" class="btn btn-default" type="button">关闭</button>
+            
+            
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->	    
+</div>	
+    
+    <div id="skill" style="display: none">
+                <div class="row">
+                    <div class="col-md-3">
+                        <h3 class="page-header">技能信息录入</h3>
+                    </div>
+                    
+                    <!-- /.col-lg-12 -->
+                </div>
+                <!-- /.row -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                
+                            </div>
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <form action="" method="post">
+                                            <div class="col-md-8 ">
+                                                <lable>学号&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</lable>
+                                                <input type="text" name="stuNum" id="studentNo4"
+                                                value="" style="width: 150px;" readonly>
+                                            </div>
+                                           
+                                           <br><br>
+                                                <div class="col-md-8">
+                                                    <lable>技能证书名称&nbsp;</lable>
+                                                    <input type="text" name="name" id="skillName" value="" >
+                                                </div>
+                                                
+                                            <br><br>
+                                            
+											<div class="col-md-5">
+												 <lable>证书获取时间&nbsp;</lable>
+												 <input type="date" name="Time" id="getSTime" value="" >
+											</div>
+											 <br><br>
+											<div class="col-md-5">
+												 <lable>类别&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</lable>
+												 <select id="getType"  >
+												   <option value="英语四级">英语四级</option>
+		                                           <option value="英语六级">英语六级</option>
+		                                           <option value="计算机二级">计算机二级</option>
+		                                           <option value="其他">其他</option>
+												 </select>
+											</div>
+                                         <br/><br/><br/><br/>
+                                         
+                                          <div class="col-md-4 col-md-offset-1">
+                                                <input type="button" name="save" value="保存" id="save4">
+                                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                               
+                                          </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    </div>
+    
+     <div id="practice" style="display: none">
+                <div class="row">
+                    <div class="col-md-3">
+                        <h3 class="page-header">实践信息录入</h3>
+                    </div>
+                    
+                    <!-- /.col-lg-12 -->
+                </div>
+                <!-- /.row -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                
+                            </div>
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <form action="" method="post">
+                                            <div class="col-md-5 ">
+                                                <lable>学号&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</lable>
+                                                <input type="text" name="stuNum" id="studentNo5"
+                                                value="" style="width: 150px;" readonly>
+                                            </div>
+                                                <div class="col-md-5">
+                                                    <lable>实践项目名称</lable>
+                                                    <input type="text" name="name" id="practiceName" value="">
+                                                </div>
+                                                
+                                            <br><br>
+                                            
+											<div class="col-md-5">
+												 <lable>开始时间&nbsp;&nbsp;</lable>
+												 <input type="date" name="sarttime" id="startPTime" value="" >
+											</div>
+											
+                                        	<div class="col-md-5">
+												 <lable>结束时间&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</lable>
+												 <input type="date" name="endtime" id="endPTime" value="" >	
+											</div>
+											<br/><br/>
+											<div class="col-md-5">
+                                                    <lable>实践类型&nbsp;&nbsp;</lable>
+                                                    <select style="height: 26px" id="practiceType" name="Ptype">
+		                                               <option value="校内">校内</option>
+		                                               <option value="校外">校外</option>
+		                                               <option value="义工">义工</option>
+                                               		</select>
+											</div>
+											
+                                         <br/><br/><br/><br/>
+                                         
+                                          <div class="col-md-4 col-md-offset-3">
+                                                <input type="button" name="save" id="save5" value="保存">
+                                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                               
+                                            </div>
+                                            
+
+                                            
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    </div>
+
+    
+     <div id="zz" style="display: none">
+                <div class="row">
+                    <div class="col-md-3">
+                        <h3 class="page-header">参与课题项目信息录入</h3>
+                    </div>
+                    
+                    <!-- /.col-lg-12 -->
+                </div>
+                <!-- /.row -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                               
+                            </div>
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <form action="" method="post">
+                                            <div class="col-md-5 ">
+                                                <lable>学号&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</lable>
+                                                <input type="text" name="stuNum" id="studentNo6"
+                                                value="" style="width: 150px;" readonly>
+                                            </div>
+                                           <br><br><br>
+                                                <div class="col-md-8">
+                                                    <lable>是否第一负责人&nbsp;</lable>
+                                                    <select id="SFZK" style="height: 26px" name="zk">
+		                                               <option value="0">否</option>
+		                                               <option value="1">是</option>
+                                                	</select>
+                                                </div>
+                                                
+                                            <br><br><br>
+                                            
+                                        
+											<div class="col-md-8">
+												 <lable>项目名称&nbsp;&nbsp;</lable>
+												 <input type="text" name="name" id="ZZname" value="如：助学金" onfocus="this.value=''"/>
+												</div>
+												<br><br><br><br>
+												<div class="col-md-8">
+													 <lable>时间&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</lable>
+													 <input type="date" name="Time" id="ZZtime"  value="格式为：YYYY-MM-DD" onfocus="this.value=''">
+												</div>
+												  <br><br><br>
+												  
+											</div>
+											 <br/><br/><br/>
+											 <div class="col-md-8">
+											  <lable>上传图片&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</lable>
+	                                           <input type="file" accept="image/*" name="projectimage" id="projectimage">
+                                            <br><br><br>
+												  
+                                          </div>
+                                        
+                                         
+                                          <div class="col-md-4 col-md-offset-1">
+                                                <input type="button" name="save" value="保存" id="save6">
+                                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    </div>
+    
+    <div id="xjyd" style="display: none">
+                <div class="row">
+                    <div class="col-md-4">
+                        <h3 class="page-header">论文发表情况录入</h3>
+                    </div>
+                    
+                    <!-- /.col-lg-12 -->
+                </div>
+                <!-- /.row -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                
+                            </div>
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <form action="" method="post">
+                                            <div class="col-md-5 ">
+                                                <lable>学号&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</lable>
+                                                <input type="text" name="stuNum" id="studentNo7"
+                                                value="" style="width: 150px;" readonly>
+                                            </div>
+                                            
+                                           <br><br>
+                                            <div class="col-md-8">
+                                                <lable>论文主题&nbsp;</lable>
+                                                <input type="textarea" id="LWarticleName" name="articleName" value="">
+                                            </div>
+                                            <br><br>
+                                            <div class="col-md-8">
+                                                <lable>论文类型&nbsp;</lable>
+                                                <input type="textarea" id="LWtype" name="type" value="">
+                                            </div>
+                                            <br><br>
+                                            <div class="col-md-8">
+                                                <lable>论文期刊&nbsp;</lable>
+                                                <input type="textarea" id="LWperiodical" name="periodical" value="">
+                                            </div>
+                                            <br><br>
+                                            <div class="col-md-8">
+                                                <lable>发表时间&nbsp;</lable>
+                                                <input type="Date" id="LWtime" name="periodical">
+                                            </div>
+                                            <br><br>
+                                            <div class="col-md-8">
+											  <lable>上传图片&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</lable>
+	                                           <input type="file" accept="image/*" name="LWimage" id="LWimage">	  
+                                          </div>                                     
+                                         <br/><br/><br/><br/>
+                                         
+                                          <div class="col-md-4 col-md-offset-1">
+                                                <input type="button" name="save" value="保存" id="save7">
+                                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                               
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    </div>
+
+    <div id="xjzc" style="display: none">
+                <div class="row">
+                    <div class="col-md-3">
+                        <h3 class="page-header">学籍注册</h3>
+                    </div>
+                    
+                    <!-- /.col-lg-12 -->
+                </div>
+                <!-- /.row -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                
+                            </div>
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <form action="" method="post">
+                                            <div class="col-md-5 ">
+                                                <lable>学号&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</lable>
+                                                <input type="text" name="stuNum" id="studentNo8"
+                                                value="" style="width: 150px;" readonly>
+                                            </div>
+                                             <br><br>
+                                                <div class="col-md-5">
+                                                    <lable>注册年份&nbsp;&nbsp;</lable>                                        
+                                                    <select style="height: 26px" name="term" id="ZCyear">
+		                                               <option value="2018-2019">2018-2019学年</option>
+		                                               <option value="2019-2020">2019-2020学年</option>
+		                                               <option value="2020-2021">2020-2021学年</option>
+		                                               <option value="2021-2022">2021-2022学年</option>
+                                          		</select>
+                                                </div>
+                                                
+                                            <br><br>
+                                            <div class="col-md-5">
+                                                <lable>注册学期&nbsp;&nbsp; </lable>
+                                  				<select style="height: 26px" name="term" id="term">
+		                                               <option value="第一学期">第一学期</option>
+		                                               <option value="第二学期">第二学期</option>
+                                          		</select>
+                                            </div>
+                                              <br><br>
+											<div class="col-md-5">
+												 <lable>是否注册&nbsp;&nbsp;</lable>
+												  <select style="height: 26px" name="term" id="ZCorNot">
+													<option value="1">是</option>
+												</select>
+											</div>
+                                         <br/><br/><br/><br/>
+                                         
+                                          <div class="col-md-4 col-md-offset-3">
+                                                <input type="button" name="save" value="保存" id="save8">
+                                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                               
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    </div>
+		   
+    <div id="pstudent" style="display: none">
+                <div class="row">
+                    <div class="col-md-10">
+                        <div class="page-header"> <ul id="shownav" >
+                        	<li><a href="javascript:;" id="Base1">基本信息</a></li>
+                        	<li><a href="javascript:;" id="Cj1">学期成绩</a></li>
+                        	<li><a href="javascript:;" id="Jiangli1">奖励情况</a></li>
+                        	<li><a href="javascript:;" id="Skill1">技能情况</a></li>
+                        	<li><a href="javascript:;" id="Practice1">社会实践</a></li>
+							<li><a href="javascript:;" id="Zz1">参与课题情况</a></li>
+                        	<li><a href="javascript:;" id="Xjyd1">学籍异动</a></li>
+                        	<li><a href="javascript:;" id="Xjzc1">学籍注册</a></li>
+						</ul></div>
+                    </div>
+                    <!-- /.col-lg-12 -->
+                </div>
+                <!-- /.row -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                               
+                            </div>
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-lg-12">
+									<div id="t1" style="display: none" >
+                                       <form action="" method="post">
+                                            <div class="col-md-5 ">
+                                                <lable>学号&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</lable>
+                                                <input type="text" name="stuNum" id="sea_studentNo8" value="" readonly>
+                                            </div>
+                                           
+                                            <div class="col-md-5">
+                                              <lable>姓名&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</lable>
+                                              <input type="text" name="stuName" id="sea_studentName" value="" readonly>
+                                            </div>
+                                           <br/><br/>
+                                           <div class="col-md-5 ">
+                                                <lable>年级&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</lable>
+                                                <input type="text" name="grade" id="sea_termYear" value="" readonly>
+                                            </div>
+                                            <div class="col-md-5">
+                                                <lable>专业&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </lable>
+                                 				<input type="text" name="major" id="sea_major" value="" readonly >
+                                            </div>
+                                            <br/><br/>
+                                                <div class="col-md-5">
+                                                    <lable>班级&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</lable>
+                                                    <input type="text" name="class" id="sea_className" value="" readonly>
+                                                </div>
+                                                <img src="" id="imgDisplay" width="240" height="240"
+                                                 style="position: absolute; right:11%;margin-top:-70px;">
+                                                 <div id="personAnalyze" style="position: absolute; right:6%;margin-top:200px;">
+                                                 </div>
+                                            
+                                            <div class="col-md-5">
+                                                <lable>民族&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </lable>
+                                      			<input type="text" name="nation" id="sea_MZ" value="" readonly >
+                                            </div>
+                                             <br/><br/>
+                                          <div class="col-md-5">
+                                                <lable>政治面貌&nbsp;&nbsp; </lable>
+                                        		<input type="text" name="status" id="sea_ZZMM" value=""  readonly>
+                                            </div>
+                                           
+											<div class="col-md-5">
+												 <lable>性别&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</lable>
+												 <input type="text" name="Time" id="sea_sex" value=""   readonly>
+											</div>
+                                         <br/><br/>
+                                           <div class="col-md-5">
+                                                <lable>学制&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </lable>
+                                        		<input type="text" name="status" id="sea_studyType" value=""  readonly>
+                                            </div>
+                                           
+											<div class="col-md-5">
+												 <lable>特长&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</lable>
+												 <input type="text" name="Time" id="sea_tc" value=""   readonly>
+											</div>
+                                         <br/><br/>
+                                         <div class="col-md-5">
+                                         	<lable>籍贯&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</lable>
+                                         	<input type="text" name="area" value="" id="sea_JG"  readonly>
+                                         </div>
+                                         <div class="col-md-5">
+												 <lable>身份证号&nbsp;&nbsp;</lable>
+												 <input type="text" name="id" id="sea_personID" value=""  readonly >
+											</div>
+                                         <br/><br/>
+                                               <div class="col-md-5">
+												 <lable>家困生&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</lable>
+												 <input type="text" name="id" id="sea_sfps" value=""  readonly >
+											</div>
+											                                         <div class="col-md-5">
+                                         	<lable>出生日期&nbsp;&nbsp;</lable>
+                                         	<input type="text" name="pnumber" id="sea_birthday" value="" readonly >
+                                         </div>
+                                         <br/><br/>
+                                         <div class="col-md-5">
+                                         	<lable>导师姓名&nbsp;&nbsp;</lable>
+                                         	<input type="text" name="pnumber" id="sea_tutor" value="" readonly >
+                                         </div>
+                                        
+                                         <div class="col-md-5">
+                                         	<lable>配偶&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</lable>
+                                         	<input type="text" name="QQ" id="sea_spouse" value="" readonly >
+                                         </div>
+                                         <br><br>
+                                         <div class="col-md-5">
+                                         	<lable>手机号码&nbsp;&nbsp;</lable>
+                                         	<input type="text" name="pnumber" id="sea_phone" value="" readonly >
+                                         </div>
+                                        
+                                         <div class="col-md-5">
+                                         	<lable>QQ号&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</lable>
+                                         	<input type="text" name="QQ" id="sea_QQ" value="" readonly >
+                                         </div>
+                                         <br><br>
+                                         <div class="col-md-5">
+                                         	<lable>父亲姓名&nbsp;&nbsp;</lable>
+                                         	<input type="text" name="fathername" id="sea_fatherName" value=""  readonly>
+                                         </div>
+                                         <div class="col-md-5">
+                                         	<lable>手机号码&nbsp;&nbsp;</lable>
+                                         	<input type="text" name="fathernum" id="sea_fatherPhone" value=""  readonly>
+                                         </div>
+                                         <br><br>
+                                          <div class="col-md-5">
+                                         	<lable>母亲姓名&nbsp;&nbsp;</lable>
+                                         	<input type="text" name="mothername" id="sea_motherName" value="" readonly >
+                                         </div>
+                                         <div class="col-md-5">
+                                         	<lable>手机号码&nbsp;&nbsp;</lable>
+                                         	<input type="text" name="mothernum" id="sea_motherPhone" value="" readonly >
+                                         </div>
+                                         <br><br>
+                                             <div class="col-md-5">
+                                         	<lable>父亲单位&nbsp;&nbsp;</lable>
+                                         	<input type="text" name="mothername" id="sea_fatherWorkplace" value="" readonly >
+                                         </div>
+                                         <div class="col-md-5">
+                                         	<lable>母亲单位&nbsp;&nbsp;</lable>
+                                         	<input type="text" name="mothernum" id="sea_motherWorkplace" value="" readonly >
+                                         </div>
+                                         <br><br>
+                                          <div class="col-md-5">
+                                         	<lable>家庭住址&nbsp;&nbsp;</lable>
+                                         	<input type="text" name="home" id="sea_address" value="" readonly >
+                                         </div>
+                                         <div class="col-md-5">
+                                         	<lable>寝室楼栋&nbsp;&nbsp;</lable>
+                                         	<input type="text" name="building" id="sea_buildingName" value="" readonly >
+                                         </div>
+                                         <br><br>
+                                         <div class="col-md-5">
+                                         	<lable>寝室号&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</lable>
+                                         	<input type="text" name="room" id="sea_roomNum" value="" readonly >
+                                         </div>
+                                         <div class="col-md-5">
+                                         	<lable>床号&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</lable>
+                                         	<input type="text" name="bed" id="sea_bedNum" value="" readonly >
+                                         </div>
+                                         <br><br><br>
+                                        </form>
+	</div>
+                                  
+                                   
+    <div id="t2" style="display: none">
+    	      <table>
+    	      <thead>
+    			<tr role="row">
+                                        <th class="sorting_asc" tabindex="0" aria-controls="dataTables-example"
+                                            rowspan="1" colspan="1" aria-sort="ascending"
+                                            aria-label="Rendering engine: activate to sort column descending"
+                                            style="width: 144.333px;">学号
+                                        </th>
+                                        <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1"
+                                            colspan="1" aria-label="Browser: activate to sort column ascending"
+                                            style="width: 172.333px;">学期
+                                        </th>
+                                        <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1"
+                                            colspan="1" aria-label="Platform(s): activate to sort column ascending"
+                                            style="width: 160.333px;">学期平均成绩
+                                        </th>
+                                        <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1"
+                                            colspan="1" aria-label="Engine version: activate to sort column ascending"
+                                            style="width: 126.333px;">学期平均学分
+                                        </th>
+                                    </tr>
+    			</thead>
+  	           <tbody id="cjtable" >
+  	           
+  	          </tbody>
+   	         </table>
+    </div>            
+    <div id="t3" style="display: none">
+    	    <table>
+    	    <thead>
+    			<tr role="row">
+                                        <th class="sorting_asc" tabindex="0" aria-controls="dataTables-example"
+                                            rowspan="1" colspan="1" aria-sort="ascending"
+                                            aria-label="Rendering engine: activate to sort column descending"
+                                            style="width: 144.333px;">学号
+                                        </th>
+                                        <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1"
+                                            colspan="1" aria-label="Browser: activate to sort column ascending"
+                                            style="width: 172.333px;">奖励名称
+                                        </th>
+                                        <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1"
+                                            colspan="1" aria-label="Platform(s): activate to sort column ascending"
+                                            style="width: 160.333px;">级别
+                                        </th>
+                                          <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1"
+                                            colspan="1" aria-label="Platform(s): activate to sort column ascending"
+                                            style="width: 160.333px;">指导老师
+                                        </th>
+                                          <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1"
+                                            colspan="1" aria-label="Platform(s): activate to sort column ascending"
+                                            style="width: 160.333px;">主办方
+                                        </th>
+                                        <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1"
+                                            colspan="1" aria-label="Engine version: activate to sort column ascending"
+                                            style="width: 126.333px;">获取时间
+                                        </th>
+                                       <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1"
+                                            colspan="1" aria-label="Engine version: activate to sort column ascending"
+                                            style="width: 126.333px;">图片
+                                        </th>
+                                    </tr>
+    			</thead>
+    	     <tbody id="jltable" >
+  	          
+  	        </tbody>
+  	     </table>   
+    </div>                               
+     
+    <div id="t4" style="display: none">
+    	 <table>
+    	 <thead>
+    			<tr role="row">
+                                        <th class="sorting_asc" tabindex="0" aria-controls="dataTables-example"
+                                            rowspan="1" colspan="1" aria-sort="ascending"
+                                            aria-label="Rendering engine: activate to sort column descending"
+                                            style="width: 144.333px;">学号
+                                        </th>
+                                        <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1"
+                                            colspan="1" aria-label="Browser: activate to sort column ascending"
+                                            style="width: 172.333px;">技能证书名称
+                                        </th>
+                                             <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1"
+                                            colspan="1" aria-label="Browser: activate to sort column ascending"
+                                            style="width: 172.333px;">类型
+                                        </th>
+                                        <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1"
+                                            colspan="1" aria-label="Platform(s): activate to sort column ascending"
+                                            style="width: 160.333px;">获取时间
+                                        </th>
+                                    </tr>
+    			</thead>
+    	       <tbody id="skilltable" >
+    	       
+  	           </tbody>
+    	</table>
+    </div>                                                             
+     
+    <div id="t5" style="display: none">
+    	<table>
+    	<thead>
+    			<tr role="row">
+                                        <th class="sorting_asc" tabindex="0" aria-controls="dataTables-example"
+                                            rowspan="1" colspan="1" aria-sort="ascending"
+                                            aria-label="Rendering engine: activate to sort column descending"
+                                            style="width: 144.333px;">学号
+                                        </th>
+                                        <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1"
+                                            colspan="1" aria-label="Browser: activate to sort column ascending"
+                                            style="width: 172.333px;">实践项目名称
+                                        </th>
+                                        <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1"
+                                            colspan="1" aria-label="Platform(s): activate to sort column ascending"
+                                            style="width: 160.333px;">类型
+                                        </th>
+                                        <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1"
+                                            colspan="1" aria-label="Engine version: activate to sort column ascending"
+                                            style="width: 126.333px;">开始时间
+                                        </th>
+                                        <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1"
+                                            colspan="1" aria-label="Engine version: activate to sort column ascending"
+                                            style="width: 126.333px;">结束时间
+                                        </th>
+                                    </tr>
+    			</thead>
+    	 <tbody id="practicetable" >
+    	 
+  	    </tbody>
+  	   </table>
+    </div>                                                            
+                                   
+    <div id="t6" style="display: none">
+    	   <table>
+    	   <thead>
+    			<tr role="row">
+                                        <th class="sorting_asc" tabindex="0" aria-controls="dataTables-example"
+                                            rowspan="1" colspan="1" aria-sort="ascending"
+                                            aria-label="Rendering engine: activate to sort column descending"
+                                            style="width: 144.333px;">学号
+                                        </th>
+                                        <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1"
+                                            colspan="1" aria-label="Browser: activate to sort column ascending"
+                                            style="width: 172.333px;">课题项目名称
+                                        </th>
+                                          <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1"
+                                            colspan="1" aria-label="Browser: activate to sort column ascending"
+                                            style="width: 172.333px;">是否第一负责人
+                                        </th>
+                                        <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1"
+                                            colspan="1" aria-label="Platform(s): activate to sort column ascending"
+                                            style="width: 160.333px;">时间
+                                        </th>
+                                        <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1"
+                                            colspan="1" aria-label="Platform(s): activate to sort column ascending"
+                                            style="width: 160.333px;">图片
+                                        </th>
+                                    </tr>
+    			</thead>
+    	   <tbody id="zztable" >
+    	   
+  	           </tbody>
+    	</table>
+    </div>          
+    <div id="t7" style="display: none">
+    	                 <table>
+    	                 <thead>
+    			<tr role="row">
+                                        <th class="sorting_asc" tabindex="0" aria-controls="dataTables-example"
+                                            rowspan="1" colspan="1" aria-sort="ascending"
+                                            aria-label="Rendering engine: activate to sort column descending"
+                                            style="width: 144.333px;">学号
+                                        </th>
+                                        <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1"
+                                            colspan="1" aria-label="Browser: activate to sort column ascending"
+                                            style="width: 172.333px;">论文主题
+                                        </th>
+                                        <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1"
+                                            colspan="1" aria-label="Platform(s): activate to sort column ascending"
+                                            style="width: 160.333px;">论文类型
+                                        </th>
+                                        <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1"
+                                            colspan="1" aria-label="Engine version: activate to sort column ascending"
+                                            style="width: 126.333px;">论文期刊
+                                        </th>
+                                         <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1"
+                                            colspan="1" aria-label="Engine version: activate to sort column ascending"
+                                            style="width: 126.333px;">时间
+                                        </th>
+                                         <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1"
+                                            colspan="1" aria-label="Engine version: activate to sort column ascending"
+                                            style="width: 126.333px;">图片
+                                        </th>
+                                    </tr>
+    			</thead>
+    	        <tbody id="xjydtable" >
+  	           	
+  	             </tbody>
+  	           </table> 
+    </div> 
+     
+    <div id="t8" style="display: none">
+    	<table>
+    			<thead>
+    			<tr role="row">
+                                        <th class="sorting_asc" tabindex="0" aria-controls="dataTables-example"
+                                            rowspan="1" colspan="1" aria-sort="ascending"
+                                            aria-label="Rendering engine: activate to sort column descending"
+                                            style="width: 144.333px;">学号
+                                        </th>
+                                        <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1"
+                                            colspan="1" aria-label="Browser: activate to sort column ascending"
+                                            style="width: 172.333px;">学籍注册年份
+                                        </th>
+                                        <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1"
+                                            colspan="1" aria-label="Platform(s): activate to sort column ascending"
+                                            style="width: 160.333px;">学籍注册学期
+                                        </th>
+                                        <th class="sorting" tabindex="0" aria-controls="dataTables-example" rowspan="1"
+                                            colspan="1" aria-label="Engine version: activate to sort column ascending"
+                                            style="width: 126.333px;">是否注册
+                                        </th>
+                                    </tr>
+    			</thead>
+    			<tbody id="xjzctable" >
+  	           	
+  	           </tbody>
+    	</table>
+    </div>            
+    </div>                      
+                                                 
+     </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    </div>
+
+    </div>
+	
+    </div>
+    
+                 								<!-- 修改登陆密码模态框 -->
+        <div class="modal fade" id="user_update_Password"  data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+		<div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button data-dismiss="modal" class="close" type="button"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+            <h4 class="modal-title">修改登陆密码</h4>
+          </div>
+          <div class="modal-body">
+          </div>
+          <form class="form-horizontal" role="form">
+             <div class="form-group">
+              <label for="tea_name" class="col-sm-2 control-label">登陆名</label>
+             <div class="col-sm-10">
+             <input type="text"  class="form-control" value="" id="suserStudentNo" placeholder="账号" readonly>
+             </div>
+            </div>
+           <div class="form-group">
+           	<label for="tea_password" class="col-sm-2 control-label">原始密码</label>
+           	<div class="col-sm-10">
+           		<input type="password"  class="form-control" id="oldSuserPassword" placeholder="密码">
+            </div>
+         </div>
+         <div class="form-group">
+           	<label for="tea_password" class="col-sm-2 control-label">新密码</label>
+           	<div class="col-sm-10">
+           		<input type="password"  class="form-control" id="newSuserPassword" placeholder="密码">
+            </div>
+         </div>
+          		<div class="form-group">
+             		<div class="col-sm-offset-2 col-sm-10">
+          		<div class="checkbox">
+     				 </div>
+     			</div>
+     		</div>
+          <div class="form-group">
+    		</div>
+      	</form>
+          <div class="modal-footer">
+            <button data-dismiss="modal" class="btn btn-default" type="button">关闭</button>
+            <button class="btn btn-primary" type="button" id="suserbtn">提交</button>
+            </div>
+		        </div><!-- /.modal-content -->
+		      </div><!-- /.modal-dialog -->
+		</div>
+		
+		         								<!-- 修改学生成绩模态框 -->
+		<div class="modal fade" id="update_grade"  data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+		<div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button data-dismiss="modal" class="close" type="button"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+            <h4 class="modal-title">修改成绩</h4>
+          </div>
+          <div class="modal-body">
+          </div>
+          <form class="form-horizontal" role="form">
+             <div class="form-group">
+              <label for="tea_name" class="col-sm-2 control-label">学号</label>
+             <div class="col-sm-10">
+             <input type="text"  class="form-control" value="" 
+             id="update_grade_studentNo" placeholder="账号" readonly>
+             </div>
+            </div>
+           <div class="form-group">
+           	<label for="tea_password" class="col-sm-2 control-label">学期</label>
+           	<div class="col-sm-10">
+           		<input type="text"  class="form-control" id="update_term" placeholder="学期" readonly>
+            </div>
+         </div>
+         <div class="form-group">
+           	<label for="tea_password" class="col-sm-2 control-label">平均成绩</label>
+           	<div class="col-sm-10">
+           		<input type="text"  class="form-control" id="update_avgGrade" placeholder="学期平均成绩">
+            </div>
+         </div>
+         <div class="form-group">
+           	<label for="tea_password" class="col-sm-2 control-label">绩点</label>
+           	<div class="col-sm-10">
+           		<input type="text"  class="form-control" id="update_avgCPA" placeholder="学期平均学分">
+            </div>
+         </div>
+          		<div class="form-group">
+             		<div class="col-sm-offset-2 col-sm-10">
+          		<div class="checkbox">
+     				 </div>
+     			</div>
+     		</div>
+          <div class="form-group">
+    		</div>
+      	</form>
+          <div class="modal-footer">
+            <button data-dismiss="modal" class="btn btn-default" type="button">关闭</button>
+            <button class="btn btn-primary" type="button" id="update_grade_btn">提交</button>
+            </div>
+		        </div><!-- /.modal-content -->
+		      </div><!-- /.modal-dialog -->
+		</div>
+		
+		
+		         								<!-- 修改实践信息模态框 -->
+		<div class="modal fade" id="update_practice"  data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+		<div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button data-dismiss="modal" class="close" type="button"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+            <h4 class="modal-title">修改实践信息</h4>
+          </div>
+          <div class="modal-body">
+          </div>
+          <form class="form-horizontal" role="form">
+             <div class="form-group">
+              <label for="tea_name" class="col-sm-2 control-label">学号</label>
+             <div class="col-sm-10">
+             <input type="text"  class="form-control" value="" 
+             id="update_practice_studentNo" placeholder="学号" readonly>
+             </div>
+            </div>
+           <div class="form-group">
+           	<label for="tea_password" class="col-sm-2 control-label">项目名称</label>
+           	<div class="col-sm-10">
+           		<input type="text"  class="form-control" id="update_practiceName" placeholder="实践项目名称">
+            </div>
+         </div>
+         <div class="form-group">
+           	<label for="tea_password" class="col-sm-2 control-label">类型</label>
+           	<div class="col-sm-10">
+           		<select id="update_practiceType">
+		               <option value="校内">校内</option>
+		               <option value="校外">校外</option>
+		               <option value="义工">义工</option>
+                </select>
+            </div>
+         </div>
+         <div class="form-group">
+           	<label for="tea_password" class="col-sm-2 control-label">开始时间</label>
+           	<div class="col-sm-10">
+           		<input type="text"  class="form-control" id="update_startPTime" placeholder="开始时间">
+            </div>
+         </div>
+         
+         <div class="form-group">
+           	<label for="tea_password" class="col-sm-2 control-label">结束时间</label>
+           	<div class="col-sm-10">
+           		<input type="text"  class="form-control" id="update_endPTime" placeholder="结束时间">
+            </div>
+         </div>
+          		<div class="form-group">
+             		<div class="col-sm-offset-2 col-sm-10">
+          		<div class="checkbox">
+     				 </div>
+     			</div>
+     		</div>
+          <div class="form-group">
+    		</div>
+      	</form>
+          <div class="modal-footer">
+            <button data-dismiss="modal" class="btn btn-default" type="button">关闭</button>
+            <button class="btn btn-primary" type="button" id="update_practice_btn">提交</button>
+            </div>
+		        </div><!-- /.modal-content -->
+		      </div><!-- /.modal-dialog -->
+		</div>
+		
+													<!-- 修改资助信息模态框 -->
+		<div class="modal fade" id="update_pstudent"  data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+		<div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button data-dismiss="modal" class="close" type="button"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+            <h4 class="modal-title">修信息课题项目</h4>
+          </div>
+          <div class="modal-body">
+          </div>
+          <form class="form-horizontal" role="form">
+             <div class="form-group">
+              <label for="tea_name" class="col-sm-2 control-label">学号</label>
+             <div class="col-sm-10">
+             <input type="text"  class="form-control" value="" 
+             id="update_pstudent_studentNo" placeholder="学号" readonly>
+             </div>
+            </div>
+           <div class="form-group">
+           	<label for="tea_password" class="col-sm-2 control-label">课题项目名称</label>
+           	<div class="col-sm-10">
+           		<input type="text"  class="form-control" id="update_ZZname" placeholder="项目名称">
+            </div>
+             <br>
+		      </div>
+		     <div class="form-group">
+           	<label for="tea_password" class="col-sm-2 control-label">是否第一负责人</label>
+           	<div class="col-sm-10">
+           		<select id="update_isfirstcharge">
+           		  <option value="0">否</option>
+           		  <option value="1">是</option>
+           		</select>
+            </div>
+             <br>
+		      </div>
+		      
+           <div class="form-group">
+           	<label for="tea_password" class="col-sm-2 control-label">时间</label>
+           	<div class="col-sm-10">
+           		<input type="Date"  class="form-control" id="update_ZZtime" placeholder="YYYY-MM-MM">
+            </div>
+         </div>
+         
+          		<div class="form-group">
+             		<div class="col-sm-offset-2 col-sm-10">
+          		<div class="checkbox">
+     				 </div>
+     			</div>
+     		</div>
+          <div class="form-group">
+    		</div>
+      	</form>
+          <div class="modal-footer">
+            <button data-dismiss="modal" class="btn btn-default" type="button">关闭</button>
+            <button class="btn btn-primary" type="button" id="update_pstudent_btn">提交</button>
+            </div>
+		        </div><!-- /.modal-content -->
+		      </div><!-- /.modal-dialog -->
+		</div>
+<br>
+<br>
+<br>
+<div class="container" style="margin-left:260px;padding-left:10px;display:none;" id="container">
+    	<div class="body" style="margin-left:30px;">
+    		<form  >
+    			 <div style="margin-left:300px;"><h3>请假条</h3></div>
+    			<p>尊敬的老师:</p>
+    			<input type="text" id="sno" style="display: none;" readonly="true">
+    			<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我是经管学院  <input type="text" id="L_major" name="major" style="border: 0px; border-bottom: #000000 1px solid;width:100px ;">
+    				专业  <input type="text" id="classno" name="classno" style="border: 0px;border-bottom: #000000 1px solid; width:50px ;"> 
+    					班的<input type="text" id="sname" name="sname" style="border: 0px; border-bottom: #000000 1px solid; width:80px ; ">同学</p>
+    			<p>手机号： <input type="text" id="studenttel" name="studenttel" style=" border: 0px;border-bottom: #000000 1px solid; ">
+    				，所住寝室 <input type="text" id="dormitory" name="dormitory" style="border: 0px; border-bottom: #000000 1px solid; "></p>
+					<p>因<input type="text" id="reason" name="reason" style=" border: 0px;border-bottom: #000000 1px solid; width: 400px;">(事由)
+						到<input type="text" id="gotowhere" name="gotowhere"  style=" border: 0px;border-bottom: #000000 1px solid; ">(地点)</p>
+						<p>需要请假<input type="text" id="dayofleave" name="dayofleave" style=" border: 0px;border-bottom: #000000 1px solid; width: 50px;">
+							天，已经征求家长同意(家长电话：<input type="text" id="parenttel" name="parenttel" style=" border: 0px;border-bottom: #000000 1px solid; ">)</p>
+           <p>请假期间我会注意安全，离校期间安全责任自负，特向您报告，请予以批准，谢谢！
+           </p>
+           <p>请假起止日期：<input type="text" id="leavebegin" name="leavebegin" placeholder="例如2018年10月2日" style=" border: 0px;border-bottom: #000000 1px solid; ">
+           	——<input type="text" id="leaveend" name="leaveend" placeholder="2018年10月4日" style=" border: 0px;border-bottom: #000000 1px solid; ">
+           		，于<input type="text" id="leavedate" name="leavedate" placeholder="2018年10月1日" style=" border: 0px;border-bottom: #000000 1px solid; ">来办公室销假。</p>
+					<br />
+					<div class="people">
+					<p>请假学生：<input type="text" id="myname" style=" border: 0px;border-bottom: #000000 1px solid; ">(请假签名)</p>
+					<p>班  主  任：<input type="text" id="bzr" style=" border: 0px;border-bottom: #000000 1px solid; ">(批准请假签名，请假3天以内)</p>
+					<p>年级辅导员：<input type="text" id="fdy" style=" border: 0px;border-bottom: #000000 1px solid; ">(批准请假签名，请假3天以内)</p>
+					<p>学院副书记：<input type="text" id="fsj" style=" border: 0px;border-bottom: #000000 1px solid; ">(批准请假签名，请假3天以上，15天以内)</p>
+				
+					<br />
+					<p>----------------------------------------------------------------------------------------------(盖章生效)----------------------------------------------</p>
+					</div>
+					
+					<p>尊敬的老师:</p>
+    			<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我是经管学院  <input type="text" id="major1" name="major" style="border: 0px; border-bottom: #000000 1px solid;width:100px ;">
+    				专业  <input type="text" id="classno1" name="classno" style="border: 0px;border-bottom: #000000 1px solid; width:50px ;"> 
+    					班的<input type="text" id="sname1" name="sname" style="border: 0px; border-bottom: #000000 1px solid; width:80px ; ">同学</p>
+    			<p>手机号： <input type="text" id="studenttel1" name="studenttel" style=" border: 0px;border-bottom: #000000 1px solid; ">
+    				，所住寝室 <input type="text" id="dormitory1" name="dormitory" style="border: 0px; border-bottom: #000000 1px solid; "></p>
+					<p>因<input type="text" id="reason1" name="reason" style=" border: 0px;border-bottom: #000000 1px solid; width: 400px;">(事由)
+						到<input type="text" id="gotowhere1" name="gotowhere"  style=" border: 0px;border-bottom: #000000 1px solid; ">(地点)</p>
+						<p>需要请假<input type="text" id="dayofleave1" name="dayofleave" style=" border: 0px;border-bottom: #000000 1px solid; width: 50px;">
+							天，已经征求家长同意(家长电话：<input type="text" id="parenttel1" name="parenttel" style=" border: 0px;border-bottom: #000000 1px solid; ">)</p>
+           <p>请假期间我会注意安全，离校期间安全责任自负，特向您报告，请予以批准，谢谢！
+           </p>
+           <p>请假起止日期：<input type="text" id="leavebegin1" name="leavebegin" placeholder="例如2018年10月2日" style=" border: 0px;border-bottom: #000000 1px solid; ">
+           	——<input type="text" id="leaveend1" name="leaveend" placeholder="2018年10月4日" style=" border: 0px;border-bottom: #000000 1px solid; ">
+           		，于<input type="text" id="leavedate1" name="leavedate" placeholder="2018年10月1日" style=" border: 0px;border-bottom: #000000 1px solid; ">来办公室销假。</p>    
+    		</form>
+    	</div>
+    </div>							
+    <div id="oporate" class="oporate" style="margin-left:500px;display:none;" >
+    		<button class="btn btn-success" id="leavetip">提交</button>	
+        <button style="margin-left:100px" type="button" class="btn btn-info" id="htmltopdf" data-toggle="tooltip" data-placement="right" title="请假人自行下载打印好该请假条，然后去找老师签字"><span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span> 转化为pdf</button>
+        </div>
+<script src="js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="js/bootstrap.min.js"></script>
+
+<!-- Metis Menu Plugin JavaScript -->
+<script src="js/metisMenu.min.js"></script>
+
+
+
+<script src="js/button.js" type="text/javascript"></script>
+<script src="js/change.js" type="text/javascript"></script>
+<script src="js/graduatePage.js" type="text/javascript"></script>
+<script src="js/html2canvas.min.js" type="text/javascript"></script>
+<script src="js/jspdf.debug.js" type="text/javascript"></script>
+	
+</body>
+
+</html>

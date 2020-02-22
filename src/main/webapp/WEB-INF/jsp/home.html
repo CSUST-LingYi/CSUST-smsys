@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>综测评分细则</title>
+
+<script src="../js/jquery.min.js"></script>
+<script type="text/javascript" src="../js/bootstrap.min.js" ></script>
+<link href="../css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="../css/mycss1.css" />
+<script type="text/javascript" src="../js/studyDept/studyDept.js"></script>
+<style>
+        .header {list-style-type: none; margin: 0; padding: 0;
+		            overflow: hidden; background-color:rgba(0,0,0,0.7);}
+		.header li {float: left;}
+		.header li a{display: block; color: white; text-align: center;
+		             padding: 20px  30px; text-decoration: none;}
+		.header li a:hover:not(.action){background-color:grey;}
+		.active {background-color: gray;}
+        </style>
+
+<style type="text/css">
+ li{
+   margin-top:10px;
+   display: block;
+   font-size: 16px;
+ }
+ 
+ li input{
+    disabled:disabled; 
+     margin-top:10px;
+ }
+ 
+ .add{
+    color:blue;
+    margin-left:5px;
+    cursor:pointer;
+ }
+ .add2{
+    color:blue;
+    margin-left:5px;
+    cursor:pointer;
+ }
+  .moralMu{
+    float:left;
+  }
+   .subMu{
+    float:left;
+  }
+           #addMoralMenu{
+				width: 300px;
+				border: 1px solid blanchedalmond;
+				text-align: left;
+				padding-left: 10px;
+				padding-right: 10px;
+				margin-left:100px;
+				background-color:#F0F0F0 ;
+				opacity: 1.2;
+				right:-0%;
+				
+				
+			}
+			
+			#addMoralMenu h4{
+				clear: both;
+				color: #0066CC;
+				font-weight: bold;
+				margin-top: 20px;
+				
+			}
+
+		    #addMoralMenu table{
+				margin-top: 20px;
+				text-align: center;
+				font-weight: bold;
+								
+			}
+
+
+			#addMoralMenu input{
+				width: 180px;
+			}
+			
+			 #addSubMenu{
+				width: 300px;
+				border: 1px solid blanchedalmond;
+				text-align: left;
+				padding-left: 10px;
+				padding-right: 10px;
+				margin-left:100px;
+				background-color:#F0F0F0 ;
+				opacity: 1.2;
+				right:-0%;
+				
+				
+			}
+			
+			#addSubMenu h4{
+				clear: both;
+				color: #0066CC;
+				font-weight: bold;
+				margin-top: 20px;
+				
+			}
+
+		    #addSubMenu table{
+				margin-top: 20px;
+				text-align: center;
+				font-weight: bold;
+								
+			}
+
+
+			#addSubMenu input{
+				width: 180px;
+			}
+div{
+	padding: 10px;
+	margin: 10px;
+}
+.box{
+	float: left;
+	width: 43%;
+	background-color: ghostwhite;
+	border: 3px solid deepskyblue;
+	border-radius:5px;
+	height: 450px;
+}
+.box2{
+	float: left;
+	width: 43%;
+	background-color: ghostwhite;
+	border: 3px solid deepskyblue;
+	border-radius:5px;
+	
+}
+
+</style>
+
+</head>
+<body>
+	
+		<ul class="header">
+			<li style="color: whitesmoke; font-family: '微软雅黑'; margin-top: 0px;"> <a  href="javasrcipt:reload()">综测评分细则</a></li>
+			<li style="float:right;  margin-top: 0px;"> <a   href="study-home.html">返回主页</a></li>
+		</ul>
+		
+		<br /><br />
+   
+    <div id="page">
+       <div class="box">
+       	<center>
+             <h3>综测规则：
+                    <select id="moralXuenian" style="height: 45px;">
+                      <option style="margin: 5px; padding: 5px;">2018-2019</option>
+                    </select>
+             </h3>
+             
+             <ul class="setProportion">
+                <li>德育分比例设置：<input type="number" id="moralPer" value="0.5"  disabled="disabled"></li><br />
+                <li>智育分比例设置：<input type="number" id="knowledgePer" value="0" disabled="disabled"></li><br />
+                <li>体育分比例设置：<input type="number" id="sportsPer" value="0" disabled="disabled"></li><br /><br />
+                <li>占比合计(应该为1)：<span><strong id="proportion">0</strong></span></li><br />
+             </ul>
+             <button class="btn-warning" id="updateProportion">修改</button>
+             <button class="btn-success" id="sureProportion">确定</button>
+             <button class="btn-info" id="submitProportion">提交</button>
+       </center>
+       </div>
+
+		<div class="box">
+            <select id="zcxuenian" style="height: 45px;">
+                <option style="margin: 5px; padding: 5px;">2018-2019</option>
+                <option style="margin: 5px; padding: 5px;">2019-2020</option>
+            </select>
+            <h3>综测系统状态：
+                <h2 id="status" style="text-align: center">加载中...</h2>
+            </h3>
+
+            <button class="btn btn-success btn-lg" id="startzc">开启</button>
+            <button class="btn btn-warning btn-lg" id="stopzc">关闭</button>
+			<button class="btn btn-info btn-lg" id="addZcXuenian">添加综测年份</button>
+
+		</div>
+      
+      <div class="box2">
+       	<center>
+       <input type='button' class='btn-primary' onclick="showm()" value="点击设置德育分项" style="height: 30px; font-size: 16px; border-radius: 5px;" >
+		<input type='button' class='btn-danger' onclick="showd()" value="点击设置扣分项" style="height: 30px; font-size: 16px; border-radius: 5px;">      
+       </center>
+         <div id="setMoral" >
+          <div class="moralMu">
+                 <ul id="ul_Moral"></ul>            
+           </div>
+      <div class="moralMu" id="addMoralMenu" style="display: none;">
+			  <a class="pull-right text-danger" href="#nowhere" id="closeMenu">X</a>
+			<div>
+                 <ul class="nav  nav-tabs">
+                 	<li id="li_addMoral" role="presentation" class="active"><a href="#">增加</a></li>
+                 	<li id="li_updateMoral" role="presentation" ><a href="#">修改</a></li>
+                 	<li id="li_deleteMoral" role="presentation" ><a href="#">删除</a></li>
+                 </ul>
+				
+			</div>
+			
+           <div id="addMoral" style="display: block;">
+				<h4>增加德育分项</h4>
+				<span id="moralSelf"></span>
+				<br />
+				<div align="left" style="margin-left: 10px;">
+				同级：<input type="radio" value="sameLevel" name="addMoralRadio" style="width:20px"/>
+				&nbsp;&nbsp;&nbsp;
+				子级：<input type="radio" value="childrenLevel" name="addMoralRadio" style="width:20px"/>
+				</div>			
+			<div id="addChildren">
+
+				<table class="table">
+					<tr>
+						<td>名称</td>
+						<td><input type="text" id="addMoralName" ></td>
+					</tr>
+					<tr>
+						<td>分值</td>
+						<td><input type="number" id="addMoralScore" placeholder="不为最下级时填0" ></td>
+					</tr>
+					<tr style="display:none">
+					    <td>
+					       <input id="moralId" value="0">
+					    </td>
+					     <td>
+					       <input id="moralMid" value="0">
+					    </td>
+					</tr>
+					<tr>
+						<td colspan="2"><button class="btn btn-primary" id="submit_add_moral">确定</button></td>
+					</tr>
+				</table>
+			</div>
+		    </div>
+            
+            <div id="updateMoral" style="display: none;">
+            	<h4>修改德育分项</h4>
+            	<div>
+            		<table class="table">
+					<tr>
+						<td>名称</td>
+						<td><input type="text" id="updateMoralName"></td>
+					</tr>
+					<tr>
+						<td>分值</td>
+						<td><input type="number" id="updateMoralScore" ></td>
+					</tr>
+					<tr>
+						<td colspan="2"><button class="btn btn-success" id="submit_update_moral">修改</button></td>
+					</tr>
+				</table>
+            	</div>
+            </div>
+            
+            <div id="deleteMoral" style="display:none">
+            	 <h4>删除德育分项</h4>
+            	<div>
+            		<table class="table">
+					<tr>
+						<td>名称</td>
+						<td><input type="text" id="deleteMoralName"></td>
+					</tr>
+					<tr>
+						<td>分值</td>
+						<td><input type="number" id="deleteMoralScore" ></td>
+					</tr>
+					<tr>
+						<td colspan="2"><button class="btn btn-danger" id="submit_delete_moral">删除</button></td>
+					</tr>
+				</table>
+            	</div>
+            </div>
+             
+           </div>
+      
+       </div>
+       <div id="setsub" >
+     		             
+            <div class="subMu" >
+                 <ul id="ul_Sub" style=" display: none;"></ul>            
+            </div>
+     	<div class="subMu" id="addSubMenu" style="display: none;">
+			  <a class="pull-right text-danger" href="#nowhere" id="closeMenu2">X</a>
+			<div>
+                 <ul class="nav  nav-tabs">
+                 	<li id="li_addSub" role="presentation" class="active"><a href="#">增加</a></li>
+                 	<li id="li_updateSub" role="presentation" ><a href="#">修改</a></li>
+                 	<li id="li_deleteSub" role="presentation" ><a href="#">删除</a></li>
+                 </ul>				
+			</div>
+			
+           <div id="addSub" style="display: block;">
+				<h4>增加扣分项</h4>
+				<span id="subSelf"></span>
+				<br />
+				<div align="left" style="margin-left: 10px;">
+				同级：<input type="radio" value="sameLevel" name="addSubRadio" style="width:20px"/>
+				&nbsp;&nbsp;&nbsp;
+				子级：<input type="radio" value="childrenLevel" name="addSubRadio" style="width:20px"/>
+				</div>			
+			<div id="addSubChildren">
+
+				<table class="table">
+					<tr>
+						<td>名称</td>
+						<td><input type="text" id="addSubName" ></td>
+					</tr>
+					<tr>
+						<td>分值</td>
+						<td><input type="number" id="addSubScore" placeholder="不为最下级时填0" ></td>
+					</tr>
+					<tr style="display:none">
+					    <td>
+					       <input id="subId" value="0">
+					    </td>
+					     <td>
+					       <input id="subMid" value="0">
+					    </td>
+					</tr>
+					<tr>
+						<td colspan="2"><button class="btn btn-primary" id="submit_add_sub">确定</button></td>
+					</tr>
+				</table>
+			</div>
+		    </div>
+            
+            <div id="updateSub" style="display: none;">
+            	<h4>修改扣分项</h4>
+            	<div>
+            		<table class="table">
+					<tr>
+						<td>名称</td>
+						<td><input type="text" id="updateSubName"></td>
+					</tr>
+					<tr>
+						<td>分值</td>
+						<td><input type="number" id="updateSubScore" ></td>
+					</tr>
+					<tr>
+						<td colspan="2"><button class="btn btn-success" id="submit_update_sub">修改</button></td>
+					</tr>
+				</table>
+            	</div>
+            </div>
+            
+            <div id="deleteSub" style="display:none">
+            	 <h4>删除扣分项</h4>
+            	<div>
+            		<table class="table">
+					<tr>
+						<td>名称</td>
+						<td><input type="text" id="deleteSubName"></td>
+					</tr>
+					<tr>
+						<td>分值</td>
+						<td><input type="number" id="deleteSubScore" ></td>
+					</tr>
+					<tr>
+						<td colspan="2"><button class="btn btn-danger" id="submit_delete_sub">删除</button></td>
+					</tr>
+				</table>
+            	</div>
+            </div>             
+          </div>      
+       </div>	     	
+      </div>     
+      <script>
+      	function showm(){
+      		document.getElementById("ul_Sub").style.display='none';
+			document.getElementById("ul_Moral").style.display='block';	
+			 $("#addSubMenu").hide(); 
+      	}
+      	function showd(){
+      		document.getElementById("ul_Sub").style.display='block';
+			document.getElementById("ul_Moral").style.display='none';	
+			$("#addMoralMenu").hide();
+      	}
+      </script>
+     
+   </div>
+   <br />
+	
+</body>
+<script>
+	//ajax通过mid查询扣分项
+window.onload = function getAllSub(){	
+    $.ajax({
+    	url:"../studyDept/listDeduction",
+    	type:"get",
+    	
+    	dataType:"json",
+    	success:function(data){
+    		//console.log(data);
+   		var ul = $("#ul_Sub");   		 
+    		for(var i=0;i<data.length;i++){   			
+    			 if(data[i].score!=0){
+    				 var score = data[i].score;
+    				 var li = $("<li did="+data[i].id+" mid="+data[i].mid+"  data-toggle='tooltip' data-placement='left' title='点击可查看或收起子项'>"+data[i].name+"(0--"+score+")</li>");
+    			 }else{
+    				 var li = $("<li did="+data[i].id+" mid="+data[i].mid+" data-toggle='tooltip' data-placement='left' title='点击可查看或收起子项'>"+data[i].name+"</li>");
+    			 }
+   			   li.append("<span class='add2' did="+data[i].id+" mid="+data[i].mid+" name="+data[i].name+" score="+data[i].score+">+</span>");
+    			ul.append(li);
+    		}
+ 	 	},
+    	error:function(){
+    		alert("error2_");
+    	}
+    });
+}
+
+function clickLi2(){
+   
+	$(document).on("click","#ul_Sub ul li",function(){
+		
+		 var mid = $(this).attr("did");
+		 
+	     if($(this).children().length>1){
+	    	 
+	    	 $(this).children("ul").toggle(400);
+	     
+	     }else{
+	    	
+	    	 getAllSub(mid,this);
+	     }		 
+		 return false;
+	});
+   
+}
+
+//增加一项扣分项
+function addOneSub(){
+	 
+	$(document).on("click",".add2",function(){	
+		         $("#addSubMenu").show(100);
+		         
+		          $("#subId").val($(this).attr("did"));
+		          
+		          $("#subMid").val($(this).attr("mid"));
+		          
+		          $("#subSelf").html("（"+$(this).attr("name")+"）");
+		          
+		          $("#updateSubName").val($(this).attr("name"));
+		          
+		          $("#updateSubScore").val($(this).attr("score"));
+
+		          $("#deleteSubName").val($(this).attr("name"));
+		          
+		          $("#deleteSubScore").val($(this).attr("score"));
+		          
+		     //     alert( $("#moralId").val());
+
+			      return false;	    
+	});
+	 
+	 //三个小页面的切换
+	    $("#li_addSub").click(function(){
+
+			          $("#addSub").show();
+			          $("#updateSub").hide();
+			          $("#deleteSub").hide();
+			          $("#li_addSub").addClass("active");
+			          $("#li_updateSub").removeClass("active");
+			          $("#li_deleteSub").removeClass("active");
+				     
+		       })
+		       
+		       $("#li_updateSub").click(function(){
+
+			          $("#addSub").hide();
+			          $("#updateSub").show();
+			          $("#deleteSub").hide();
+			          $("#li_addSub").removeClass("active");
+			          $("#li_updateSub").addClass("active");
+			          $("#li_deleteSub").removeClass("active");				     
+		       })
+		     $("#li_deleteSub").click(function(){
+
+			          $("#addSub").hide();
+			          $("#updateSub").hide();
+			          $("#deleteSub").show();
+			          $("#li_addSub").removeClass("active");
+			          $("#li_updateSub").removeClass("active");
+			          $("#li_deleteSub").addClass("active");     
+		       })
+	 
+      $("#closeMenu2").click(function(){
+
+	       	        $("#addSubMenu").hide(); 	
+	       	   
+	       	 return false;
+	         })
+	         
+	  $("#submit_add_sub").click(function(){
+		  
+		  var type = $("#addSubMenu input[name='addSubRadio']:checked").val();
+		  
+		    if(type==undefined){
+		    	alert("请选择增加的为同级或者子级");
+		    	return false;
+		    }else{
+		    	var name = $("#addSubName").val(); 
+		    	var score = $("#addSubScore").val();
+	    	
+		    	if(type=="sameLevel"){
+		    	    var	mid = $("#subMid").val();
+		    	}else{
+		    		var mid = $("#subId").val();
+		    	}
+		    //	alert($("#moralMid").val()+" "+$("#moralId").val());
+		    //	alert(name+mid);return false;
+		    	
+		    	if(name.length==0){
+		    		alert("名称不能为空");
+		    	}else{
+		    		//ajax保存增加的扣分项
+		    		$.ajax({
+		    			url:"http://csust.ngrok.xiaomiqiu.cn/comparsion/studyDept/addDeduction",
+		    			type:"post",
+		    			data:{"mid":mid,
+		    				  "name":name,
+		    				  "score":score
+		    			     },
+		    			 dataType:"text",
+		    			 success:function(data){
+		    				 alert("增加新的扣分项成功");		    				
+		    				 window.location.reload();
+		    			 },
+		    			 error:function(){
+		    				 alert("error3_");
+		    			 }
+		    		})
+		    	}
+		    }
+	  })
+	  
+	  //修改扣分项
+	  	  $("#submit_update_sub").click(function(){		 
+		    	var name = $("#updateSubName").val(); 
+		    	var score = $("#updateSubScore").val();	    	
+		    	var id = $("#subId").val();		    	
+		    	if(name.length==0){
+		    		alert("名称不能为空");
+		    	}else{
+		    		//ajax保存增加的扣分项
+		    		$.ajax({
+		    			url:"http://csust.ngrok.xiaomiqiu.cn/comparsion/studyDept/updateDeduction",
+		    			type:"post",
+		    			data:{"id":id,
+		    				  "name":name,
+		    				  "score":score
+		    			     },
+		    			 dataType:"text",
+		    			 success:function(data){
+		    				 alert("修改成功");
+		    				
+		    				 window.location.reload();
+		    			 },
+		    			 error:function(){
+		    				 alert("error4");
+		    			 }
+		    		})
+		    	
+		    }
+	  })
+	  
+	  	  //删除扣分项
+	  	  $("#submit_delete_sub").click(function(){
+   	
+		    	var id = $("#subId").val();
+		    		//ajax删除增加的扣分项
+		    		$.ajax({
+		    			url:"http://csust.ngrok.xiaomiqiu.cn/comparsion/studyDept/deleteDeduction",
+		    			type:"get",
+		    			data:{"id":id
+		    			     },
+		    			 dataType:"text",
+		    			 success:function(data){
+		    				 alert("删除成功");		    				
+		    				 window.location.reload();
+		    			 },
+		    			 error:function(){
+		    				 alert("error5");
+		    			 }
+		    	});
+
+	  });
+}
+$(function(){
+	addOneSub();
+	clickLi2();
+});
+</script>
+</html>

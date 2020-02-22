@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>班级个人审核</title>
+		 <script src="../js/jquery.min.js"></script>
+         <link href="../css/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+         <script src="../css/bootstrap/js/bootstrap.min.js"></script>
+        
+        <link rel="stylesheet" href="../css/mycss1.css" />
+        <style>
+        	ul {list-style-type: none; margin: 0; padding: 0;
+		            overflow: hidden; background-color:rgba(0,0,0,0.7);}
+		li {float: left;}
+		li a{display: block; color: white; text-align: center;
+		             padding: 20px  30px; text-decoration: none;}
+		li a:hover:not(.action){background-color:grey;}
+		.active {background-color: gray;}
+        </style>
+	</head>
+	  
+	<body>
+		<ul>
+			<li style="color: whitesmoke; font-family: '微软雅黑';"> <a   href="javasrcipt:reload()">班级个人审核状况</a></li>
+			<li style="float:right"> <a   href="javascript:history.go(-1);">返回</a></li>
+			<li style="float:right"><a href="#" id="checkfb">反馈消息查阅情况</a></li>
+			
+		</ul>
+       
+		<div style="text-align: center; "><br />
+		<input type="text" id="xuenian" value="" style="display:none"></input>
+		<input type="text" id="classname" value="" style="display:none"></input>
+		<input type="text" id="major" value="" style="display:none"></input>
+		<input type="text" id="nianji" value="" style="display:none"></input>
+	
+        <input type="text" id="studentNo" class="mytxt" placeholder="按学号查找" />
+        <button  class="btn btn-primary btn-sm" onclick="searchOneStudent()">查询个人</button>
+        <button  class="btn btn-default btn-sm" onclick="searchAll()">显示全班</button>
+        </div>
+         
+        <br />
+        <br />        
+        <div>
+        <div class="table-responsive">
+        	<table id="showStudent" class="table table-bordered table-striped">
+        		<thead>
+        			<tr>
+        				<th>学号</th>
+        				<th>姓名</th>
+        				<th>智育分</th>
+        				<th>德育分</th>
+        				<th>体育分</th>
+        				<th>扣分</th>
+        				<th>挂科数</th>           				
+        				<th>综合测评总分</th>
+        				<th>备注</th>
+        				<th>审核状态</th>
+        				<th>详细信息</th>
+        			</tr>
+        		</thead>
+        		<tbody>
+        			
+        		</tbody>
+        	</table>
+        </div>       
+        <br />
+        <br />
+        </div>
+       
+        <br />
+        <br />
+        <!-- 反馈消息查阅情况 -->
+ <div class="modal fade" id="checkFeedback" tabindex="-1" role="dialog" aria-labelledby="title" aria-hidden="true">
+    <div class="modal-dialog  modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">班长查阅情况：</h4>
+            </div>
+            <div class="modal-body">
+            	<div class="table-responsive">
+  					<table class="table table-hover" style="word-break:break-all;">
+							
+						  <tr>
+							<th>学号</th>
+							<th>德育分加分异常</th>
+							<th>德育分扣分异常</th>
+							<th>查阅情况</th>
+						  </tr>
+							<tbody id="checkFeedbackTb">
+							
+							</tbody>
+  					</table>	
+				
+
+            </div>
+            <div class="modal-footer">
+               	<!--  <button type="button" class="btn btn-warning" data-dismiss="modal" id="updateFeedback">更新消息</button>-->
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+ </div>
+</div>    
+	</body>
+<script >
+    var thisURL = decodeURIComponent(document.URL);      
+    var  getval =thisURL.split('?')[1]; 
+    var show1= getval.split("&")[0]; 
+    var xn = show1.split("=")[1];
+    var show2 = getval.split("&")[1];
+    var nj = show2.split("=")[1];
+    var show3= getval.split("&")[2]; 
+    var mj = show3.split("=")[1];
+    var show4 = getval.split("&")[3];
+    var cn = show4.split("=")[1];
+     document.getElementById('xuenian').value=xn; 
+     document.getElementById('nianji').value=nj; 
+     document.getElementById('major').value=mj; 
+     document.getElementById('classname').value=cn; 	
+	var xuenian = document.getElementById("xuenian").value;	
+	var major = document.getElementById("major").value;
+	var nianji = document.getElementById("nianji").value;
+	var classno = document.getElementById("classname").value;
+function searchAll(){
+	$.ajax({   
+   type:"post",
+   url: "../monitor/getSummaryByClass",
+   data:{"xuenian":xuenian,
+         "nianji":nianji, 
+         "major":major,
+         "classNo":classno
+   },
+   dataType:"json",
+   success: function(data){
+     // console.log(data);
+      var table = $("#showStudent tbody");
+      table.html(" ");     
+      for(var i=0;i<data.length;i++){
+      	var tr = $("<tr></tr");
+      	tr.append("<td>"+data[i].studentNo+"</td>");
+      	tr.append("<td>"+data[i].studentName+"</td>");
+      	tr.append("<td>"+data[i].knowledge+"</td>");
+      	tr.append("<td>"+data[i].moral+"</td>");
+      	tr.append("<td>"+data[i].sports+"</td>");
+      	tr.append("<td>"+data[i].deduction+"</td>");
+      	tr.append("<td>"+data[i].fails+"</td>");
+      	tr.append("<td>"+data[i].sum+"</td>");
+      	tr.append("<td>"+data[i].bz+"</td>");
+      	if(data[i].status){
+      	tr.append("<td class='resultpass'>"+"通过审核"+"</td>");
+      	}
+      	else{
+      	tr.append("<td class='resultfail'>"+"未通过审核"+"</td>");
+      	}
+      	var href = "personal.html?xuenian="+xuenian+"&studentNo="+data[i].studentNo;
+      	tr.append("<td>"+"<a href='"+href+"'>点击进入</a>"+"</td>");
+      	table.append(tr);
+      }
+   }  
+});			
+		}
+	
+function searchOneStudent(){	
+	var studentNo = document.getElementById("studentNo").value;
+	if(studentNo==""){
+		alert("请先输入需要查询学号");
+	}
+	else{
+$.ajax({
+   type:"post",
+   url: "../public/getPersonSummaryBySno",
+   data:{"xuenian":xuenian,
+         "studentNo":studentNo
+   },
+   dataType:"json",
+   success: function(data){
+     // console.log(data);
+      var table = $("#showStudent tbody");
+      table.html(" ");     
+      
+      	var tr = $("<tr></tr");
+      	tr.append("<td>"+data.studentNo+"</td>");
+      	tr.append("<td>"+data.studentName+"</td>");
+      	tr.append("<td>"+data.knowledge+"</td>");
+      	tr.append("<td>"+data.moral+"</td>");
+      	tr.append("<td>"+data.sports+"</td>");
+      	tr.append("<td>"+data.deduction+"</td>");
+      	tr.append("<td>"+data.fails+"</td>");
+      	tr.append("<td>"+data.sum+"</td>");
+      	tr.append("<td>"+data.bz+"</td>");
+      	if(data.status){
+      	tr.append("<td class='resultpass'>"+"通过审核"+"</td>");
+      	}
+      	else{
+      	tr.append("<td class='resultfail'>"+"未通过审核"+"</td>");
+      	}
+      var href = "personal.html?xuenian="+xuenian+"&studentNo="+data.studentNo;
+      	tr.append("<td>"+"<a href='"+href+"'>点击进入</a>"+"</td>");
+       table.append(tr);
+   },
+   error:function(){
+	 alert("查无此人");
+   }
+});
+}
+}
+//window.onload= searchAll();
+$(function(){
+	searchAll();
+	$("#checkfb").click(function(){
+		//alert();
+		$.ajax({
+			type:"post",
+			url:"../getMonitorByClass",
+			dataType:"json",
+			data:{
+				"nianji":nj,
+				"major":mj,
+				"className":cn
+			},
+			success:function(mo){
+				/*var arraymo = [];
+				for(var i = 0 ;i<mo.length;i++){
+					arraymo.push(mo[i]);
+				}*/
+				if(mo.length==0){
+					alert("查询失败，该班级未设置班长");
+					return false;
+				}
+				var arraymo=[];
+				for(var i=0;i<mo.length;i++){
+					console.log(mo[i]);
+					arraymo.push(mo[i]);
+				}
+				console.log(arraymo);
+				//console.log(arraymo instanceof Array,arraymo);
+				/*if(mo==null|mo=="null"|mo==""){
+					alert("查询失败，该班级未设置班长");
+					return false;
+				}*/
+				$.ajax({
+					type:"post",
+					url:"../monitor/getFeedback",
+					traditional:true,
+					data:{
+						"monitorNo":arraymo
+					},
+					dataType:"json",
+					success:function(data){
+						console.log(data);
+						$('#checkFeedbackTb').empty();
+						for(var i = 0;i<data.length;i++){
+							for(var j=0;j<data[i].length;j++){
+								var $tr = $("<tr></tr>");
+								$tr.html( 
+								`<td id='studentNo_f'>${data[i][j].studentNo}</td>
+								<td>
+									<textarea id='P_moral' rows=10 cols=35 placeholder='最多输入200个字'>${data[i][j].p_moral}</textarea>
+								</td>
+								<td>
+									<textarea id='D_moral' rows=10 cols=35 placeholder='最多输入200个字'>${data[i][j].d_moral}</textarea>
+								</td>`
+								)
+								if(data[i].read=='1'|data[i][j].read==1){
+									$tr.append("<td id='isRead'>已读</td>");
+								}else{
+									$tr.append("<td id='isRead'>未读</td>");
+								}
+								$tr.appendTo($('#checkFeedbackTb'));
+							}
+							
+						}
+						$('#checkFeedback').modal('show');
+					},
+					error:function(){
+						alert("查询失败，请检查网络设置");
+					}
+				})
+			},
+			error:function(){
+				alert("ErrorCode:I1：发生未知错误，可能该班级未设置班长")
+			}
+		})
+	
+		
+	})
+	
+
+})
+        </script>
+
+</html>

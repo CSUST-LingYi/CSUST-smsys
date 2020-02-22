@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="csust.mapper.StudyDeptMapper">
+
+     <select id="getProportion"  resultType="Proportion"> 
+        select id,xuenian,moralPer,knowledgePer,sportsPer from proportion
+            where xuenian=#{xuenian}
+     </select>
+
+     <insert id="addProportion" parameterType="Proportion">
+         insert into proportion(xuenian,moralPer,knowledgePer,sportsPer)
+            values(#{xuenian},#{moralPer},#{knowledgePer},#{sportsPer})
+     </insert>
+     
+     <update id="updateProportion" parameterType="Proportion">
+         update proportion set  moralPer=#{moralPer},knowledgePer=#{knowledgePer},sportsPer=#{sportsPer}
+          where xuenian = #{xuenian}
+     </update>
+ 
+
+      <select id="getMoralsByMid" resultType="Moral">
+          
+        select id,name,mid,score from moral where mid=#{mid}
+          
+      </select>
+      
+      <select id="getMoralById" resultType="Moral">
+        select id,name,mid,score from moral where id=#{id}
+      </select>
+      
+      <insert id="addMoral" parameterType="Moral">
+        insert into moral(name,mid,score) values(#{name},#{mid},#{score})
+      </insert>
+      
+      <update id="updateMoralById" parameterType="Moral">
+        update  moral set name = #{name},score = #{score} 
+             where id = #{id}
+      </update>
+       
+      <delete id="deleteMoralById">
+          delete from moral where id=#{id}
+      </delete>
+      
+      <insert id="addDuction"  parameterType="Deduction">
+           insert into deduction(name,score,bz) values(#{name},#{score},#{bz})
+      </insert>
+      
+      <update id="updateDeduction"  parameterType="Deduction">
+            update deduction set name=#{name},score=#{score},bz=#{bz} where id = #{id}
+      </update>
+      
+      <delete id="deleteDeduction">
+            delete from deduction where id = #{id}
+      </delete>
+      
+      <select id="getDeDuction"  resultType="Deduction">
+            select id ,name,score,bz from deduction where id=#{id}
+      </select>
+      
+      <select id="listDeDuction"  resultType="Deduction">
+            select id,name,score,bz from deduction 
+      </select>
+      
+      <select id="getStudentCountByClass" resultType="int">
+        select count(studentNo) from student 
+           where termYear=#{termYear}
+            and  major=#{major}
+            and  class =#{classNo} 
+      </select>
+      
+      <select id="getIsCheckCountByClass" resultType="int">
+        select count(ps.studentNo) from personsummary as ps
+          left join student as s on ps.studentNo = s.studentNo 
+           where s.termYear=#{termYear}
+            and  s.major=#{major}
+            and  s.class =#{classNo}
+            and ps.xuenian=#{xuenian}
+            and ps.status=true 
+      </select>
+
+    <update id="setZcStatus_o">
+        UPDATE zc_control SET switch=1 WHERE xuenian=#{xuenian}
+    </update>
+
+    <update id="setZcStatus_c">
+        UPDATE zc_control SET switch=0 WHERE xuenian=#{xuenian}
+    </update>
+</mapper>

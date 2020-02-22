@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+	<mapper namespace="csust.mapper.XjzcViewMapper">
+
+<select id="getXjzcViewByNianjiAll" resultType="XjzcView">
+	        select DISTINCT * from view_xjzc   
+	             where termYear=#{0}	      		      	   		     	    		    
+		 	         and stuType=#{3}	 
+	   </select>
+	   
+	     <select id="getXjzcViewByNianjiYes" resultType="XjzcView">
+	        select * from view_xjzc   
+	             where termYear=#{0}	      		      	     	 			    	   		     	    		    
+		 	 and ZCyear=#{1}
+		 	 and term=#{2}
+		 	 and ZCorNot="1"	 and stuType=#{3}	 	     	 
+	   </select>
+	   
+	   <select id="getXjzcViewByNianjiNot" resultType="ALLfield">
+	        select * from view_all   
+	             where termYear=#{0}	 and stuType=#{3}	       		      		   		     	    		    
+		 	 and  studentNO not in (select studentNo from view_xjzc where termYear=#{0} 
+		 	                                                          and ZCyear=#{1}
+		 	                                                          and term=#{2} 
+		 	                                                          and ZCorNot="1"
+		 	                                                           and stuType=#{3}	 )     	 
+	   </select>
+	   
+	   <select id="getXjzcViewByMajorAll" resultType="XjzcView">
+	        select * from view_xjzc   
+	             where termYear=#{0}
+	          and major=#{1}	      		      	   		     	    		    
+              and stuType=#{4}	 	 
+	   </select>
+	   
+	     <select id="getXjzcViewByMajorYes" resultType="XjzcView">
+	        select * from view_xjzc   
+	             where termYear=#{0}
+	               and major=#{1}	      		      	     	 			    	   		     	    		    
+		 	 and ZCyear=#{2}
+		 	 and term=#{3}
+		 	 and ZCorNot="1"		  and stuType=#{4}	     	 
+	   </select>
+	   
+	   <select id="getXjzcViewByMajorNot" resultType="ALLfield">
+	        select * from view_all   
+	             where termYear=#{0}
+	             and major=#{1}		 and stuType=#{4}	       		      		   		     	    		    
+		 	 and  studentNO not in (select studentNo from view_xjzc where termYear=#{0} 
+		 	                                                          and major=#{1}
+		 	                                                          and ZCyear=#{2}
+		 	                                                           and term=#{3}
+		 	                                                            and ZCorNot="1"
+		 	                                                             and stuType=#{4}	 )     	 
+	   </select>
+	   
+	   <select id="getXjzcViewByClassAll" resultType="XjzcView">
+	        select * from view_xjzc   
+	             where termYear=#{0}
+	             and major=#{1}
+	             and class=#{2}	      		      	   		     	    		    
+                 and stuType=#{5}	  	 
+	   </select>
+	   
+	     <select id="getXjzcViewByClassYes" resultType="XjzcView">
+	        select * from view_xjzc   
+	             where termYear=#{0}	      		      	     	 			    	   		     	    		    
+		 	      and major=#{1}
+	             and class=#{2}	      		      	   		     	    		    
+		 	 and ZCyear=#{3}
+		 	 and term=#{4} 
+		 	 and ZCorNot="1"    and stuType=#{5}	 		     	 
+	   </select>
+	   
+	   <select id="getXjzcViewByClassNot" resultType="ALLfield">
+	        select * from view_all   
+	             where termYear=#{0}
+	               and major=#{1}
+	             and class=#{2}	  and stuType=#{5}	 	      		      		   		     	    		    
+		 	and  studentNO not in (select studentNo from view_xjzc where termYear=#{0} 
+		 	                                                          and major=#{1}
+		 	                                                          and class=#{2}
+		 	                                                          and ZCyear=#{3}
+		 	                                                          and term=#{4}
+		 	                                                          and ZCorNot="1"
+		 	                                                           and stuType=#{5}	 )       	 
+	   </select>
+	     
+	   
+</mapper>	   

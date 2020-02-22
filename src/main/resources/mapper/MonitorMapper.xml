@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="csust.mapper.MonitorMapper">
+
+     <insert id="addCourse"  parameterType="Course">
+        insert into course(xuenian,termYear,major,className,courseName,credit)
+          values(#{xuenian},#{termYear},#{major},#{className},#{courseName},#{credit})
+     </insert>
+     
+     <update id="updateCourse" parameterType="Course">
+        update course set courseName=#{courseName},credit = #{credit}
+           where id = #{id}
+     </update>
+     
+     <delete id="deleteCourse">
+       delete from course where id = #{id}
+     </delete>
+     
+     <select id="getCourseByclass"  resultType="Course">
+         select id,xuenian,termYear,major,className,courseName,credit from course 
+           where
+            <choose>
+                  <when test="id!=0">
+                    id = #{id}
+                  </when>
+                  <otherwise>
+                     xuenian = #{xuenian} 
+                and termYear=#{termYear}
+                and major=#{major}
+                and className=#{className}
+                  </otherwise>
+            </choose>
+            
+     </select>
+     
+     <select id="getMonitorInfo"  resultType="BasicInfo">
+       select studentNo,studentName,nianji as termYear,major, className
+           from monitor
+           where  studentNo=#{userName} 
+     </select>
+	
+	<select id="getFeedbacks" resultType="Feedback">
+		<!-- select studentNo,P_moral,D_moral,isRead from feedback where monitorNo=#{monitorNo} -->
+		select fb.studentNo,P_moral,D_moral,st.studentName as studentName,isRead from feedback as fb left join student as st on fb.studentNo=st.studentNo where monitorNo = #{monitorNo}
+	</select>
+	
+	<select id="countUnreadMsg" resultType="int" >
+		select count(*) from feedback where monitorNo = #{monitorNo} and isRead = 0
+	</select>
+</mapper>

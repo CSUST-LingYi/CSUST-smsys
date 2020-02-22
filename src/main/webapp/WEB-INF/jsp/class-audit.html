@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		 <script src="../js/jquery.min.js"></script>
+    <link href="../css/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <script src="../css/bootstrap/js/bootstrap.min.js"></script>
+	     
+	     <script src="../js/studyDept/myclass-audit.js"></script>
+	     <link rel="stylesheet" href="../css/mycss.css" />
+	     
+		<title>各班级审核进度</title>
+	</head>
+
+	<body>
+		<div>
+		<ul>
+			<li style="color: whitesmoke; font-family: '微软雅黑';"> <a   href="#"  onclick="window.location.reload()">班级综合测评审核进度</a></li>
+			<li style="float:right"> <a  href="study-home.html">返回主页</a></li>
+		</ul>
+		</div>
+		
+		<div style="background:ghostwhite;" "height:1000px;">
+			<br />
+
+<div  style="text-align: center;" >
+	
+     <select id="nianji" style="width: 150px; height: 32px;" >     
+	  <option>2015</option>
+	  <option selected="true">2016</option>
+	  <option>2017</option>
+	  <option>2018</option>
+	  <option>2019</option>
+	  <option>2020</option>
+	  
+  </select>    
+     <select id="xuenian" style="width: 150px; height: 32px;"  >  
+	  <option selected="true">2018-2019</option>	  
+                                      <!--
+                                      	作者：1758217010@qq.com
+                                      	时间：2019-01-04
+                                      	描述：之后此处每年增加一个选项
+                                      -->
+  </select>    
+    <select id="major" style="width: 150px; height: 32px;" >     
+                        <option value="信息管理与信息系统">信息管理与信息系统</option>
+                        <option value="财务管理">财务管理</option>
+                        <option value="会计">会计</option>
+                        <option value="人力资源管理">人力资源管理</option>
+                        <option value="金融">金融</option>
+                        <option value="国际经济与贸易">国际经济与贸易</option>
+                        <option value="ACCA">ACCA</option>
+                        <option value="卓越会计">卓越会计</option>
+                        <option value="市场营销">市场营销</option>
+  </select>    
+<button  class="btn btn-primary" onclick="search()">提交</button>
+
+   </div>
+<br />
+<br />
+
+
+<div id="content">
+<p id="demo"></p>	
+<!--
+	作者：1758217010@qq.com
+	时间：2019-01-10
+	描述：样式例子
+
+<div class="responsive">
+  <div class="img">   
+  	 <a target="_blank" href="individual-review.html">
+      <img src="img/12.jpg" alt="图片" width=photo"250" height="200">
+      </a>
+      <div class="desc"><button id="classname" onclick="to()">XX专业1701班</button></div>
+   
+    <div class="progress">
+    <div class="progress-bar" role="progressbar" aria-valuenow="60"
+         aria-valuemin="0" aria-valuemax="100" style="width: 50%;">
+        <span class="sr-only">60% 完成</span>
+        <p style="text-align: center;">审核进度:50%</p>
+    </div>
+    </div>
+  </div>
+</div>
+-->
+</div>
+</body>
+</html>
+

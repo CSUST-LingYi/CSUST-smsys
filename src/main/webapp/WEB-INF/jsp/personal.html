@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>审核3界面</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+			 <script src="../js/jquery.min.js"></script>
+         <link href="../css/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+         <script src="../css/bootstrap/js/bootstrap.min.js"></script>
+	</head>
+        <style type="text/css">
+             a:link,a:visited{ 
+ 			text-decoration:none;  /*超链接无下划线*/ 
+				} 
+             body{
+	            background-color:rgba(0,0,0,0.1);
+                 }
+           ul {list-style-type: none; margin: 0; padding: 0;
+		            overflow: hidden; background-color:rgba(0,0,0,0.7);}
+		li {float: left;}
+		li a{display: block; color: white; text-align: center;
+		             padding: 20px  30px; text-decoration: none;}
+		li a:hover:not(.action){background-color:grey;}
+		.active {background-color: gray;}
+            #tab{
+            	 height:50px;
+                font-weight: normal;
+                background:#F0F0F0;
+                font-size:100%;
+                font-family: "微软雅黑","黑体","宋体";
+                padding-top: 2px;
+                list-style: none;
+            }
+            .navbar-text{
+            	padding:0px 5px;
+            	color:gray;
+            	margin-left: 30px;
+            }
+           #set{
+           	   background-color: whitesmoke;
+           	   border-style: outset;
+           	   height: auto;
+           	   width: 1200px;
+           	   padding:20px;
+           	   margin-top:10px;
+           	   margin-left:10%;
+           	   padding:30px 0px 30px 100px;
+           }
+        </style>
+	<style>
+        .customers
+           {
+	        font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
+	        width:100%;
+	        border-collapse:collapse;
+           }
+        .customers td, #customers th 
+           {
+	        font-size:1em;
+	        border:1px solid cornflowerblue;
+	        padding:3px 7px 2px 7px;
+           }
+        .customers th 
+           {
+	        font-size:1.1em;
+	        text-align:left;
+	        padding-top:5px;
+	        padding-bottom:4px;
+	        background-color:#EAF2D3;
+	        color:black;
+           }
+        .customers tr.alt td 
+           {
+	        color:#000000;
+	        background-color:#EAF2D3;
+           }
+    </style>
+	<style>
+        .head{
+              background-color: ghostwhite;
+              width: 23%;
+              border: 3px solid darkslateblue;
+              padding: 10px;
+              margin: 10px;
+              float: left;
+            }
+            .myhead{
+              background-color: ghostwhite;
+              width: 80%;
+              border: 3px solid darkslateblue;
+              padding: 15px;
+              margin: 25px; 
+              margin-bottom: 10px;            
+            }
+            .myhead2{
+              background-color: ghostwhite;
+              width: 60%;
+              border: 3px solid darkslateblue;
+              padding: 15px;
+              margin: 25px; 
+              margin-bottom: 10px;            
+            }
+    @media only screen and (max-width: 800px){
+    .head{
+        width: 40%;
+        margin: 10px 10px;
+    }
+}
+
+@media only screen and (max-width: 500px){
+    .head {
+        width: 70%;
+    }
+}
+.table  td{
+text-align: center;
+vertical-align: middle!important;  
+word-wrap:break-word;
+}
+.table th{
+	text-align: center;
+}
+    </style> 
+	
+	<body>
+	   <div>
+		<ul>
+			<li style="color: whitesmoke; font-family: '微软雅黑';"> <a     href="javasrcipt:reload()">综测评分个人审核</a></li>
+			<li style="float:right"> <a   href="javascript:history.go(-1);">返回</a></li>
+		</ul>
+		</div>
+<center>	
+	<input id="xuenian" type="text" value="" style="display:none"></input>
+	<input id="studentNo" type="text" value="" style="display:none"></input>
+  		<div class="myhead">
+  			<table class="table table-hover" id="showStudent">
+			     <thead>
+			     <tr>
+			        <th >学号</th>
+			        <th>姓名</th>
+			        <th>智育分</th>
+			        <th>德育分</th>
+			        <th>体育分</th>
+			        <th>扣分</th>
+			        <th>挂科数</th>
+			        <th>总分</th>
+			        <th>操作</th>
+			        <th>状态</th>
+			      </tr>
+			      </thead>
+			    	<tbody>
+			    	</tbody>
+  			</table>
+		</div>
+		<input type='button' class='btn btn-primary btn-xs' onclick="showcheck()" value="点击查看证明材料详细" style="height: 40px; font-size: 16px; padding: 10px; margin: 10px;">
+		<input type='button' class='btn btn-primary btn-xs' onclick="showscore()" value="点击查看综测评分详细" style="height: 40px; font-size: 16px; padding: 10px; margin: 10px;">
+</center>
+<div id="allscore" >
+<div class="head">	
+		<h3>★个人智育得分</h3>
+		<table class="customers" id="zhiyu" align="center">
+  <thead>
+   <tr>
+      <th >科目</th>
+	  <th >分数</th>
+	  <th >学分</th>
+   </tr>
+  </thead>
+  <tbody>  
+  </tbody>  			 
+       </table>
+    <br />  
+    <br />  
+      </div>		  
+    <div class="head">
+    <h3>★个人德育得分</h3>
+    <table class="customers" id="deyu" align="center">
+  <thead>
+   <tr>
+	  <th>评分项</th>
+	  <th>分数</th>
+   </tr>
+   </thead>
+   <tbody>
+    </tbody>
+       </table>
+    <br /> 
+    <br />
+    </div>
+      <div class="head">
+    <h3>★个人体育得分</h3>   
+     <table class="customers" id="tiyu" align="center">
+   <thead>
+   <tr>
+      <th>体育</th>
+	  <th>分数</th>
+   </tr>
+   </thead>
+   <tbody>
+ 
+   </tbody>
+       </table>  
+    <br /> 
+    <br />
+    </div>  
+      <div class="head">
+    <h3>★个人扣分</h3>   
+     <table class="customers" id="koufen" align="center">
+   <thead>
+   <tr>
+      <th>扣分项</th>
+	  <th>分数</th>
+	  <th>次数</th>
+   </tr>
+   </thead>
+   <tbody>  
+   </tbody>
+       </table>  
+    <br /> 
+    <br />
+    </div>
+</div> 
+<center>
+<div id="mymaterial" style="display: none;">
+    <div class="myhead2">
+      <table class="table table-bordered" id="material" align="center">
+   <thead>
+   <tr>
+      <th>奖项名称</th>
+	  <th>类别</th>
+	  <th>得分</th>
+	  <th>获奖时间</th>
+	  <th>奖项照片</th>
+   </tr>
+   </thead>
+   <tbody>  
+   </tbody>
+       </table>  
+     </div>
+</div>
+</center>
+<!-- 反馈意见模态框 -->
+<div class="modal fade" id="feedback" tabindex="-1" role="dialog" aria-labelledby="title" aria-hidden="true">
+    <div class="modal-dialog  modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">请填写拒绝理由，此反馈信息将发送到班长端</h4>
+            </div>
+            <div class="modal-body">
+            	<div class="table-responsive">
+  					<table class="table table-hover" style="word-break:break-all;">
+							
+						  <tr>
+							<th>学号</th>
+							<th>姓名</th>
+							<th>德育分加分异常</th>
+							<th>德育分扣分异常</th>
+						  </tr>
+							<tbody>
+							<tr>
+								<td id="studentNo_f"></td>
+								<td id="studentName_f"></td>
+								<td>
+									<textarea id="P_moral" rows=10 cols=35 placeholder="最多输入200个字"></textarea>
+								</td>
+								<td>
+									<textarea id="D_moral" rows=10 cols=35 placeholder="最多输入200个字"></textarea>
+								</td>
+							</tr>
+							</tbody>
+  					</table>	
+				
+
+            </div>
+            <div class="modal-footer">
+               	<button type="button" class="btn btn-warning" data-dismiss="modal" id="refuse_submit">提交</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+</div>    
+    <br />
+    <br />
+    <br />
+   
+  	
+<script>
+	var thisURL = decodeURIComponent(document.URL);      
+    var  getval =thisURL.split('?')[1]; 
+    var show1= getval.split("&")[0]; 
+    var xn = show1.split("=")[1];
+    var show2= getval.split("&")[1]; 
+    var sn = show2.split("=")[1];
+     document.getElementById("studentNo").value = sn;
+     document.getElementById("xuenian").value = xn;
+   
+	var studentNo = document.getElementById("studentNo").value;
+	var xuenian = document.getElementById("xuenian").value;
+	
+window.onload=function() {
+		$.ajax({  
+   type:"get",
+   url: "../public/getMoralAndKnowledgeAndSports",
+   asasync:true,
+   data:{
+   	     "xuenian":xuenian,  	     
+         "studentNo":studentNo
+   },
+   dataType:"json",
+   success: function(data){
+   	    $('#studentNo_f').text(data.personSummary.studentNo);
+   	    $('#studentName_f').text(data.personSummary.studentName);
+      //个人一览表
+      var table = $("#showStudent tbody");
+      table.html(" "); 
+      var tr = $("<tr></tr>");
+      tr.html("<td>" + data.personSummary.studentNo+ "</td><td>" +
+      data.personSummary.studentName+ "</td>"+
+      "<td>" + data.personSummary.knowledge+ "</td>"+
+      "<td>" + data.personSummary.moral+ "</td>"+
+      "<td>" + data.personSummary.sports+ "</td>"+
+      "<td>" + data.personSummary.deduction+ "</td>"+
+      "<td>" + data.personSummary.fails+ "</td>"+
+      "<td>" + data.personSummary.sum+ "</td>"+
+      "<td><input type='button' class='btn btn-primary btn-xs' id='approve'  value='同意'><input type='button' class='btn btn-danger btn-xs' id='refuse'  value='拒绝'></td>"   
+      );
+       table.append(tr);
+      if(data.personSummary.status){
+      	tr.append( "<td><span class='label label-success' id='state' onclick=''>通过审核</span></td>");
+      }
+      else{
+      	tr.append( "<td><span class='label label-warning' id='state' onclick=''>未通过审核</span></td>");
+      }
+      table.append(tr);
+      $("#approve").on("click",function(){
+      	var status = 'true';
+      	updateStatusT(xuenian,studentNo,status);
+      })
+       $("#refuse").on("click",function(){
+    	$('#feedback').modal('show');      	
+      })
+      $('#refuse_submit').on("click",function(){
+		 var p_moralf = $('#P_moral').val();
+		 var d_moralf = $('#D_moral').val();
+		// console.log(p_moralf,d_moralf);
+          $.ajax({
+        	  type:"post",
+        	  url:"../getMonitorByStudent",
+        	  dataType:"json",
+        	  data:{
+        		  "id":$('#studentNo_f').text()
+        	  },
+          	  success:function(sdata){
+          	
+          			 console.log(sdata);
+          		 
+          		 if(sdata.length==0){
+          			 alert('该班级未设置班长，无法发送');
+          			 return false;
+          		 }
+          		 $.ajax({
+               	  type:"post",
+               	  async:true,
+               	  url:"../public/insertFeedback",
+               	  traditional:true,
+               	  data:{
+               		 	  "monitorNo":sdata[0],
+                 		  "studentNo":$('#studentNo_f').text(),
+                 		  "P_moral":p_moralf,
+                 		  "D_moral":d_moralf         		 
+               	  },
+               	  success:function(su){
+               		 var status = 'false';
+                     updateStatusT(xuenian,studentNo,status);
+               	  },
+                  error:function(){
+                 		 alert('发送失败，请检查网络设置.error1');
+                 	 }
+               	  
+                 })
+          	  },
+          	  error:function(){
+          		  alert("发送失败，请检查网络设置.error2");
+          	  }
+          })
+          
+    	 
+         
+      })
+      
+	 // 体育分表	
+	 var table1 = $("#tiyu tbody");
+      table1.html(" ");     
+      var sum1=0;
+     
+	  var tr = $("<tr></tr>");
+	  tr.html("<td>" + "上学期成绩"+ "</td><td>" +data.personSports.firstTerm + "</td>");
+	  table1.append(tr);
+	  var tr = $("<tr></tr>");
+	  tr.html("<td>" + "下学期成绩"+ "</td><td>" +data.personSports.secondTerm + "</td>");
+	  table1.append(tr);
+	  sum1 = data.personSports.firstTerm+data.personSports.secondTerm;
+			
+      var tr=$("<tr></tr>");      
+        tr.append("<td class='alt'>" + "总分"+"</td><td>" + sum1 + "</td>");
+        table1.append(tr);
+        var tr=$("<tr></tr>");   
+        tr.append("<td>体育成绩</td>"+"<td>"+data.personSports.sum+"</td>");
+		table1.append(tr);
+		
+	//德育分表
+	var table3 = $("#deyu tbody");
+    table3.html(" ");     
+    var tr=$("<tr></tr>");  
+	tr.append("<td>自评分</td>"+"<td>"+data.moralSummary.selfEvaluation+"</td>");  
+	table3.append(tr);	
+	var tr=$("<tr></tr>");  
+	tr.append("<td>班级评分</td>"+"<td>"+data.moralSummary.classEvaluation+"</td>");  
+	table3.append(tr);
+	var tr=$("<tr></tr>");  
+	tr.append("<td>班主任评分</td>"+"<td>"+data.moralSummary.teacherEvaluation+"</td>");  
+	table3.append(tr);	
+	var tr=$("<tr></tr>");  
+	tr.append("<td>活动加分</td>"+"<td>"+data.moralSummary.additionnalScore+"</td>");  
+	table3.append(tr);	
+	var tr=$("<tr></tr>");  
+	tr.append("<td>德育成绩</td>"+"<td>"+data.moralSummary.summary+"</td>");  
+	table3.append(tr);	
+	
+	 // 扣分表	
+	 var table4 = $("#koufen tbody");
+      table4.html(" ");     
+      var sum1=0;
+    for(var i=0; i<data.deductions.length;i++){
+	  var tr = $("<tr></tr>");
+	  tr.append("<td>"+data.deductions[i].name+"</td>"+"<td>"+data.deductions[i].score+"</td>"+"<td>"+data.deductions[i].times+"</td>")
+	  table4.append(tr);  
+    }
+    var tr = $("<tr></tr>");
+      tr.append("<td>总扣分</td>"+"<td  colspan='2'>"+data.personSummary.deduction+"</td>");
+	  table4.append(tr);   
+	  
+	// 智育分表
+      var table = $("#zhiyu tbody");
+      table.html(" ");     
+      var sum=0,score=0;
+      var temp=0,t2=0,count=0;
+      
+      for (var i = 0; i < data.list.length; i++) {      	
+				var tr = $("<tr></tr>");
+				tr.html("<td>" + data.list[i].courseName + "</td><td>" + data.list[i].score + "</td><td>" + data.list[i].credit + "</td>");
+				if(data.list[i].score<60 & data.list[i].score>=0 &data.list[i].courseName.indexOf("补")==-1){
+					count++;
+				}
+				if(data.list[i].score>=0){                      
+             	   sum = sum + (data.list[i].score>=60?data.list[i].score:0);
+             	   t2 = t2+data.list[i].credit;
+             	   temp = temp + (data.list[i].credit * (data.list[i].score>=60?data.list[i].score:0));
+                				                   					
+			}
+				table.append(tr);
+		    }
+      var tr=$("<tr></tr>");      
+		score = 0.7*(temp/t2);
+		score = Number(score).toFixed(2);
+        tr.append("<td>" + "总分"+"</td><td>" + sum + "</td><td>" + t2 + "</td>");
+        table.append(tr);
+        
+		var tr=$("<tr></tr>");   
+        tr.append("<td>不及格科目数</td>"+"<td  colspan='2'>"+count+"</td>");
+		table.append(tr);
+		var tr=$("<tr></tr>");   
+        tr.append("<td>智育成绩</td>"+"<td  colspan='2'>"+score+"</td>");
+		table.append(tr);
+  },
+		error: function() {
+			alert("查询出错");
+		}
+
+});			
+}
+
+function updateStatusT(xuenian,studentNo,status){
+  	 $.ajax({
+	   	type:"post",
+	   	url:"../monitor/checkOnePersonSummaryT",
+	   	async:true,
+	   	data:{"xuenian":xuenian,
+	   	     "studentNo":studentNo,
+	   	     "status":status
+	   	   },
+	   	dataType:"text",
+	   	success:function(data){
+	   		confirm("已经成功修改审核状态");
+	   		window.location.reload();
+	   	}
+	   });	
+
+}
+
+function showscore(){
+	document.getElementById("allscore").style.display='block';
+	document.getElementById("mymaterial").style.display='none';
+}
+function showcheck(){
+	$.ajax({
+   type:"get",
+   url: "../public/getPersonMoralBySno",
+   data:{"xuenian":xuenian,
+		 "studentNo":studentNo		      
+	},
+   dataType:"json",
+   success: function(data){   
+   //   console.log(data);      
+      var table = $("#material tbody");
+      table.html(" ");
+      for(var i = 0;i<data.length;i++){      	
+      	var tr= $("<tr></tr>");
+      	tr.append("<td width='20%'>"+data[i].name+"</td>");
+      	tr.append("<td width='30%'>"+data[i].type+"</td>");
+      	tr.append("<td width='10%'>"+data[i].score+"</td>");
+      	tr.append("<td width='10%'>"+data[i].getTime+"</td>");
+      	tr.append("<td style='height: 200px;'><a  target='_blank' href='../"+data[i].imagePath+"'><img style='width: 100%; height: 100%;' src="+"../"+data[i].imagePath+" alt='证明材料' ></a></td>");
+      	table.append(tr);
+      }
+   },
+   error :function(){
+   	alert("error");
+   }
+   
+});
+	document.getElementById("allscore").style.display='none';
+	document.getElementById("mymaterial").style.display='block';
+	
+}
+</script>      
+                
+	</body>
+	
+</html>

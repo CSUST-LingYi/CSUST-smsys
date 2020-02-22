@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+	<mapper namespace="csust.mapper.PunishViewMapper">
+	
+	<select id="getPunishViewNianji0" resultType="PunishView">
+	    select * from view_punish where 
+	             termYear=#{0}
+	         and punishTime like  concat('%',#{1},'%')  and stuType=#{2}
+	</select>
+	<select id="getPunishViewNianji1" resultType="PunishView">
+	    select * from view_punish where 
+	             termYear=#{0}
+	         and punishTime like  concat('%',#{1},'%')
+	         and punishName=#{2}  and stuType=#{3}
+	</select>
+	<select id="getPunishViewNianji2" resultType="PunishView">
+	    select * from view_punish where 
+	             termYear=#{0}
+	         and punishTime like  concat('%',#{1},'%')
+              and stuType=#{4}
+	         and punishName in(#{2},#{3})
+	</select>
+	<select id="getPunishViewNianji3" resultType="PunishView">
+	    select * from view_punish where 
+	             termYear=#{0}
+	         and punishTime like  concat('%',#{1},'%')
+                and stuType=#{5}
+	          and punishName in(#{2},#{3},#{4})
+	</select>
+	<select id="getPunishViewNianji4" resultType="PunishView">
+	    select * from view_punish where 
+	             termYear=#{0}
+	          and punishTime like  concat('%',#{1},'%')
+               and stuType=#{6}
+	           and punishName in(#{2},#{3},#{4},#{5})
+	</select>
+	<select id="getPunishViewNianji5" resultType="PunishView">
+	    select * from view_punish where 
+	             termYear=#{0}
+	         and punishTime like  concat('%',#{1},'%')
+              and stuType=#{7}
+	          and punishName in(#{2},#{3},#{4},#{5},#{6})
+	</select>
+	
+	<select id="getPunishViewMajor0" resultType="PunishView">
+	    select * from view_punish where 
+	             termYear=#{0}
+	         and major=#{1}
+	         and punishTime like  concat('%',#{2},'%')  and stuType=#{3}
+	</select>
+	<select id="getPunishViewMajor1" resultType="PunishView">
+	    select * from view_punish where 
+	             termYear=#{0}
+	             and major=#{1}
+	         and punishTime like  concat('%',#{2},'%')
+	         and punishName=#{3}  and stuType=#{4}
+	</select>
+	<select id="getPunishViewMajor2" resultType="PunishView">
+	    select * from view_punish where 
+	             termYear=#{0}
+	             and major=#{1}
+	         and punishTime like  concat('%',#{2},'%')
+              and stuType=#{5}
+	          and punishName in(#{3},#{4})
+	</select>
+	<select id="getPunishViewMajor3" resultType="PunishView">
+	    select * from view_punish where 
+	             termYear=#{0}
+	             and major=#{1}
+	         and punishTime like  concat('%',#{2},'%')
+             and stuType=#{6}
+	         and punishName in(#{3},#{4},#{5})
+	</select>
+	<select id="getPunishViewMajor4" resultType="PunishView">
+	    select * from view_punish where 
+	             termYear=#{0}
+	             and major=#{1}
+	          and punishTime like  concat('%',#{2},'%')
+              and stuType=#{7}
+	          and punishName in(#{3},#{4},#{5},#{6})
+	</select>
+	<select id="getPunishViewMajor5" resultType="PunishView">
+	    select * from view_punish where 
+	             termYear=#{0}
+	             and major=#{1}
+	         and punishTime like  concat('%',#{2},'%')
+             and stuType=#{8}
+	         and punishName in(#{3},#{4},#{5},#{6},#{7})
+	</select>
+	
+	<select id="getPunishViewClass0" resultType="PunishView">
+	    select * from view_punish where 
+	             termYear=#{0}
+	         and major=#{1}
+	         and class=#{2}
+	         and punishTime like  concat('%',#{3},'%')  and stuType=#{4}
+	</select>
+	<select id="getPunishViewClass1" resultType="PunishView">
+	    select * from view_punish where 
+	             termYear=#{0}
+	             and major=#{1}
+	             and class=#{2}
+	         and punishTime like  concat('%',#{3},'%')
+	         and  punishName=#{4}  and stuType=#{5}
+	</select>
+	<select id="getPunishViewClass2" resultType="PunishView">
+	    select * from view_punish where 
+	             termYear=#{0}
+	             and major=#{1}
+	                   and class=#{2}
+	         and punishTime like  concat('%',#{3},'%')
+             and stuType=#{6}
+	          and punishName in(#{4},#{5})
+	</select>
+	<select id="getPunishViewClass3" resultType="PunishView">
+	    select * from view_punish where 
+	             termYear=#{0}
+	             and major=#{1}
+	                 and class=#{2}
+	         and punishTime like  concat('%',#{3},'%')
+             and stuType=#{7}
+	          and punishName in(#{4},#{5},#{6})
+	</select>
+	<select id="getPunishViewClass4" resultType="PunishView">
+	    select * from view_punish where 
+	             termYear=#{0}
+	             and major=#{1}
+	                 and class=#{2}
+	         and punishTime like  concat('%',#{3},'%')
+             and stuType=#{8}
+	          and punishName in(#{4},#{5},#{6},#{7})
+	</select>
+	<select id="getPunishViewClass5" resultType="PunishView">
+	    select * from view_punish where 
+	             termYear=#{0}
+	             and major=#{1}
+	             and class=#{2}
+	         and punishTime like  concat('%',#{3},'%')
+             and stuType=#{9}
+	         and punishName in(#{4},#{5},#{6},#{7},#{8})
+	</select>
+	
+	</mapper>

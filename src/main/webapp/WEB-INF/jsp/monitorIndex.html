@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>班级管理</title>
+
+     <script src="../js/jquery.min.js"></script>
+    <link href="../css/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <script src="../css/bootstrap/js/bootstrap.min.js"></script>
+    
+    <script type="text/javascript" src="../js/monitor/MonitorManager.js" ></script>
+
+    <style>
+		html,body{
+			padding: 0;
+			margin: 0;
+			height: 100%;
+		}
+		#inav>li>a{
+			color: aliceblue;
+			line-height: 45px;
+		}
+		#inav a:hover{
+			background:none;
+			border: 1px solid transparent;
+			/*border-bottom: 3px red solid;*/
+		}
+		#inav a:focus{
+			background:none;
+		}
+    #inav{
+			font-weight: bold;
+    		background: rgba(0,0,0,0.7);
+    		height: 70px;
+    		font-size: 150%;
+			font-family: "微软雅黑","黑体","宋体";
+    	}
+    	
+    	.dropdown-menu li{
+    		margin:0;
+    		padding:0;
+    	}
+    	
+		#myTab{
+			width: 160px; 
+			height: 600px; 
+			background:#ccc; 
+			float: left; 
+			font-size: 150%;
+			font-family: "微软雅黑";
+		}
+    	.dropdown-menu{
+    		min-width: 140px;
+    		/*font-size: 17px;*/
+    	}
+    	.dropdown-menu > li > a{
+    		display:inline;
+    		line-height:2;
+    		padding:0;
+    	}
+    	.tab-content{
+			
+			/*border: 1px solid #000;*/
+			/*margin-left: 160px;*/
+			background-color: #ccc;
+		}
+    	tr>th,tr>td{
+    		text-align: center;
+		}
+    	tr>th{
+			color: orange;
+			font-weight: bold;
+		}
+		#result{
+			padding: 4px;
+		}
+		.head li{
+			float: left;
+			list-style: none;
+			display: inline;
+			/padding-left:10%;
+			padding-right:210px;
+		}
+		.judge{
+			text-align: center;
+		}
+		.topright{
+			float: right;
+		}
+    </style>
+    	  <script>//二级菜单展开动画
+ 		$(document).ready(function(){
+			$(".dropdown-toggle").click(function(){
+				$(".dropdown-menu").stop().slideToggle("fast");
+				});
+			});
+	  </script>
+  </head>
+  <body>
+  	
+ <!--横向导航-->
+ <div>
+ <ul class="nav nav-tabs" id="inav" >
+			<li role="presentation">
+				<a href="#"><span class="glyphicon glyphicon-education"></span><span id="bjhead">班级XXXX</span></a>
+			</li>
+			<li role="presentation" class="topright dropdown" style="float: right;">
+				 <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" >
+				 	<span class="glyphicon glyphicon-user">
+				 		 	</span>班级管理<span class="caret">
+				  </span>
+				 </a>
+	 	
+			<ul class="dropdown-menu " style="margin-right: 100px;" >
+				  <li role="presentation" style="text-align: center;">
+				  	<a href="monitorIndex.html">班级学生信息</a>
+				  </li>
+				 <li role="presentation" style="text-align: center;">
+				  	<a href="subjsetting.html">综测科目设置</a>
+				  </li>
+				  <li role="presentation" style="text-align: center;">
+				  	<a href="summary.html">综测成绩汇总</a>
+				  </li>
+			</ul>
+
+			</li>
+			<li role="presentation" class="topright" style="float: right;">
+						<a href="../logout"><span class="glyphicon glyphicon-home"></span>退出登录</a>
+	 		</li>
+	</ul>
+	 	 	<nav class="navbar navbar-default" role="navigation">
+			<div class="container-fluid"> 
+				 <span class="navbar-text">年级：<span id="termYear">2016</span></span>
+			  	&nbsp;&nbsp;&nbsp;&nbsp;
+					<span class="navbar-text">专业：<span id="major">信息管理与信息系统</span></span>
+          &nbsp;&nbsp;&nbsp;&nbsp;
+          <span class="navbar-text">班级：<span id="className">2</span></span>
+          &nbsp;&nbsp;&nbsp;&nbsp;
+					<span class="navbar-text">班长：<span id="monitor">xxx</span></span>
+					&nbsp;&nbsp;&nbsp;&nbsp;
+					<span class="navbar-text">学年:<select id="xuenian"><option>2018-2019</option></select></span>
+					&nbsp;&nbsp;&nbsp;&nbsp;
+					<span id="feedback" class="navbar-text glyphicon glyphicon-envelope" style="cursor:pointer;font-size:120%;"></span>
+					&nbsp;&nbsp;&nbsp;&nbsp;
+				<ul class="nav navbar-nav navbar-right">
+			 		
+				<li><a href="#" target="_blank"><span class="glyphicon glyphicon-info-sign"></span>全班学生信息</a></li> 
+				</ul>
+			</div>
+		</nav>
+ </div>
+<!--班级学生信息内容-->
+<div class="tab-content" style="margin-top: -20px;padding-top:15px;">
+    
+  	 		<form class="form-inline" style="text-align: center;">
+  						<div class="form-group">
+						    <label>查询：</label>
+						    <input type="text" name="" id="" placeholder="search..."/>
+						</div>
+  						<div class="form-group">
+    								<label>性别：</label>
+						   			<select name="sex" style="height: 30px;">
+										   	<option >不限</option>
+										   	<option >男</option>
+										   	<option >女</option>
+						   			</select>
+ 							</div>	
+ 						
+				  		<button type="button" class="btn btn-primary active">搜索</button>
+				  		
+				</form>
+		
+	<div id="stuContainer" class="container" style="margin-top: 15px;">
+   		
+    </div>
+
+</div>
+<!-- 模态框（Modal） -->
+<!--个人信息模态框模板-->
+<div class="modal fade" id="details_01" tabindex="-1" role="dialog" aria-labelledby="title" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="title_01">个人信息</h4>
+            </div>
+            <div class="modal-body">
+            	
+				<div class="table-responsive">
+							<table class="table table-hover table-bordered" >
+									<tr>
+										<th>学号</th>
+										<th>姓名</th>
+										<th>性别</th>
+										<th>寝室</th>
+										<th>手机</th>
+									</tr>
+									<tr>
+										<td id="pstuNo"></td>
+										<td id="pstuName"></td>
+										<td id="pstuSex"></td>
+										<td id="pstuRoom"></td>
+										<td id="pstuTel"></td>
+									</tr>
+							</table>
+				</div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+
+
+<p style="visibility:hidden;display:none;" id="monitorNo"></p>
+<!--反馈信息提示框-->
+ <div class="modal fade" id="newsBox" tabindex="-1" role="dialog" aria-labelledby="title" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">新消息</h4>
+            </div>
+            <div class="modal-body">
+            	<h5>收到来自学习部的消息，请尽快查看并修改</h5>
+               	<button type="button" id="viewFeedback" class="btn btn-primary" data-dismiss="modal">查看</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+</div> 
+
+<!--审核修改-->
+ <div class="modal fade" id="fix" tabindex="-1" role="dialog" aria-labelledby="title" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="title3">评分修改</h4>
+            </div>
+            <div class="modal-body">
+            	<div class="table-responsive">
+  					<table class="table table-hover">
+							
+						  <tr>
+							<th>学号</th>
+							<th>姓名</th>
+							<th>智育分</th>
+							<th>德育分</th>
+							<th>体育分</th>
+						  </tr>
+							<tbody>
+							<tr>
+								<td>000000000000</td>
+								<td>XXX</td>
+								<td>XX</td>
+								<td><input type="number" value=""></td>
+								<td>xx</td>
+							</tr>
+							</tbody>
+  					</table>	
+				
+
+            </div>
+            <div class="modal-footer">
+               	<button type="button" class="btn btn-warning" data-dismiss="modal" id="chg-success">确认修改</button>
+               	<button type="reset" class="btn btn-default" data-dismiss="modal">重置</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+</div>    
+
+	 <!--script未审核状态与审核页同步-->
+
+  </body>
+</html>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="csust.mapper.SkillViewMapper">
+<select id="getSkillViewByNianji0" resultType="SkillView">
+	    select * from view_skill where 
+	             termYear=#{0} and stuType=#{1}
+	</select>
+	<select id="getSkillViewByNianji1" resultType="SkillView">
+	    select * from view_skill where 
+	             termYear=#{0}
+	           and skillType=#{1} and stuType=#{2}
+	</select>
+	<select id="getSkillViewByNianji2" resultType="SkillView">
+	    select * from view_skill where 
+	             termYear=#{0}
+             and stuType=#{3}
+	         and skillType in (#{1},#{2})
+	</select>
+	<select id="getSkillViewByNianji3" resultType="SkillView">
+	    select * from view_skill   
+	             where termYear=#{0}	  		      	   		     
+               and stuType=#{4}
+	           and skillType in (#{1},#{2},#{3})
+	</select>
+	
+		<select id="getSkillViewByMajor0" resultType="SkillView">
+	    select * from view_skill where 
+	             termYear=#{0}
+	       and      major=#{1}   and stuType=#{2}
+	</select>
+	<select id="getSkillViewByMajor1" resultType="SkillView">
+	    select * from view_skill where 
+	             termYear=#{0}
+	          and   major=#{1}
+	           and skillType=#{2}   and stuType=#{3}
+	</select>
+	<select id="getSkillViewByMajor2" resultType="SkillView">
+	    select * from view_skill where 
+	             termYear=#{0}
+	          and   major=#{1}
+              and stuType=#{4}
+	          and skillType in (#{2},#{3})
+	</select>
+	<select id="getSkillViewByMajor3" resultType="SkillView">
+	    select * from view_skill   
+	             where termYear=#{0}
+	        and   major=#{1}	      	   		     
+            and stuType=#{5}
+	        and skillType in (#{2},#{3},#{4})
+	</select>
+	
+		<select id="getSkillViewByClass0" resultType="SkillView">
+	    select * from view_skill where 
+	             termYear=#{0}
+	               and   major=#{1}
+	               and class=#{2}	  and stuType=#{3}
+	</select>
+	<select id="getSkillViewByClass1" resultType="SkillView">
+	    select * from view_skill where 
+	             termYear=#{0}
+               and   major=#{1}
+	            and class=#{2}	      	   		     
+		 	 and  skillType=#{3}    and stuType=#{4}
+	</select>
+	<select id="getSkillViewByClass2" resultType="SkillView">
+	    select * from view_skill where 
+	             termYear=#{0}
+	               and   major=#{1}
+	            and class=#{2}	      	   		     
+                and stuType=#{5}
+	            and skillType in (#{3},#{4})
+	</select>
+	<select id="getSkillViewByClass3" resultType="SkillView">
+	    select * from view_skill   
+	             where termYear=#{0}
+	               and   major=#{1}
+	            and class=#{2}	      	   		     
+                and stuType=#{6}
+	            and skillType in (#{3},#{4},#{5})
+	</select>
+</mapper>

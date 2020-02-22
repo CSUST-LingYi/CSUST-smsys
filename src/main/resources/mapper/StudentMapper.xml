@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+	<mapper namespace="csust.mapper.StudentMapper">
+	   <select id="listAllStudent" resultType="Student">
+	       select * from student where stuType=#{0}
+	    </select>
+	    
+	      <select id="getStudentByN" resultType="Student">
+	        select * from student where studentNo=#{studentNo}
+	   </select>
+	    
+	    <select id="getTotal"  resultType="int">
+	     	select count(*) from student where stuType=#{1} 
+	     </select>
+	    
+	    <delete id="deleteByNo">
+	     	delete from student where studentNo=#{studentNo}
+	    </delete>
+
+	    <select id="getStudentByNo" resultType="ALLfield">
+	        select * from view_all where studentNo=#{studentNo}
+	   </select>
+	    <select id="getStudentByName" resultType="ALLfield">
+	       select * from view_all where studentName like concat('%',#{0},'%') and stuType=#{1}
+	   </select>
+	    
+	    <select id="getStudentByNianji" resultType="ALLfield">
+	       select * from view_all where  termYear=#{0} and stuType=#{1}
+	    </select>
+	 
+	   <insert id="setPunish">
+	     insert into punish(studentNo,punishName,punishReason,punishTime,stuType) values(#{studentNo},#{punishName},#{punishReason},#{punishTime},#{stuType})
+	    </insert>
+	    
+	    <insert id="setXJYD" parameterType="XJYD">
+	    	insert into xjyd(studentNo,YDtime,YDreason,BZ,stuType) values(#{studentNo},#{YDtime},#{YDreason},#{BZ},#{stuType})
+	    </insert>
+	    
+	    <update id="updateStudent_T" parameterType="Student">
+	      update student set
+		       studentName= #{studentName},major=#{major},class=#{className},termYear=#{termYear},sex=#{sex},MZ=#{MZ},ZZMM=#{ZZMM},
+		       JG= #{JG},personID=#{personID},phone=#{phone},QQ=#{QQ},
+		        address=#{address},buildingName=#{buildingName},roomNum=#{roomNum},bedNum=#{bedNum},TC=#{TC},SFPS=#{sfps},studyType=#{studyType}
+		       where studentNo=#{studentNo}
+	    </update>
+	    
+	    <update id="updateStudent_wx" parameterType="Student">
+	      update student set
+		       studentName= #{studentName},major=#{major},class=#{className},termYear=#{termYear},sex=#{sex},phone=#{phone}
+		       where studentNo=#{studentNo}	    	
+	    </update>
+	
+	<select id="getLeaveTip" resultType="LeaveTip">
+	   select id,sno,major,classno,sname,studenttel,dormitory,reason,gowhere,dayofleave,parenttel,leavebegin,leaveend,leavedate,approve,status,userName from leavetip
+	    where sno=#{0} and leavebegin=#{1} and status=#{2}
+	</select>
+	
+	<insert id="addLeaveTip" parameterType="LeaveTip">
+	 insert into leavetip(sno,major,classno,sname,studenttel,dormitory,reason,gowhere,dayofleave,parenttel,leavebegin,leaveend,leavedate,approve,status,stuType,userName) 
+	 values(#{sno},#{major},#{classno},#{sname},#{studenttel},#{dormitory},#{reason},#{gowhere},#{dayofleave},#{parenttel},#{leavebegin},#{leaveend},#{leavedate},#{approve},#{status},#{stuType},#{userName})
+	</insert>
+	
+	<update id="updateLeaveTip" parameterType="LeaveTip">
+	update leavetip set major=#{major},classno=#{classno},sname=#{sname},studenttel=#{studenttel},dormitory=#{dormitory},reason=#{reason},gowhere=#{gowhere},dayofleave=#{dayofleave},
+	parenttel=#{parenttel},leavebegin=#{leavebegin},leaveend=#{leaveend},leavedate=#{leavedate},leaveend=#{leaveend},status=#{status},userName=#{userName} 
+	   where sno=#{sno}
+	</update>
+	
+	<select id="listLeaveTip"  resultType="LeaveTip">
+	   select id,sno,major,classno,sname,studenttel,dormitory,reason,gowhere,dayofleave,parenttel,leavebegin,leaveend,leavedate,approve,status,userName from leavetip
+	   where sno=#{0}
+	</select> 
+	  
+   <select id="getLeaveTipBystatus"  resultType="LeaveTip">
+	   select id,sno,major,classno,sname,studenttel,dormitory,reason,gowhere,dayofleave,parenttel,leavebegin,leaveend,leavedate,approve,status,userName from leavetip
+	   where status=#{0} and stuType=#{1}
+	</select>
+	
+	  <select id="getLeaveTipByTime"  resultType="LeaveTip">
+	   select l.id,l.sno,s.termYear,l.major,l.classno,l.sname,l.studenttel,l.dormitory,l.reason,l.gowhere,l.dayofleave,l.parenttel,l.leavebegin,l.leaveend,l.leavedate,l.approve,l.status,l.userName from leavetip l,student s
+	   where s.studentNo=l.sno and s.termYear=#{0} and  l.leavebegin like concat('%',#{1},'%') and l.stuType=#{2}
+	</select>    
+	 
+	 	<update id="approveLeaveTip" parameterType="LeaveTip">
+	update leavetip set major=#{major},classno=#{classno},sname=#{sname},studenttel=#{studenttel},dormitory=#{dormitory},reason=#{reason},gowhere=#{gowhere},dayofleave=#{dayofleave},
+	parenttel=#{parenttel},leavebegin=#{leavebegin},leaveend=#{leaveend},leavedate=#{leavedate},approve=#{approve},status=#{status},userName=#{userName} 
+	   where id=#{id}
+	</update>   
+	
+	<update id="updateProject" parameterType="Project">
+	   update project set projectName = #{projectName},isFirstCharge = #{isFirstCharge},time = #{time}
+	   where projectId = #{projectId}
+	</update> 
+	</mapper>

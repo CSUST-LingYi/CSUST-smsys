@@ -1,0 +1,22 @@
+	    divs{
+		border: 1px solid;
+	      }
+	      
+		h4{
+			margin-top: 10px;
+			text-align:center;
+			
+		}
+		
+	#studyAnalyze select{
+		margin-right: 20px;
+	}
+	#dota input{
+		margin-right:20px;
+		margin-left: -10px;
+		margin-top: 4px;
+	}
+	
+	#myTabContent input{
+		width:40px;
+	}

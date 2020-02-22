@@ -1,0 +1,66 @@
+
+			a:link,a:visited{ 
+ 			text-decoration:none;  /*超链接无下划线*/ 
+				} 
+
+	    ul {list-style-type: none;
+	       margin: 5;
+	       padding: 0;
+		   overflow: hidden;
+		   background-color:rgba(0,0,0,0.7);}
+		li {float: left;}
+		li a{display: block; 
+		    color: white; 
+		    text-align: center;
+		    padding: 20px  30px;
+		    text-decoration: none;}
+		li a:hover:not(.action){background-color:grey;}
+		.active {background-color: gray;}
+		     
+	   body {background-color:whitesmoke;}
+	   
+	   div.img {
+	   	width: 18%;
+    border: 1px solid #ccc;
+    float: left;
+    margin: 30px;
+}
+
+div.img:hover {
+    border: 1px solid #777;
+}
+
+div.img img {
+    width: 100%;
+    height: auto;
+}
+
+div.desc {
+    padding: 7px;
+    text-align: center;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.responsive {
+    padding: 0 40px;
+    float: left;
+    width: 100%;
+    padding: 10px;
+    margin: 30px;
+}
+
+@media only screen and (max-width: 700px){
+    .responsive {
+        width: 49.99999%;
+        margin: 6px 0;
+    }
+}
+
+@media only screen and (max-width: 500px){
+    .responsive {
+        width: 70%;
+    }
+}

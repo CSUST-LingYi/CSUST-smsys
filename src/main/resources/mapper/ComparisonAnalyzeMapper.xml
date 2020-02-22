@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="csust.mapper.ComparisonAnalyzeMapper">
+       
+       <select id="getMajorOrClassNo" resultType="String">
+          ，      <if test="major!=null">
+            select distinct class as className  from student
+            where termYear = #{nianji} and major=#{major}
+          </if>
+          <if test="major==null">
+            select distinct major  from student
+            where termYear = #{nianji} 
+          </if>
+       </select>
+              
+       <select id="getFails" resultType="SummaryAnalyze">
+         <choose>
+             <when test="major!=null">
+          select s.class as className,cast(sum(DISTINCT if(p.fails>0,1,0))/count(DISTINCT p.studentNo) as decimal(18,3)) as fails 
+           from personsummary as p
+         left join student as s on s.studentNo = p.studentNo
+         where p.xuenian=#{xuenian} and termYear = #{nianji}
+             and s.major=#{major} group by s.class
+             </when>
+             <otherwise>
+          select s.major,cast(sum(DISTINCT if(p.fails>0,1,0))/count(DISTINCT p.studentNo) as decimal(18,3)) as fails 
+           from personsummary as p
+         left join student as s on s.studentNo = p.studentNo
+         where p.xuenian=#{xuenian} and termYear = #{nianji}
+              group by s.major
+             </otherwise>
+         </choose>
+       </select>
+       
+       <select id="getFailsDetails"  resultType="PersonKnowledge">
+          select pk.studentNo,pk.score,s.major,
+                 s.termYear,s.class as className,s.studentName as studentName,
+                 c.courseName as courseName           
+           from personknowledge as pk
+           left join student as s on s.studentNo=pk.studentNo
+           left join course as c on c.id=pk.cid
+           where pk.score>0 and pk.score &lt; 60 
+            and  c.courseName not like "%补%"
+            and c.xuenian=#{xuenian}
+            and  s.termYear = #{nianji}
+            and  s.major = #{major}
+            <if test="className!=0">
+             and s.class = #{className}
+            </if>
+       </select>
+       
+       <select id="getScoreSection" resultType="SummaryAnalyze">
+                   <choose>
+             <when test="major!=null">
+          select s.class as className,
+         count(1) as num from personsummary as p
+         left join student as s on s.studentNo = p.studentNo
+         where
+            if(p.moral>25,25+p.knowledge+p.sports-p.deduction,p.moral+p.knowledge+p.sports-p.deduction)
+	           &lt;#{end}
+	       and if(p.moral>25,25+p.knowledge+p.sports-p.deduction,p.moral+p.knowledge+p.sports-p.deduction)
+	            >=#{start}   
+           and p.xuenian=#{xuenian} 
+           and termYear = #{nianji}
+           and s.major=#{major}
+           group by s.class
+             </when>
+             <otherwise>
+                select s.major as major,
+         count(1) as num from personsummary as p
+         left join student as s on s.studentNo = p.studentNo
+         where  if(p.moral>25,25+p.knowledge+p.sports-p.deduction,p.moral+p.knowledge+p.sports-p.deduction)
+	           &lt;#{end}
+	       and if(p.moral>25,25+p.knowledge+p.sports-p.deduction,p.moral+p.knowledge+p.sports-p.deduction)
+	            >=#{start}   
+           and p.xuenian=#{xuenian} 
+           and termYear = #{nianji}
+           group by s.major
+             </otherwise>
+         </choose>
+       </select>
+</mapper>

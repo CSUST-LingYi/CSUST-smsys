@@ -1,0 +1,55 @@
+@CHARSET "UTF-8";
+#questions li{
+			float: left;
+			width: 20%;
+			min-width: 300px;;
+			margin-left: 10px;
+			font-size: large;
+		}
+ span.introduce{
+			margin-left: 10px;
+			color: red;
+			font-size: smaller;
+		}
+
+#header{
+                margin-top:20px;
+                }
+            #choose{
+	            height:50px;
+	            float:right;
+                }
+            #instruction{
+	            height:200px;
+	            font-size:105%;
+	            margin-top: 40px;
+                }
+             #main{
+             	margin-top:80px;
+             	margin-left:580px;
+             	margin-bottom: 50px;
+	            font-size:105%;
+	            padding:20px;
+	            //border:2px solid #FFFFFF;
+                }
+              #questions{
+                  margin-left:20px;
+              }
+             /*#output{
+             	margin-top:50px;
+             	margin-bottom: 50px;
+	            font-size:105%;
+	            padding:20px;
+	            float:right;
+	            background-color: #FFFFFF;
+             }*/
+             #input{
+             	margin-top: 80px;
+             	padding:20px;
+             	padding-right:20px;
+             	float:left;
+             }
+             #questionnaire_bz{width:500px; height:150px;}
+             #buttom{
+             	height: 100px;
+             }

@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+   PUBLIC "_//mybatis.org//DTD Mapper 3.0 //EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="csust.mapper.LectureMapper">
+
+
+<!-- ***************讲座信息的操作***************************-->
+
+    <insert id="addLecture"  parameterType="Lecture">
+      insert into lecture(xuenian,title,holdTime,location,speaker,
+                          introduction,deadlineTime,limitNumber,
+                          publisher,releaseTime,speakerIntroduction,imagePath)
+        values(#{xuenian},#{title},#{holdTime},#{location},#{speaker},
+                #{introduction},#{deadlineTime},#{limitNumber},
+                #{publisher},#{releaseTime},#{speakerIntroduction},#{imagePath})
+    
+    </insert>
+
+   <select id="getLectureById"  resultType="Lecture">
+    select id,xuenian,title,holdTime,location,speaker,
+           introduction,deadlineTime,limitNumber,
+           publisher,releaseTime,speakerIntroduction,imagePath,priority,
+           (select count(1) from registration where lid=#{id}) as number
+        from lecture where id=#{id} limit 1
+   </select>
+   
+   <select id="getLectureByPriority"  resultType="Lecture">
+    select id,xuenian,title,holdTime,location,speaker,
+           introduction,deadlineTime,limitNumber,
+           publisher,releaseTime,speakerIntroduction,imagePath,priority
+        from lecture order by priority desc limit 2
+   </select>
+   
+      <select id="getLectureBySpeaker"  resultType="Lecture">
+    select id,
+           title,
+           introduction,priority,
+           imagePath
+        from lecture 
+        where speaker=#{speaker}
+        order by id desc limit 2
+   </select>
+   
+   <select id="listLecture" resultType="Lecture">
+       select l.id,l.xuenian,l.title,l.holdTime,l.location,l.speaker,
+              l.introduction,l.deadlineTime,l.limitNumber,
+              l.publisher,l.releaseTime,l.imagePath,priority,l.speakerIntroduction,
+              count(r.studentNo) as number
+        from lecture as l 
+        left join registration as r on l.id=r.lid 
+        group by l.id             
+        order by l.id desc
+        <if test="end!=0">
+          limit #{start},#{end}
+        </if>
+   </select>
+   
+   <select id="getLectureByKeyWord" resultType="Lecture">
+       select l.id,l.xuenian,l.title,l.holdTime,l.location,l.speaker,
+              l.introduction,l.deadlineTime,l.limitNumber,
+              l.publisher,l.releaseTime,l.imagePath,priority,l.speakerIntroduction,
+              count(r.studentNo) as number
+        from lecture as l 
+        left join registration as r on l.id=r.lid 
+        where title like concat('%',#{keyWord},'%')
+          or  speaker like concat('%',#{keyWord},'%')
+        group by l.id             
+        order by l.id desc
+   </select>
+   
+   <update id="setLecturePriority">
+       update Lecture set priority = #{priority}
+              where id = #{id}
+   </update>
+   
+   <update id="updateLecture" parameterType="Lecture">
+      update Lecture 
+            <set>
+                <if test="xuenian!=null">
+                   xuenian=#{xuenian},
+                </if>
+                <if test="title!=null">
+                   title=#{title},
+                </if>
+                <if test="holdTime!=null">
+                   holdTime=#{holdTime},
+                </if>
+                 <if test="location!=null">
+                   location=#{location},
+                </if>
+                <if test="speaker!=null">
+                   speaker=#{speaker},
+                </if> 
+                <if test="speakerIntroduction!=null">
+                   speakerIntroduction=#{speakerIntroduction},
+                </if> 
+                <if test="introduction!=null">
+                   introduction=#{introduction},
+                </if> 
+                <if test="deadlineTime!=null">
+                   deadlineTime=#{deadlineTime},
+                </if> 
+                <if test="limitNumber!=null">
+                   limitNumber=#{limitNumber},
+                </if> 
+                <if test="publisher!=null">
+                   publisher=#{publisher},
+                </if>
+                <if test="releaseTime!=null">
+                   releaseTime=#{releaseTime},
+                </if>                                                  
+            </set>
+            where id = #{id}
+   </update>
+
+   <delete id="deleteLectureById">
+       delete from lecture where id=#{id}
+   </delete>
+
+<!-- ***************学生报名***************************-->
+   <select id="getRegistrationBySno"  resultType="Registration">
+        select r.id,r.studentNo,r.lid,r.registrationTime,r.status
+               s.termYear,s.major,s.className,s.studentName,s.sex
+               l.title
+               from registration as r
+               left join student as s on r.studentNo=s.studentNo
+               left join lecture as l on l.id=r.lid
+         where r.studentNo=#{studentNo}      
+   </select>
+   
+   <insert id="addRegistration" parameterType="Registration">
+       insert into registration(studentNo,lid,registrationTime,status)
+            values(#{studentNo},#{lid},#{registrationTime},#{status})
+   </insert>
+   
+   <insert id="addRegistration_wx" parameterType="Registration">
+       insert into registration(studentNo,lid,registrationTime,status)
+            values(#{studentNo},#{lid},#{registrationTime},#{status})
+   </insert>
+  
+  <delete id="deleteRegistrarionById">
+     delete from registration where id=#{id}
+  </delete>
+  
+  <!-- ***************报名名单操作***************************-->
+     <select id="getRegistraTionByLid"  resultType="Registration">
+        select r.id,r.studentNo,r.lid,r.registrationTime,r.status,
+               s.termYear,s.major,s.class as className,s.studentName,s.sex,s.phone,
+               l.title
+               from registration as r
+               left join student as s on r.studentNo=s.studentNo
+               left join lecture as l on l.id=r.lid
+         where r.lid=#{lid}      
+   </select>
+  
+  <update id="changeStatusByLidAndSno" parameterType="Registration">
+     update registration 
+          set status=#{status}
+          where studentNo=#{studentNo} and lid=#{lid}        
+  </update>
+  
+  <select id="gerLecturesBySno"  resultType="Lecture">
+     select r.id,l.title,l.xuenian,l.location,l.speaker,l.holdTime from lecture as l
+     left join registration as r on l.id=r.lid
+     where r.studentNo=#{studentNo}
+  </select>
+  
+  <select id="getRegistraTionByLidAndSno"  resultType="Registration">
+    select id from registration where lid=#{lid} and studentNo=#{studentNo} limit 1
+  </select>
+  
+  <select id="getLectureByRid" resultType="Lecture">
+    select l.deadlineTime from registration as r
+    left join lecture as l on r.lid=l.id
+    where r.id=#{rid} limit 1
+  </select>
+  
+  <select id="registraTionConut" resultType="BasicInfo">
+    select s.studentNo,s.major,s.class as className,s.studentName,s.sex,count(r.studentNo) as num
+    from student as s 
+    left join registration as r on r.studentNo=s.studentNo
+    left join lecture as l on r.lid = l.id
+    where  l.xuenian=#{xuenian}
+       and s.termYear=#{nianji}
+       <if test="major!='mj'">
+       and  s.major=#{major}
+        <if test="className!=0">
+        and s.class=#{className}
+        </if>
+       </if>
+    group by s.studentNo
+  </select>
+</mapper>

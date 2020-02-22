@@ -1,0 +1,219 @@
+	<!DOCTYPE html>
+	<html>
+	<title>意见反馈</title>
+	<script src="../js/jquery.min.js"></script>
+	<meta charset="UTF-8">
+	<head>
+	<style>
+		#feedbackArea{
+			word-break:break-all; 
+			white-space: pre-wrap;
+		}
+		#header {
+		    background-color: #2d3436;
+		    color:white;
+		    text-align:center;
+		    padding:2px;
+		}
+		#footer {
+		    background-color:bisque;
+		    color:white;
+		    clear:both;
+		    text-align:center;
+		    padding:5px; 
+		}
+		.topmenu {
+		    list-style-type: none;
+		    margin: 0;
+		    padding: 0;
+		    overflow: hidden;
+		    background-color:#AFEEEE;
+		}
+		.topmenu li {
+		    float: right;
+		}
+		.topmenu li a {
+		    display: inline-block;
+		    color:black;
+		    text-align: center;
+		    padding: 16px;
+		    text-decoration: none;
+		}
+		.topmenu li a:hover {
+		    background-color:#00f2fe;
+		}
+		.topmenu li a.active {
+		    color:black;
+		    background-color: #00f2fe;
+		}
+		#customers{
+			font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
+			width:100%;
+			border-collapse:collapse;
+		}
+		#customers td, #customers th {
+			font-size:1em;
+			border:1px solid #DCDCDC;
+			padding:3px 7px 2px 7px;
+		}
+		#customers th {
+			font-size:1.1em;
+			text-align:left;
+			padding-top:5px;
+			padding-bottom:4px;
+			background-color:#222f3e;
+			color:#ffffff;
+		
+		}
+		
+		/*input{
+	        border: 1px solid #ccc;
+		    padding: 7px 0px;
+		    border-radius: 3px;
+		    padding-left:5px;
+		    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+		    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+		    -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+		    -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+		    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s
+		}*/
+		input:focus{
+		    border-color: #66afe9;
+		    outline: 0;
+		    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6);
+		    box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6)
+		}
+		.table li a{
+			text-align: center;
+			width: 500px;
+		}
+		.to_up {
+		    width: 0;
+			height: 0;
+			border-left: 30px solid greenyellow;
+			border-top: 30px solid transparent;
+			border-bottom: 30px solid transparent;
+		}
+		.c{
+			border: 1px solid black;
+			border-radius: 50%;
+			width: 10px;
+			height: 10px;
+			margin: 0 auto;
+			/*background-color: red;*/
+		}
+	    </style>
+    </head>
+    
+    <body bgcolor="#dfe6e9">
+    	
+    	
+		<div id="header">
+			<CENTER>
+				<h1>反馈意见</h1>
+			</CENTER>
+		</div>
+		
+		<br />
+		
+		<table id="customers">
+			
+			<tr>
+			  <th style="width:120px;">学号</th>
+			  <th style="width:120px;">姓名</th>
+			  <th>德育分扣分修改</th>
+			  <th>德育分加分修改</th>
+			  <th>状态</th>
+			  <th>操作</th>			  
+			</tr>
+			
+			<tbody id="feedbackArea">
+					
+			</tbody>
+			
+		</table>
+		
+		<h4>注：学习部返回的审核修改意见，请班长认真核对并修改德育分扣分情况，并通知学生本人修改相应的德育分加分情况</h4>
+	
+		<script>
+			var thisURL = document.URL;
+			var monitorNo = ((thisURL.split("?")[1]).split("="))[1];
+			console.log(monitorNo);
+			
+			$(function(){
+				$.ajax({
+					type:"post",
+					url:"../monitor/getFeedback",
+					data:{
+						"monitorNo":monitorNo
+					},
+					dataType:"json",
+					success:function(fb){
+						
+						console.log(fb);						
+						for(var i = 0;i<fb.length;i++){
+							for(var j=0;j<fb[i].length;j++){
+								var $tr = $("<tr></tr>");
+								var stuNo = fb[i][j].studentNo;
+								var stuName = fb[i][j].studentName;
+								var p_moral = fb[i][j].p_moral;
+								var d_moral = fb[i][j].d_moral;
+								var isRead = parseInt(fb[i][j].read);
+								$tr.html(`<td class='stuNo'>${stuNo}</td>
+										  <td>${stuName}</td>
+										  <td>${d_moral}</td>
+										  <td>${p_moral}</td>`);
+								if(isRead==0){
+									$tr.append("<td><div class='c' style='background-color:red;'></div></td>")
+									$tr.append("<td><input type='button' value='设为已读' class='readStatus' data-status='1'></td>")
+								}else{
+									$tr.append("<td><div class='c' style='background-color:green;'></div></td>")
+									$tr.append("<td><input type='button' value='设为未读' class='readStatus' data-status='0'></td>")
+								}
+								$('#feedbackArea').append($tr);
+							}
+							
+						}
+					},
+					error:function(){
+						alert('Error3:查询出错,请重试');
+					}
+				})
+				
+				$('body').on('click','.readStatus',function(e){									
+					var studentNo = $(this).parent().parent().children('.stuNo').text();
+					var isRead = parseInt($(this).attr('data-status'));
+					$.ajax({
+						type:"post",
+						url:"../public/updateFeedbackStatus",
+						data:{
+							"studentNo":studentNo,
+							"isRead":isRead
+						},
+						success:(data)=>{
+							if(isRead==1){							
+								$(this).val('设为未读');
+								$(this).attr('data-status','0');
+								var divc = $(this).parent().prev().children();
+								divc.css("backgroundColor",'green');
+								//console.log($(this));
+							}else{
+								$(this).val('设为已读');
+								$(this).attr('data-status','1');
+								var divc = $(this).parent().prev().children();
+								divc.css("backgroundColor",'red');
+							}						
+						},
+						error:function(){
+							alert("Error4:发生未知错误，请刷新后重试");
+						}
+					})
+				})
+			})
+	    </script>
+
+	</body>
+    </html>
+    
+
+ 

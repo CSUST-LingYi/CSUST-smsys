@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="csust.mapper.SchoolmateMapper">
+
+<sql id="schoolmateInfo">
+          id,name,termYear,major,graduationYear,area,alumniAssociation,alu_position,
+          workUnit,position,phone,email,QQ,
+          wechatId,bz
+</sql>
+
+ <!-- 增加校友信息 -->
+   <insert id="addSchoolmate" parameterType="Schoolmate">
+     insert into schoolmate 
+              (name,termYear,major,graduationYear,area,alumniAssociation,alu_position,
+              workUnit,position,phone,email,QQ,wechatId,bz)
+     values(#{name},#{termYear},#{major},#{graduationYear},#{area},#{alumniAssociation},
+          #{alu_position},#{workUnit},#{position},#{phone},#{email},#{QQ},#{wechatId},#{bz})   
+   </insert>
+   
+ <!-- 删除校友信息 -->  
+   <delete id="deleteSchoolmate">
+      delete from schoolmate where id=#{id}
+   </delete>
+
+ <!-- 修改校友信息 -->  
+  <update id="updateSchoolmate">
+    update schoolmate 
+       <set>
+           <if test="name!=null">
+             name=#{name},
+           </if>
+           <if test="termYear!=null">
+             termYear=#{termYear},
+           </if>
+           <if test="major!=null">
+              major=#{major},
+           </if>
+           <if test="graduationYear!=null">
+              graduationYear=#{graduationYear},
+           </if>
+           <if test="area!=null">
+            area=#{area},
+           </if>
+           <if test="alumniAssociation!=null">
+            alumniAssociation=#{alumniAssociation},
+           </if>
+           <if test="alu_position!=null">
+            alu_position=#{alu_position},
+           </if>
+           <if test="workUnit!=null">
+           workUnit=#{workUnit},
+           </if>
+           <if test="position!=null">
+             position=#{position},
+           </if>
+           <if test="phone!=null">
+            phone=#{phone},
+           </if>
+           <if test="email!=null">
+          email=#{email},
+           </if>
+           <if test="QQ!=null">
+             QQ=#{QQ},
+           </if>
+           <if test="wechatId!=null">
+             wechatId=#{wechatId},
+           </if>
+           <if test="bz!=null">
+             bz=#{bz}
+           </if>
+       </set>
+       where id=#{id}
+  </update>
+
+<!-- 多条件查找校友信息 -->
+<select id="getSchoolmates"  resultType="Schoolmate">
+   select <include refid="schoolmateInfo"></include>
+     from schoolmate
+         <where>
+             <if test="graduationYear!='1900' and graduationYear!=null">
+               graduationYear=#{graduationYear}
+             </if>
+              <if test="area!='WU' and area!=null">
+               and area=#{area}
+             </if>
+              <if test="major!='Mj' and major!=null">
+               and major=#{major}
+             </if>
+         </where>
+</select> 
+ 
+<!-- 模糊查找校友信息 -->
+<select id="getSchoolmatesByLike"  resultType="Schoolmate">
+   select <include refid="schoolmateInfo"></include>
+     from schoolmate
+     where name like  CONCAT('%',#{condition},'%') 
+     or   graduationYear like CONCAT('%',#{condition},'%') 
+     or   major like CONCAT('%',#{condition},'%') 
+     or   area like CONCAT('%',#{condition},'%') 
+     or   alumniAssociation like CONCAT('%',#{condition},'%')      
+  </select>
+  
+ <select id="listcondition" resultType="Schoolmate">
+   select distinct graduationYear,area,major 
+      from schoolmate 
+ </select> 
+  
+<!-- 按地区统计校友信息 -->  
+  <select id="groupByArea"  resultType="java.util.HashMap">
+    select area,count(1) as count from schoolmate group by area
+  </select>
+<!-- 按所属校友会统计校友信息 -->  
+  <select id="groupByAlumniAssociation"  resultType="java.util.HashMap">
+    select alumniAssociation,count(1) as count from schoolmate group by alumniAssociation
+  </select>
+
+<!-- 按院系统计校友信息 -->  
+  <select id="groupByMajor"  resultType="java.util.HashMap">
+     select major, count(1)  as count from schoolmate group by major
+  </select>
+  
+  
+<!-- 增加优秀校友事迹 -->   
+ <insert id="addAlumni" parameterType="Alumni">
+    insert into alumni(sid,name,deeds,imagePath)
+      values(#{sid},#{name},#{deeds},#{imagePath})
+ </insert>
+
+<!-- 修改优秀校友事迹 -->  
+ <update id="updateAlumni" parameterType="Alumni">
+     update alumni
+      set deeds=#{deeds},
+           name=#{name}
+     where sid=#{sid}
+ </update>
+
+<!-- 删除优秀校友事迹 --> 
+ <delete id="deleteAlumni">
+     delete from alumni where sid=#{sid}
+ </delete> 
+
+<!-- 查找优秀校友事迹 -->  
+ <select id="getAlumni" resultType="Alumni">
+    select 
+         sid,name,deeds,imagePath
+     from alumni where sid=#{sid} 
+ </select>
+ 
+<!-- 列出所有的优秀校友 --> 
+ <select id="listAlumniName"  resultType="Alumni">
+    select sid,name,deeds from alumni order by lve desc
+ </select>
+</mapper>

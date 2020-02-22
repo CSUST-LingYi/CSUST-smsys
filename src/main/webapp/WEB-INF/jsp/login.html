@@ -1,0 +1,143 @@
+﻿<!DOCTYPE html >
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<title>长沙理工大学经济与管理学院学生信息管理系统</title>
+<script src="./js/jquery.min.js"></script>
+<script src="./js/login.js"></script>
+<link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css">
+<script type="text/javascript" src="./js/bootstrap.min.js"></script>
+<script>
+//防止360浏览器背景图抖动
+if(navigator.userAgent.match(/Trident\/7\./)) {
+	  document.body.addEventListener && document.body.addEventListener("mousewheel", function() {
+	    event.preventDefault();
+	    var wd = event.wheelDelta;
+	    var csp = window.pageYOffset;
+	    window.scrollTo(0, csp - wd);
+	  });
+	}
+</script>
+
+
+     <style>
+     *{
+     	margin: 0px;
+     	padding: 0px;
+     }
+     
+     .image{
+     	 z-index: -1;
+     	  width: 100%;
+     	  min-width: 1534px;;
+     }   
+        
+     .login{    
+     	width: 310px;
+     	height: 300px;
+     	position: absolute;
+     	
+     	
+     	left: 250px;
+     	top: 70px;
+     	
+     }
+     .loginimg{
+     	 width: 320px;
+     }
+     .loginbody{ ;
+     	   width:450px;
+     	  margin-left :50px;
+     }
+     .other{  
+     	   width: 350px;
+     	   height: 50px;
+         position: absolute;
+         left: 1100px;
+         top:92%; 
+     }
+     
+    </style>
+  
+  </head>
+  <body>
+     
+  	<div class="all" >
+  			  <img src="img/aa.jpg" / class="image">
+  		<div class="login">
+  			  <img src="img/bb.png" / class="loginimg">
+  			 <div style="padding-left:5px;padding-top: 10px;">
+  			<form  class="form-signin">
+  			 <div class="input-group input-group-lg">
+			  <span class="input-group-addon" id="sizing-addon1" style="background-color:floralwhite">账号</span>
+			  <input type="text" class="form-control"  aria-describedby="sizing-addon1"  id="username">
+			</div>
+			  <br />
+			  <br />
+			  <div class="input-group input-group-lg" >
+				  <span class="input-group-addon" id="sizing-addon1" style="background-color:floralwhite" >密码</span>
+				  <input type="password" class="form-control"  aria-describedby="sizing-addon1" id="password">
+				</div>
+				<br />
+				<br />
+               <div class="input-group input-group-lg" >
+				  <span class="input-group-addon" id="sizing-addon1" style="background-color:floralwhite" >身份</span>
+	
+			      <select id="upway" style="width:224px;" class="form-control">
+			           <option value="0">学生</option>
+			           <option value="1">学工办教师</option>
+			           <option value="2">学生管理员</option>
+			           <option value="3">班级管理员</option>
+			      </select>
+			
+			   </div>
+              <br />
+               <br />
+               <button class="btn btn-lg btn-primary btn-block" type="button" id="submit_btn">登录</button>
+               </form>
+               
+       </div> 	
+  		</div>
+  		  <div class="other">
+	     <a href="http://www.csust.edu.cn/jgxy/index.htm" target="_blank"><font color="black" >长沙理工大学经济与管理学院官网</font></a>
+	     &nbsp;&nbsp;&nbsp;&nbsp;<a href="#" id="teacherTable"><font  color="black" >联系老师</font></a>
+	    
+  		</div>
+  		      
+  	</div>
+  	
+  	<div class="modal fade" id="teacherInfo"  data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+             <div class="modal-dialog">
+             <div class="modal-content">
+               <div class="modal-header">
+            <button data-dismiss="modal" class="close" type="button"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+             <h4 class="modal-title">老师信息</h4>
+            </div>
+            <div class="modal-body">
+            	<table class="table table-striped table-bordered table-hover  table-condensed">
+            		<thead>
+            			<tr>
+            				<th>姓名</th>
+            				<th>职位</th>
+            				<th>办公地点</th>
+            				<th>有什么事的时候找他（她）</th>   
+            				<th>联系方式</th>
+            				        				
+            			</tr>
+            		</thead>
+            	    <tbody id="teacher_Table">
+            	    	
+            	    </tbody>
+            	</table>
+            </div>
+                                  
+          <div class="modal-footer">
+            <button data-dismiss="modal" class="btn btn-default" type="button">关闭</button>
+            
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->	    
+</div>	
+  </body>
+</html>

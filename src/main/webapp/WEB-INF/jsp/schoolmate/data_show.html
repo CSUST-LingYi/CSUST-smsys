@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+		<title>校友信息统计</title>
+
+		<!-- Bootstrap -->
+		   		 <script src="../js/jquery.min.js"></script>
+         <link href="../css/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+         <script src="../css/bootstrap/js/bootstrap.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="../css/schoolmate/caidan.css" />
+		
+		<style type="text/css">
+			body{
+				background-color: rgba(0,0,255,0.1);
+			}
+			.header{height: 80px;
+        	       background: #0168B5;
+        	       text-align: center;
+                   }
+        	.header img{
+        		 margin: 0 auto;
+        	} 
+
+				.title{
+				
+				padding: 20px 0;
+				width: 100%;
+				height: 40px;
+				margin: 0px 0px 30px 0;
+				font-size: 15px;
+				color: #222;
+				text-align: center;
+				background: #eee;
+				opacity: 0.5;
+				font-family:"Microsoft YaHei","SimSun","Arail","Tabhoma";
+				}
+				.line{
+					width: 100%;
+					border-bottom: 1px solid #dfdfdf;
+					margin-bottom: 20px;
+				}
+				.dataBox{
+					margin-top: 70px;
+				}
+				.chartBox{
+					  width: 100%;
+					    text-align: left;
+					    position: absolute;
+					    left: 0;
+					    height: 100vh;
+					    position: relative
+				}
+				.chartTitle{
+				padding: 5px 0;
+				width: 100%;
+				height: 30px;
+				margin: 73px 0 20px 0;
+				font-size: 14px;
+				color: #fff;
+				text-align: center;
+				background: #3ea2ee;
+				opacity: 0.5;
+				font-family:"Microsoft YaHei","SimSun","Arail","Tabhoma";
+				}
+				.chart{
+					margin: 10px auto;
+					text-align: center;
+					width: 900px;
+					height: 570px;
+					border: 1px solid #000;
+				}
+				.jumbotron {
+					
+					padding-top: 0px;
+					padding-bottom: 0px;
+					margin-bottom: 30px;
+					color: inherit;
+					background-color: #eee;
+				}
+				.point{
+					text-align: center;
+					list-style: none;
+					z-index: 200;
+					position: fixed;
+					right: 2%;
+					top: 30%;
+					
+				}
+				.point li{
+					width: 20px;
+					height: 20px;
+					display: block;
+					margin-bottom: 5px;
+					
+					border-radius: 50%;
+					background-color: rgba(0,0,3,0.2);
+				}
+				.point li:hover{
+					background-color: #fff;
+					cursor: pointer;
+					
+				}
+				.down{
+					position: absolute;
+					left: 50%;
+					top:90%%;
+				}
+		</style>
+
+		<script type="text/javascript">
+		$(function(){
+	        $('.type-right').click(function(){
+	            $(this).prev('.type-left').toggleClass('showListType')
+	        });
+	        $('.type-left ul li').click(function(){
+	            $(this).addClass('active').siblings('li').removeClass('active')
+	        });
+	        document.getElementById("showMenuBox").onclick = function(){
+	    	document.getElementById("showMenu").className= (document.getElementById("showMenu").className=="glyphicon glyphicon-chevron-right")?"glyphicon glyphicon-chevron-left":"glyphicon glyphicon-chevron-right";
+	    }
+
+	if(!document.body.className=="modal-open"){
+		removeClassMark();
+	}
+	    })
+		
+		</script>
+		<script src="../js/echarts.js" type="text/javascript" charset="utf-8"></script>
+         
+	</head>
+
+	<body>
+
+		<div class="header">
+			<img src="../img/logo17.jpg" height="80" style="margin-left: 60px;" />
+		</div>
+
+
+		<!--
+        	侧方菜单
+        -->
+		<div class="box" style="z-index:200 ;" >
+			<div class="change-type">
+				<div class="type-left" :class="showType == true ? 'showListType':''">
+					<ul>
+						<li><a href="schoolmateManage.html">校友信息查询</a><span></span></li>
+						<li class="active"><a href="data_show.html">统计数据</a><span></span></li>
+						<li><a href="../teacher/comparisonAnalyze">学情分析</a><span></span></li>
+						<li> <a  href="../a">返回教师主页</a><span></span></li>
+						<li><a href="../logout">退出登录</a><span></span></li>
+					</ul>
+				</div>
+				<div class="type-right" id="showMenuBox" style="opacity: 0.8;">
+					<p>
+						<i class="el-icon-menu"></i>
+						<span class="glyphicon glyphicon-chevron-right" id="showMenu"></span>
+					</p>
+				</div>
+			</div>
+		</div>
+		<div class="jumbotron">
+			<div class="title chartBox">
+
+				<h1 style="line-height: 500px;font: 200%;text-align: center;">长沙理工大学校友信息统计数据<h1>
+			 
+			  <p style="margin-top: -100px;text-align: center;font-weight: bold;">
+			  	<a class="btn btn-lg" id="show" role="button" style="color: black;font-weight: bold;" href="#tmain"><img src="../img/schoolmate/down.png" width="85px"/></a></p>
+			</div>
+						
+		</div>
+		
+		<div id="tmain" style="width: 100%;height:600px;margin-left: 50px;">
+			
+		</div>
+		
+		<div id="main" style="width:100%;height:1200px;margin-left: 50px;">
+			
+		</div>
+
+	</body>
+
+<script>
+	
+	$.ajax({
+		type:"get",
+		url:"../teacher/groupSchoolmate",
+		async:true,
+		data:{"way":1},
+		dataType:"json",
+		success:function(data){
+            chartInfo2(data);
+            chartInfo1(data);
+		},
+		error:function(){
+			alert("出错，请联系管理员");
+		}
+	});
+	
+function chartInfo1(data){
+	          var arry = new Array();
+	          var val = new Array();
+	          var m = 0;
+			  $.each(data[1], function(key,value) {
+				arry.push(key);
+				val.push(value);
+				if(value>m)m=value;
+			 });
+			 m=parseInt(m*1.5);
+	var myChart = echarts.init(document.getElementById('tmain'));
+	option = {
+    title : {
+        text: '校友会信息',
+        subtext: '人数分布'
+    },
+    tooltip : {
+        trigger: 'axis'
+    },
+    legend: {
+        data:['校友会信息']
+    },
+    toolbox: {
+        show : true,
+        feature : {
+            dataView : {show: true, readOnly: false},
+            magicType : {show: true, type: ['line', 'bar']},
+            restore : {show: true},
+            saveAsImage : {show: true}
+        }
+    },
+    calculable : true,
+    xAxis : [
+        {
+            type : 'category',
+            data : arry
+        }
+    ],
+    yAxis : [
+        {
+            type : 'value',
+            max :m
+        }
+    ],
+    series : [
+        {
+            name:'人数',
+            type:'bar',
+            data:val,
+            markPoint : {
+                data : [
+                    {type : 'max', name: '最大值'},
+                    {type : 'min', name: '最小值'}
+                ]
+            }
+        }
+
+    ]
+};
+ myChart.setOption(option);
+}
+	
+function chartInfo2(data){
+				var total = 0;
+			var faculty = data[2];
+			var area = data[0];
+			var max = 0;
+			var m = 0;
+		 $.each(faculty, function(key,value) {
+				total+=value;
+				if(max<value)max=value;
+			});
+			$.each(area, function(key,value) {
+				if(m<value)m=value;
+			});
+	  var myChart = echarts.init(document.getElementById('main'));
+	   
+	   var builderJson = {
+         "all": total,
+         "charts": faculty,
+         "components": area,
+         "ie": 9743
+        };
+
+var downloadJson = faculty;
+
+var themeJson = area;
+
+
+var canvas = document.createElement('canvas');
+var ctx = canvas.getContext('2d');
+canvas.width = canvas.height = 100;
+ctx.textAlign = 'center';
+ctx.textBaseline = 'middle';
+ctx.globalAlpha = 0.08;
+ctx.font = '20px Microsoft Yahei';
+ctx.translate(50, 50);
+ctx.rotate(-Math.PI / 4);
+
+  option = {
+    backgroundColor: {
+        type: 'pattern',
+        image: canvas,
+        repeat: 'repeat'
+    },
+    tooltip: {},
+    title: [{
+        text: '校友信息统计',
+        subtext: '总计 ' + builderJson.all,
+        x: '25%',
+        textAlign: 'center'
+    }, {
+        text: '专业',
+        subtext: '总计 ' + Object.keys(downloadJson).reduce(function (all, key) {
+            return all + downloadJson[key];
+        }, 0),
+        x: '75%',
+        textAlign: 'center'
+    }, {
+        text: '地区',
+        subtext: '总计 ' + Object.keys(themeJson).reduce(function (all, key) {
+            return all + themeJson[key];
+        }, 0),
+        x: '75%',
+        y: '50%',
+        textAlign: 'center'
+    }],
+    grid: [{
+        top: 50,
+        width: '50%',
+        bottom: '45%',
+        left: 10,
+        containLabel: true
+    }, {
+        top: '55%',
+        width: '50%',
+        bottom: 0,
+        left: 10,
+        containLabel: true
+    }],
+    xAxis: [{
+        type: 'value',
+        max: max*1.1,
+        splitLine: {
+            show: false
+        }
+    }, {
+        type: 'value',
+        max: m*1.1,
+        gridIndex: 1,
+        splitLine: {
+            show: false
+        }
+    }],
+    yAxis: [{
+        type: 'category',
+        data: Object.keys(builderJson.charts),
+        axisLabel: {
+            interval: 0,
+            rotate: 30
+        },
+        splitLine: {
+            show: false
+        }
+    }, {
+        gridIndex: 1,
+        type: 'category',
+        data: Object.keys(builderJson.components),
+        axisLabel: {
+            interval: 0,
+            rotate: 30
+        },
+        splitLine: {
+            show: false
+        }
+    }],
+    series: [{
+        type: 'bar',
+        stack: 'chart',
+        z: 3,
+        label: {
+            normal: {
+                position: 'right',
+                show: true
+            }
+        },
+        data: Object.keys(builderJson.charts).map(function (key) {
+            return builderJson.charts[key];
+        })
+    }, {
+        type: 'bar',
+        stack: 'chart',
+        silent: true,
+        itemStyle: {
+            normal: {
+                color: '#eee'
+            }
+        },
+        data: Object.keys(builderJson.charts).map(function (key) {
+            return builderJson.all - builderJson.charts[key];
+        })
+    }, {
+        type: 'bar',
+        stack: 'component',
+        xAxisIndex: 1,
+        yAxisIndex: 1,
+        z: 3,
+        label: {
+            normal: {
+                position: 'right',
+                show: true
+            }
+        },
+        data: Object.keys(builderJson.components).map(function (key) {
+            return builderJson.components[key];
+        })
+    }, {
+        type: 'bar',
+        stack: 'component',
+        silent: true,
+        xAxisIndex: 1,
+        yAxisIndex: 1,
+        itemStyle: {
+            normal: {
+                color: '#eee'
+            }
+        },
+        data: Object.keys(builderJson.components).map(function (key) {
+            return builderJson.all - builderJson.components[key];
+        })
+    }, {
+        type: 'pie',
+        radius: [0, '30%'],
+        center: ['75%', '25%'],
+        data: Object.keys(downloadJson).map(function (key) {
+            return {
+                name: key.replace('.js', ''),
+                value: downloadJson[key]
+            }
+        })
+    }, {
+        type: 'pie',
+        radius: [0, '30%'],
+        center: ['75%', '75%'],
+        data: Object.keys(themeJson).map(function (key) {
+            return {
+                name: key.replace('.js', ''),
+                value: themeJson[key]
+            }
+        })
+    }]
+}
+   
+  myChart.setOption(option);
+}
+	</script>
+
+</html>

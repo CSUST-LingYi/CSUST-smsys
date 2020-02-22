@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>讲座信息管理系统</title>
+		 <script src="../js/jquery.min.js"></script>
+         <link href="../css/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+         <script src="../css/bootstrap/js/bootstrap.min.js"></script>
+         <script src="../js/tools.js"></script>
+         <script src="../js/lecture/lectureManager.js"></script>   
+        <style type="text/css">
+        	body{
+        		background: snow;
+        	}
+        	.form-control{
+        		width: 50%;
+        	}
+        	header{
+	            height:70px;
+                font-weight: bold;
+                background:rgba(0,0,0,0.7);
+                font-size:150%;
+                font-family: "微软雅黑","黑体","宋体";
+                padding-top: 2px;
+                list-style: none;
+                }
+            header ul{
+            	margin: 0px;
+            	padding-top: 13px;
+            }
+            header ul li{
+            	display:inline;
+            	color: white;
+            	font-weight: bold;
+            }
+            header ul li a{
+            	color:white;
+            	line-height: 40px;
+            }
+            header ul li a:hover{
+            	background:none;
+            	border-bottom: 3px red;
+            	color:cornflowerblue;
+            }
+            header ul li a:focus{
+            	background:none;
+            }
+            header h3{
+            	color: white;
+            	font-weight: bold;
+            }
+			
+			#myOneLecture{
+				float: left;
+				margin: 15px;
+				width:30%;
+			}
+
+            #tab{
+            	 height:50px;
+                font-weight: normal;
+                background:#F0F0F0;
+                font-size:100%;
+                font-family: "微软雅黑","黑体","宋体";
+                padding-top: 2px;
+                list-style: none;
+            }
+            .navbar-text{
+            	padding:0px 5px;
+            	color:gray;
+            	margin-left: 30px;
+            }
+            #introduction{
+            	margin-left: 530px;
+            	margin-bottom: 100px;
+            }
+            #mytable{
+            	table-layout: fixed;
+            }
+            #mytable td:hover { /* 鼠标滑过  显示隐藏的内容  伴有横向的滚动条 */
+			overflow:auto; 
+			text-overflow:clip
+				} 
+            #mytable td{
+            	
+			width: 200px; 
+			white-space: nowrap; 
+			text-overflow: ellipsis; 
+			overflow: hidden; 
+			}
+			
+            #mypage{
+            	position: absolute;
+ 				left: 33%;
+  				top: 150px;
+            }
+             
+            .Talk{
+            	margin-top: 50px;
+            	margin-left: 33%;
+            	display: none;
+            }
+          a:link,a:visited{ 
+ 			text-decoration:none;  /*超链接无下划线*/ 
+			} 
+        </style>
+	</head>
+
+<body>
+	
+		<!--导航条-->
+		<span>
+			<header>
+			    <ul>
+				    <li>讲座信息管理</li>
+				    <li style="float:right;margin-right:30px;"><a href="javascript:history.go(-1);location.reload()">返回</a></li>
+			    </ul>
+		   </header>
+		</span>
+		
+		
+		<!--方块选项页面-->
+		<div id="blockchoice">
+			<table width="1200" style="margin-top: 5%;margin-left: 12%;">
+				<tr>
+					<th>
+						<button type="button" class="btn btn-default" id="SearchTalkBtn" style="width: 300px;height: 300px;border-style: outset;color: dimgray;">
+							<div>
+								<img src="../img/search.png" height="120px" width="120px" style="margin-top: 30px;margin-left: 10px;">
+								<br><br>
+								<h3>查询与修改讲座信息</h3>
+							</div>
+						</button>
+					</th>
+					<th>
+						<button type="button" class="btn btn-default" id="PostTalkBtn" style="width: 300px;height: 300px;border-style: outset;color: dimgray;">
+							<div>
+							    <img src="../img/survey.png" height="150px" width="150px"/>
+							    <br><br>
+								<h3>发布新讲座信息</h3>
+							</div>
+						</button>
+					</th>
+					<th>
+						<button type="button" class="btn btn-default" id="SearchClass" style="width: 300px;height: 300px;border-style: outset;color: dimgray;">
+							<div>
+								<img src="../img/pen2.png" height="150px" width="150px"/>
+								<br><br/>
+								<h3>查询班级信息</h3>
+							</div>
+						</button>
+					</th>
+				</tr>
+			</table>
+			<br><br>
+			<hr/>
+			<br>
+			<div id="introduction">
+				<h4>讲座信息管理简介：</h4>
+				<br>
+				<p>○ 管理员可对讲座信息进行查询、发布、删除、修改等操作</p>
+				<p>○ 每场讲座包含的信息：讲座题目、举办时间、地点、报告人、具体内容概要</p>
+				<p>○ 讲座报名的信息：讲座报名截止日期，报名人数上限，已报名名单</p>
+			</div>
+		</div>
+		
+		<!--查询讲座信息页面-->
+		<center>
+		<div id="SearchTalk" style="margin-top: 50px; display: none;">
+    		<label for="InputKeyword">讲座关键词：</label>
+    		<input type="text" id="InputKeyword" placeholder="讲座题目  / 主讲人" style="width: 250px;margin-right: 10px;">
+    		<button type="button" class="btn btn-primary btn-sm" onclick="searchLectureBykey()">关键词搜索</button>
+    		<button type="button" class="btn btn-primary btn-sm" onclick="searchFineLecture()">显示精品讲座</button>
+    		<button type="button" class="btn btn-primary btn-sm" onclick="searchLecture(1,6)">显示所有讲座</button>
+    		<button type="button" class="btn btn-default active" id="Back1" style="margin-left: 15px;">返回讲座信息管理主页</button>
+		    
+    		<br /><br /><br />
+    	    
+    	    <div id="mylectures">
+           		 <table class="table table-bordered" id="lectureMessage" style="width: 500px;">
+            	<thead>
+            	<tr>
+            		<th style="text-align: center;width: 180px;">讲座信息</th>
+            		<th style="text-align: center;">详情</th>
+            	</tr>
+            	</thead>
+            	<tbody>
+            	<tr>
+            		<td>讲座题目：</td>
+            		<td></td>
+            	</tr>
+            	<tr>
+            		<td>举办时间：</td>
+            		<td></td>
+            	</tr>
+            	<tr>
+            		<td>地点：</td>
+            		<td></td>
+            	</tr>
+            	<tr>
+            		<td>报告人：</td>
+            		<td></td>
+            	</tr>
+            	<tr>
+            		<td>具体内容概要：</td>
+            		<td></td>
+            	</tr>
+            	<tr>
+            		<td>讲座报名截止日期：</td>
+            		<td></td>
+            	</tr>
+            	<tr>
+            		<td>报名人数上限：</td>
+            		<td></td>
+            	</tr>
+            	<tr>
+            		<td>已报名名单：</td>
+            		<td></td>
+            	</tr>
+            	<tr>
+            		<td ><button type="button" id="showList" class="btn btn-primary btn-sm" >报名名单</button></td>
+            	    <td ><button type="button" id="ModifyTalkBtn" class="btn btn-primary btn-sm" >修改讲座</button></td>
+            	</tr>
+            	</tbody>
+			</table>
+			 </div>
+			<div id="mylectures1" style="display: none;"></div>
+			<div id="mylectures2" style="display: none;">
+    	    	<div id="myOne">
+           		 <table class="table table-bordered" id="otherLectureMessage" style="width: 500px;">
+            	<thead>
+            	<tr>
+            		<th style="text-align: center;width: 180px;">讲座信息</th>
+            		<th style="text-align: center;">详情</th>
+            	</tr>
+            	</thead>
+            	<tbody></tbody>
+           		 </table>
+			   </div>
+             <ul class="pagination" id="mypage"></ul>
+    	    </div>			
+		
+		</div>
+		 <br />
+		 <br />
+  		</center>
+  					
+  		<!--查看讲座报名名单页面-->
+  		<center>
+  		<div id="EntryList" style="display: none;">
+  			
+  			<table class="table-bordered" id="entryList" style="width: 700px; margin-top: 50px;">
+  				<thead>
+  					<tr>
+  					<th colspan="7"  id="title2" style="text-align: center;">讲座主题</th>
+  					</tr>
+  					<tr style="display: none;">
+  					<th colspan="7"  id="thisLid" style="text-align: center;"></th>
+  					</tr>
+  					<tr>
+  					<th>姓名</th>
+  					<th>学号</th>
+  					<th>性别</th>
+  					<th>年级</th>
+  					<th>专业</th>				 					
+  					<th>签到</th>
+  					<th>操作</th>
+  					</tr>
+  				</thead>
+  				<tbody> 					
+  				</tbody>
+  			</table> 
+  			<form action="../lecture/exportExcel" method="post" id="exportExcel" style="display: none;">
+  			<input name="lid" id="lectureLid" />
+  			</form>
+  			<br />			
+  			<br /><br />
+  			<button class="btn btn-primary btn-sm" onclick="exportExcel()">导出excel表</button>
+  			<button type="button" class="btn btn-default active" id="Back3" style="margin-left: 15px;">返回查询讲座信息</button>		
+  		</div>
+  		</center>
+  			
+  		<!--发布新讲座页面-->
+  		<div id="PostTalk" class="Talk">
+  			
+            	<h3 >发布新讲座信息</h3>       	
+            
+            	<label>讲座主题：</label>
+            	<input type="text" id="title" class="form-control" placeholder="讲座主题（100字以内）"><br />
+            	    
+            	<label>学年：</label>
+                <!--	
+                <input type="text" id="xuenian" class="form-control" placeholder="Enter the term of the lecture"> -->
+            	<select id="xuenian" class="form-control">
+            		<option>2018-2019</option>
+            		<option>2019-2020</option>
+            		<option>2020-2021</option>
+					<option>2021-2022</option>
+            	</select><br />
+            	<label>开讲时间：</label>
+            	<input type="text" id="holdTime" class="form-control" placeholder="开讲时间（时间格式形如1990/01/01 17:00)"><br />
+            	
+            	<label>开讲地点：</label>
+            	<input type="text" id="location" class="form-control" placeholder="讲座地点（40字以内）"><br />
+            	
+            	<label>主讲人：</label>
+            	<input type="text" id="speaker" class="form-control" placeholder="主讲人（200字以内）"><br />
+                
+            	<label>讲座报名截止日期：</label>
+            	<input type="text" id="deadlineTime" class="form-control" placeholder="报名截止时间（时间格式形如1990/01/01 17:00)"><br />
+            	
+            	<label>报名人数上限：</label>
+            	<input type="text" id="limitNumber" class="form-control" placeholder="人数上限"><br />
+            	
+            	<label>发布人：</label>
+          		<input type="text" id="publisher" class="form-control" placeholder="发布人"><br />
+           
+            	<label>讲座图片：</label>
+            	<input type="file" id="imagePath" class="form-control"><strong style="color:red;">图片大小限制500KB</strong><br />
+            	
+            	<label>主讲人简介：</label>
+            	<textarea class="form-control" id="introduction2" rows="5" style="width: 50%;" placeholder="主讲人简介（600字以内）" ></textarea><br />
+       
+            	<label>内容概要：</label>
+            	<textarea class="form-control" id="introduction1" rows="5" style="width: 50%;" placeholder="讲座简介（600字以内）"></textarea>
+       
+            	<br />
+            	<br />
+            <button type="button" class="btn btn-primary" style="width: 150px;margin-left: 80px;" onclick="addLecture()">发布新讲座</button>
+            <button type="button" class="btn btn-primary" style="width: 100px;margin-left: 10px;" onclick="myclear()">清空</button>
+            <button type="button" class="btn btn-default active" id="Back2" style="margin-left: 10px;">返回讲座信息管理主页</button>
+  	
+  		</div>
+  		
+  		<!--修改讲座信息页面-->
+  		<div id="ModifyTalk" class="Talk">
+  			<!-- <label for="InputKeyword">讲座关键词：</label>
+    		<input type="text" id="InputKeyword2" placeholder="请输入id号" style="width: 250px;margin-right: 10px;">
+    		<button type="button" class="btn btn-primary btn-sm" onclick="searchLectureById()">搜索</button>
+    		<br /><br /><br />
+    		-->
+  			<table class="table table-bordered" id="lectureMessage2" style="width: 500px;">
+            	<thead>
+            	<tr>
+            		<th style="text-align: center;width: 180px;">讲座信息</th>
+            		<th style="text-align: center;">详情</th>
+            		
+            	</tr>
+            	</thead>
+            	<tbody>
+            	<tr style="display: none;">
+            		<td>讲座id：</td>
+            		<td><input type="text" id="mylid" class="form-control" style="width: 100%;"></td>
+            	
+            	</tr>
+            	<tr>
+            		<td>讲座题目：</td>
+            		<td><input type="text" id="title1" class="form-control" style="width: 100%;"></td>
+            	
+            	</tr>
+            	<tr>
+            		<td>学年：</td>
+            		<td><input type="text" id="xuenian1" class="form-control" style="width: 100%;"></td>
+            		
+            	</tr>
+            	<tr>
+            		<td>举办时间：</td>
+            		<td><input type="text" id="holdTime1" class="form-control" style="width: 100%;" ></td>
+            	
+            	</tr>
+            	
+            	<tr>
+            		<td>地点：</td>
+            		<td><input type="text" id="location1" class="form-control" style="width: 100%;"></td>
+            	
+            	</tr>
+            	<tr>
+            		<td>报告人：</td>
+            		<td><input type="text" id="speaker1" class="form-control" style="width: 100%;"></td>
+            	
+            	</tr>
+            	<tr>
+            		<td>发布人：</td>
+            		<td><input type="text" id="publisher1" class="form-control" style="width: 100%;"></td>
+            	
+            	</tr>
+            	<tr>
+            		<td>讲座报名截止日期：</td>
+            		<td><input type="text" id="deadlineTime1" class="form-control" style="width: 100%;"></td>
+            	
+            	</tr>
+            	
+            	<tr>
+            		<td>报名人数上限：</td>
+            		<td><input type="text" id="limitNumber1" class="form-control" style="width: 100%;"></td>
+            	
+            	</tr>
+            	
+            	<tr>
+            		<td>主讲人简介：</td>
+            		<td><textarea class="form-control" id="introduction3" rows="3" style="width: 100%;" ></textarea></td>
+            	
+            	</tr>
+            	<tr>
+            		<td>具体内容概要：</td>
+            		<td><textarea class="form-control" id="introduction4" rows="3" style="width: 100%;" ></textarea></td>
+            	
+            	</tr>
+            	<tr id="pri" style="display: none;">
+            		<td>讲座优先级：</td>
+            		<td><input type="text" id="priority" class="form-control" style="width: 100%;"></td>
+            	    <td><button type="button" class="btn btn-primary"  onclick="updatePriority()">确定修改</button></td>
+            	</tr>
+            	</tbody>
+           </table>
+            <button type="button" class="btn btn-primary" style="width: 100px;margin-left: 8px;" onclick="updateLecture()">提交修改</button>
+            <button type="button" class="btn btn-primary" style="width: 100px;margin-left: 8px;" onclick="deleteLecture()">删除讲座</button>
+            <button type="button" class="btn btn-primary" style="width: 100px;margin-left: 8px;" onclick="showUpdatePriority()">修改优先级</button>
+            <button type="button" class="btn btn-default active" id="Back6" style="margin-left: 8px;">返回查询讲座页面</button>
+            
+             <!-- 模态框 
+        	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            	<div class="modal-dialog">
+                	<div class="modal-content">
+                    	<div class="modal-header">
+                        	<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times</button>
+                        	<h4 class="modal-title" id="myModalLabel">修改讲座信息</h4>
+                    	</div>
+                    	<div class="modal-body">
+            	        	<p>讲座信息：<input type="text" class="form-control" placeholder="Item input"></p>
+            	        	<br>
+            	        	<p>修改内容：<input type="text" class="form-control" placeholder="Details input"></p>
+            	        </div>
+                    	<div class="modal-footer">
+                        	<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                        	<button type="button" class="btn btn-primary">提交</button>
+                    	</div>
+                	</div> 
+            	</div>
+        	</div>-->       	 
+  		</div> 
+
+      	<!--查看班级学生报名讲座情况 -->
+      	<center>
+      	<div id="SearchStudents" style="margin-top: 50px; display: none;">
+      		<h3>学生报名讲座概况</h3><br />
+      		<!-- <label for="xn"></label>
+    		<input type="text" id="xn" placeholder="请输入学年，例如2018-2019" style="width: 200px;margin-right: 10px;">
+      	 	
+      		<label for="nj"></label>
+    		<input type="text" id="nj" placeholder="请输入年级，例如2018" style="width: 200px;margin-right: 10px;">
+      		
+      		<label for="zy"></label>
+    		<input type="text" id="zy" placeholder="请输入专业，例如ACCA" style="width: 200px;margin-right: 10px;">
+      		
+      		<label for="bj"></label>
+    		<input type="text" id="bj" placeholder="请输入班级，例如3" style="width: 200px;margin-right: 10px;"> !-->
+      		<select id="nj" style="width: 150px; height: 32px;" >     
+	  <option>2015</option>
+	  <option>2016</option>
+	  <option>2017</option>
+	  <option>2018</option>
+	  <option>2019</option>
+	  
+	  
+  </select>    
+  		   <select id="xn" style="width: 150px; height: 32px;"  >  
+	  			<option>2018-2019</option>
+			    <option value="2019-2020">2019-2020</option>
+			    <option value="2020-2021">2020-2021</option>
+			    <option value="2021-2022">2020-2022</option>
+		   </select>
+			<select id="zy" style="width: 150px; height: 32px;" >
+				  <option></option>
+				  <option>ACCA</option>
+				  <option>中法班</option>
+				  <option>会计</option>
+				  <option>卓越会计</option>
+				  <option>国际经济与贸易</option>
+				  <option>信息管理与信息系统</option>
+				  <option>财务管理</option>
+				  <option>人力资源管理</option>
+				  <option>市场营销</option>
+  			</select>
+  
+     <select id="bj" style="width: 150px; height: 32px;" >    	 
+		  <option></option>
+		  <option>1</option>
+		  <option>2</option>
+		  <option>3</option>
+		  <option>4</option>
+		  <option>5</option>
+		  <option>6</option>
+		  <option>7</option>
+		  <option>12</option>
+  </select>  
+
+      		<button type="button" class="btn btn-primary btn-sm" onclick="showStudents()">查询</button>
+      		
+      		<table class="table table-bordered" id="showStudents" style="width: 500px; margin-top: 20px; text-align: center;">
+      			<thead>
+      				<tr>
+      					<th>姓名</th>
+      					<th>学号</th>
+      					<th>性别</th>
+      					<th>报名讲座数</th>
+      					<th>操作</th>
+      				</tr>
+      			</thead>
+      			<tbody></tbody>
+      		</table>
+      		<ul class="pagination" id="page2"></ul>
+      		
+		    <br />
+		    <br />
+		    <button type="button" class="btn btn-default active" id="Back5" style="margin-left: 335px;">返回讲座信息管理主页</button>
+		    
+		    <br />
+      	</div>
+      	<br />
+		    <br />
+      	</center>
+	
+		<!--查看某个学生报名讲座情况 -->
+		<center>
+      	<div id="showStudentLectures" style="margin-top: 50px; display: none;">
+      		<h3>学生报名讲座详情</h3><br />
+      		<table class="table table-bordered" id="showOne" style="width: 700px; margin-top: 20px; text-align: center;">
+      			<thead>
+      				
+      				<tr>
+      					<th>学年</th>
+      					<th>讲座主题</th>
+      					<th>主讲人</th>
+      					<th>开讲时间</th>
+      					<th>举办地点</th>
+      				</tr>
+      			</thead>
+      			<tbody></tbody>
+      		</table>
+      		<button type="button" class="btn btn-default active" id="Back4" style="margin-left: 335px;">返回学生报名讲座概况</button>
+		    
+      		<br />
+		    <br />
+      	</div>
+      	<br />
+	    <br />
+      	</center>
+</body>
+</html>

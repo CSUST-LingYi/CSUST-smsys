@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>科目设置</title>
+    <script src="../js/jquery.min.js"></script>
+    <link href="../css/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <script src="../css/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../js/monitor/MonitorComparison_courseSetting.js" ></script>
+    <style>
+       body{
+       	min-width: 840px;
+       }
+    
+	  	#inav>li>a{
+			color: aliceblue;
+			line-height: 45px;
+		}
+		#inav a:hover{
+			background:none;
+			border: 1px solid transparent;
+		}
+		#inav a:focus{
+			background:none;
+		}
+    	#inav{
+			font-weight: bold;
+    		background: rgba(0,0,0,0.7);
+    		height: 70px;
+    		font-size: 150%;
+			font-family: "微软雅黑","黑体","宋体";
+    	}
+
+	.dropdown-menu > li > a{
+    		display:inline;
+    		line-height:2;
+    		padding:0;
+    	}
+	  </style>
+     </head>
+  <body>
+    <div>
+ <ul class="nav nav-tabs" id="inav" >
+			<li role="presentation">
+				<a href="#"><span class="glyphicon glyphicon-education"></span><span id="bjhead">班级XXXX</span></a>
+			</li>
+			<li role="presentation" class="topright dropdown" style="float: right;">
+				 <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" >
+				 	<span class="glyphicon glyphicon-user">
+				 		 	</span>班级管理<span class="caret">
+				  </span>
+				 </a>
+	 	
+			<ul class="dropdown-menu " style="margin-right: 100px;" >
+				  <li role="presentation" style="text-align: center;">
+				  	<a href="monitorIndex.html">班级学生信息</a>
+				  </li>
+				 <li role="presentation" style="text-align: center;">
+				  	<a href="subjsetting.html">综测科目设置</a>
+				  </li>
+				  <li role="presentation" style="text-align: center;">
+				  	<a href="summary.html">综测成绩汇总</a>
+				  </li>
+			</ul>
+
+			</li>
+			<li role="presentation" class="topright" style="float: right;">
+			<a href="../logout"><span class="glyphicon glyphicon-home"></span>退出登录</a>
+	 		</li>
+	</ul>
+	 	 	<nav class="navbar navbar-default" role="navigation">
+			<div class="container-fluid"> 
+				 <span class="navbar-text">年级：<span id="termYear">2016</span></span>
+			  	&nbsp;&nbsp;&nbsp;&nbsp;
+					<span class="navbar-text">专业：<span id="major">信息管理与信息系统</span></span>
+          &nbsp;&nbsp;&nbsp;&nbsp;
+          <span class="navbar-text">班级：<span id="className">2</span></span>
+          &nbsp;&nbsp;&nbsp;&nbsp;
+					<span class="navbar-text">班长：<span id="monitor">xxx</span></span>
+					&nbsp;&nbsp;&nbsp;&nbsp;
+					<span class="navbar-text">学年:<select id="xuenian"><option>2018-2019</option></select></span>
+					&nbsp;&nbsp;&nbsp;&nbsp;
+				<ul class="nav navbar-nav navbar-right">
+			 		
+				<li><a href="#" target="_blank"><span class="glyphicon glyphicon-info-sign"></span>综测科目设置</a></li> 
+				</ul>
+			</div>
+		</nav>
+ </div>
+	  </div>
+    <div class="subj_setting" style="border: 2px groove black;margin-left:50px; width: 90%;min-height:400px;background: whitesmoke;">
+     <p style="font-weight: bold;font-size: large;margin-left:50px;margin-bottom:20px;margin-top:10px;" class="glyphicon glyphicon-pencil">智育分科目设置</p>
+     <table class="table table-bordered" style="width: 50%;margin-left: 50px;" id="setting">
+     <thead>
+       <tr>
+     		<th>科目</th>
+     		<th>学分</th>
+     		<th>编辑</th>
+     		<th>删除</th>
+     	</tr>	     	
+     </thead>
+     <tbody>
+ 	
+     </tbody>
+     <tfoot>
+     	<tr>
+     		<td></td>
+     		<td></td>
+     		
+     	</tr>
+     	<tr>
+     		<td><input type="text" id="courseName"></td>
+     		<td><input type="number" id="courseScore"></td>
+     		<td><input type="button" value="修改" class="btn btn-info" id="editCourse"></td>
+     		<td><input type="button" value="新增" class="btn btn-primary" id="addCourse"></td>
+     	</tr>
+     </tfoot>
+     </table>
+     
+
+   </div>
+    
+    </body>
+</html>

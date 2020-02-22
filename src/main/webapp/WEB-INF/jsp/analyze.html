@@ -1,0 +1,292 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>学情分析</title>
+		     <script type="text/javascript" src="js/jquery.min.js" ></script>
+		    <script type="text/javascript" src="js/bootstrap.min.js" ></script>
+		     <link href="css/bootstrap.min.css" rel="stylesheet">
+		     <link href="css/analyze.css" rel="stylesheet">
+		     <script type="text/javascript" src="js/echarts.min.js" ></script>
+		     <script type="text/javascript" src="js/analyze.js" ></script>
+
+		  	 
+	</head>
+  
+	<body>
+           <div id="studyAnalyze">
+             	<h4 >学情分析</h4>
+           	<div>
+           		<ul id="myTab" class="nav nav-tabs">
+               <li class="active">
+                <a href="#dota" data-toggle="tab">
+                               成绩分析
+                  </a>
+                </li>
+               <li><a href="#lol" data-toggle="tab">奖励统计</a></li>
+               <li><a href="#major_class" data-toggle="tab">比较分析</a></li>
+                </ul>
+                </div>
+        <div id="myTabContent" class="tab-content">
+          <div class="tab-pane fade in active" id="dota">
+          	  <div align="right"><span id="span_uploadGrade"><a href="#">成绩上传</a></span></div>
+              <div>
+           		
+           		<div align="center" style="margin-top: 5px;">
+           		 <label>学年</label>
+           		 <select id="grade_xuenian">
+           		    <option value ="2017-2018">2017-2018学年</option>
+           			<option value ="2018-2019">2018-2019学年</option>
+           			<option value ="2019-2020">2019-2020学年</option>
+           			<option value ="2020-2021">2020-2021学年</option>
+           			<option value ="2021-2022">2021-2022学年</option>
+           			<option value ="2022-2023">2022-2023学年</option>          			
+           		</select>
+           		
+           		<label>学期</label>
+           		<select id="grade_xueqi">
+           			<option value="第一学期">第一学期</option>
+           			<option value="第二学期">第二学期</option>
+           		</select>
+           		
+           		<label>年级</label>
+           		<select id="grade_ninaji" class="get_class">
+           			<option value="2015">2015</option>
+           			<option value="2016">2016</option>
+           			<option value="2017">2017</option>
+           			<option value="2018">2018</option>
+           			<option value="2019">2019</option>
+           			<option value="2020">2020</option>
+           			<option value="2021">2021</option>
+           		</select>
+           		
+           		 <label>专业</label>
+           		<select id="grade_major" class="get_class">
+           			 	<option value="null">请选择专业</option>
+                        <option value="信息管理与信息系统">信管</option>
+                        <option value="财务管理">财管</option>
+                        <option value="会计">会计</option>
+                        <option value="人力资源管理">人资</option>
+                        <option value="金融">金融</option>
+                        <option value="国际经济与贸易">国贸</option>
+                        <option value="ACCA">ACCA</option>
+                        <option value="卓越会计">卓会</option>
+                        <option value="市场营销">市营</option>
+                      
+                        
+           		</select>
+           		
+           		 <label>班级</label>
+           		<select id="grade_class">
+           			<option value="All">请选择班级</option>
+           		</select>
+           		</div>
+           		 <br />
+           		<div align="center">
+
+          	  <label style="margin-left: 20px;">挂科</label><input type="checkbox" id="grade_fial"/>
+          	   <label>分数段</label><input type="text" style="margin-left: 10px;margin-right: 0px;" id="minGrade" value="0"/>
+          	   <span>分</span>----<input type="text" style="margin-left: 10px;margin-right: 0px;" id="maxGrade" value="100"/><span>分</span>
+          	   <label style="margin-left: 20px;">绩点</label><input type="text" id="minGPA" value="0" style="margin-left: 10px;margin-right: 0px;"/>
+          	   ----<input type="text" style="margin-left: 10px;margin-right: 0px;" id="maxGPA" value="4"/>
+            <button class="btn btn-sm" style="margin-left: 50px;" id="select_grade">查询</button>
+            <br /><br /> <br /><br />
+                <div id="analyzeTable">
+                <span>总计：</span><span id="grade_totle"></span>
+    	<table class="table" >
+    		<thead id="analyzeTable_head" style="display:none">
+    			<tr>
+    		    <th>排名</th>
+    			<th>学号</th>
+    			<th>名字</th>
+    			<th>性别</th>
+    			<th>行政班级</th>
+    			<th>修读课程/环节数</th>
+    			<th>挂科数</th>
+    			<th>修读学分</th>
+    			<th>获得学分</th>
+    			<th>绩点</th>
+    			<th>学分绩点</th>
+    			<th>平均学分绩点</th>
+    			<th>平均成绩</th>    			    			
+    			</tr>
+    		</thead>
+    		<tbody id=analyzeTable_body>
+    			
+    		</tbody>
+    	</table>
+    	
+    </div>  
+            </div>
+          </div>
+       </div>
+     <div class="tab-pane fade" id="lol" style="margin-top: 10px;"align="center">
+          <table>
+          	<tr style="padding: 10px;">
+ 
+          		<td ><label style="margin-left: 20px;">学年</label>
+           		 <select id="jl_xuenian">
+           		  <option value ="2017-2018">2017-2018学年</option>
+           			<option value ="2018-2019">2018-2019学年</option>
+           			<option value ="2019-2020">2019-2020学年</option>
+           			<option value ="2020-2021">2020-2021学年</option>
+           			<option value ="2021-2022">2021-2022学年</option>
+           			<option value ="2022-2023">2022-2023学年</option>          			
+           		</select>
+          		</td>
+          		  	<td> <label>年级</label>
+          		  		<select id="jl_nianji">
+                  		<option value="2015">2015</option>
+           			    <option value="2016">2016</option>
+           			    <option value="2017">2017</option>
+           			    <option value="2018">2018</option>
+           			    <option value="2019">2019</option>
+           			    <option value="2020">2020</option>
+           			    <option value="2021">2021</option>
+                  	</select></td>
+           
+          		<td><button class="btn btn-sm" style="margin-left: 50px;" id="jl_select">查询</button></td>
+          	</tr>
+          
+          </table>
+          <div id="compareAnalyze"></div>
+       </div>
+          <div class="tab-pane fade" id="major_class" align="center">
+          <br>
+          <label>学年</label>
+           		 <select id="compare_xuenian">
+           		  <option value ="2017-2018">2017-2018学年</option>
+           			<option value ="2018-2019">2018-2019学年</option>
+           			<option value ="2019-2020">2019-2020学年</option>
+           			<option value ="2020-2021">2020-2021学年</option>
+           			<option value ="2021-2022">2021-2022学年</option>
+           			<option value ="2022-2023">2022-2023学年</option>          			
+           		</select>
+           		
+           		<label>学期</label>
+           		<select id="compare_xueqi">
+           			<option value="第一学期">第一学期</option>
+           			<option value="第二学期">第二学期</option>
+           		</select>
+           		
+           		<label>年级</label>
+           		<select id="compare_nianji">
+           			<option value="2015">2015</option>
+           			<option value="2016">2016</option>
+           			<option value="2017">2017</option>
+           			<option value="2018">2018</option>
+           			<option value="2019">2019</option>
+           			<option value="2020">2020</option>
+           			<option value="2021">2021</option>
+           		</select>
+           		
+         		 <br /><br />
+          	   <label>分数段</label><input type="text" id="compare_minGrade" style="margin-left: 10px;margin-right: 0px;" value="60"/>
+          	   <span>分</span>----<input type="text" id="compare_maxGrade"  style="margin-left: 10px;margin-right: 0px;" value="100"/><span>分</span>
+          	   <label style="margin-left: 20px;">绩点</label><input type="text" value="2.4" id="compare_minGPA"  style="margin-left: 10px;margin-right: 0px;"/>
+          	   ----<input type="text" id="compare_maxGPA"  style="margin-left: 10px;margin-right: 0px;" value="4" />
+            
+            <button class="btn btn-sm" style="margin-left: 50px;" id="btn_compare">查询</button>
+              <br><br>
+              <div id="cont"></div>      
+                            	
+          </div>
+     </div>
+    
+    </div>
+    <br />
+     <br />
+     	
+           	
+           	
+  
+<div class="modal fade" id="uploadGrade"  data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+             <div class="modal-dialog">
+             <div class="modal-content">
+               <div class="modal-header">
+            <button data-dismiss="modal" class="close" type="button"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+             <h4 class="modal-title">成绩上传</h4>
+            </div>
+            <div class="modal-body">
+            	
+            	<table class="table table-striped table-bordered table-hover  table-condensed">
+            		<tbody>
+                  <tr>
+                  	<td>该成绩属于的年级</td>
+                  	<td><select id="nianji">
+                  		<option value="2015">2015</option>
+           			    <option value="2016">2016</option>
+           			    <option value="2017">2017</option>
+           			    <option value="2018">2018</option>
+           			    <option value="2019">2019</option>
+           			    <option value="2020">2020</option>
+           			    <option value="2021">2021</option>
+                  	</select></td>
+                  </tr>
+                  <tr>
+                  	<td>哪一学年的成绩</td>
+                  	<td><select id="xuenian">
+                  	 <option value ="2017-2018">2017-2018学年</option>
+           			<option value ="2018-2019">2018-2019学年</option>
+           			<option value ="2019-2020">2019-2020学年</option>
+           			<option value ="2020-2021">2020-2021学年</option>
+           			<option value ="2021-2022">2021-2022学年</option>
+           			<option value ="2022-2023">2022-2023学年</option>          			
+           		</select></td>
+                  </tr>
+                     <tr>
+                  	<td>哪一学期的成绩</td>
+                  	<td><select id="xueqi">
+           			<option value ="第一学期">第一学期</option>
+           			<option value ="第二学期">第二学期</option>       			
+           		</select></td>
+                  </tr>
+                  <tr>
+                  	<td>哪一专业的成绩</td>
+                  	<td><select id="major">
+                        <option value="信息管理与信息系统">信管</option>
+                        <option value="财务管理">财管</option>
+                        <option value="会计">会计</option>
+                        <option value="人力资源管理">人资</option>
+                        <option value="金融">金融</option>
+                        <option value="国际经济与贸易">国贸</option>
+                        <option value="ACCA">ACCA</option>
+                        <option value="卓越会计">卓会</option>
+                        <option value="市场营销">市营</option>
+           		</select></td>
+                  </tr>
+                  <tr>
+                  	<td>选择Excel文件</td>
+                  	<td><input type="file" id="studentGradeExcel"/> </td>
+                  </tr>
+              	   <tr>
+              	   	   <td>是否使用成绩上传的Excel模板</td>
+              	   	   <td>是&nbsp;<input type="radio" name="yesORnor" value="yes"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              	   	     	否&nbsp;<input type="radio" name="yesORnor" value="no" checked="checked"/></td>
+              	   </tr>
+                  </tbody>
+                  		
+            	</table>
+            	<div align="center">
+            		<button id="upGradeExcel" class="btn-success">上传</button>
+            		<button class=" btn-info" id="btn_download">模板下载</button>
+            	</div>
+            </div>
+                                  
+          <div class="modal-footer">
+            <button data-dismiss="modal" class="btn btn-default" type="button">关闭</button>
+            
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->	    
+</div>
+<div >
+  <form action="" id="fileForm" method="post"  style="display:none">
+  <input type="text" name="fileName" id="fileName">
+  <button id="download">点击下载文件</button>
+  </form>
+</div>
+	</body>
+
+	
+</html>

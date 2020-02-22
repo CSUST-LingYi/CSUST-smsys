@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>首页</title>
+<script src="./js/jquery.min.js"></script>
+<script src="./js/lecture/homeLecture.js"></script>
+<!--  <script type="text/javascript" src="./js/bootstrap.min.js"></script>-->
+<link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css">
+        <style type="text/css">
+           body{
+           
+           }
+        	.banxin{
+        		width:1000px;
+        		background: none;
+        		margin:0 auto;}
+        	.header{height: 80px;
+        	       background: #0168B5;
+        	       text-align: center;
+                   }
+        	.header img{
+        		 margin: 0 auto;
+        	}       
+        	.nav{height: 50px;background: whitesmoke;}
+        	.banner{height:340px;}
+        	.content{height:650px;}
+        	.main{width:680px;height:600px;float:left;font-size: 22px;font-family: "黑体";font-weight: bold;color:#0168B5;margin-top: -15px;}
+        	.aside{width:300px;height:600px;float:right;}
+        	ul{
+        		list-style-type: none;
+        		margin: 0;
+        		padding: 0;
+        		overflow: hidden;
+        	}
+        	li{
+        		float: left;
+        	}
+        	ul li a{
+        		display: block;
+        		background-color: whitesmoke;
+        		color:#183D75;
+        		height: 50px;
+        		width: 200px;
+        		text-align: center;
+        		font-size: 16px;
+        		padding:12px 0px;
+        		text-decoration: none;
+        	}
+        	ul li a:hover,a:active{
+        		background: white;
+        		text-decoration: none;
+        	}
+        	.talk{
+        		height:150px;
+        		width:680px;
+        		border-bottom:1px solid gainsboro;
+        		float: left;
+        	}
+        	.pic{
+        		height: 185px;
+        		width: 280px;
+        		float:left;
+        	}
+        	.info{
+        		height: 185px;
+        		width: 400px;
+        		font-size: 13px;
+        		font-family: "宋体";
+        		color:grey;
+        		float: right;
+        		font-weight: 600;
+        	}
+        	.info-count{
+        		height: 28px;
+        		width: 140px;
+        		display: block;
+        		background-color: whitesmoke;
+        		text-align: center;
+        		padding:5px 0px;
+        	}
+        	.contact{
+        		height: 110px;
+        		width: 300px;
+        		margin-top: -10px;
+        		padding: 20px 30px;
+        		text-align: center;
+        		display: block;
+        		background-color: whitesmoke;
+        	}
+        	.aside-title{
+        		margin-top: 20px;
+        		font-size: 18px;font-family: "黑体";
+        		border-bottom: 1px solid gainsboro;
+        	}
+        	.past-talk{
+        		width: 300px;
+        		margin-top: 20px;
+        	}
+        	.past-talk p {
+        	  display: -webkit-box;
+        	  overflow : hidden;
+        	  text-overflow: ellipsis;
+        	  -webkit-line-clamp: 2;
+        	  -webkit-box-orient: vertical;
+        	}
+        	.recommended-icon{
+        		height: 18px;
+        		width: 20px;
+        		padding-top: 2px;
+        		display: block;
+        		background-color: cornflowerblue;
+        		text-align: center;
+        		float: left;
+        	}
+        	.footer{
+        		height: 90px;
+        		min-width: 1000px;
+        		background: #2578B0;
+        		margin:10px auto 0;
+        		text-align: center;
+        		padding-top: 20px;
+        		font-size: 12px;
+        		color: whitesmoke;
+        	}
+			#aboutusBox{
+				background-color: white;
+				width: 400px;
+				height:130px;
+				border: 1px solid #b6b6b6;
+				border-radius:2%;
+			}
+			#aboutusBox button{
+				float:right;
+				margin-right: 20px;
+			}
+			#aboutusBox h3{
+				margin-left: 10px;
+			}
+            #aboutusBox p{
+				margin-left: 10px;
+			}
+			.model{
+				position: fixed;
+				width: 100%;
+				height: 100%;
+				top: 0;
+				left: 0;
+
+				z-index: 999;
+				display: none;
+			}
+			.model_popup{
+				width: 452px;
+				background-color: #FFFFFF;
+				border-radius: 8px;
+				text-align: center;
+				padding-bottom: 20px;
+				position: absolute;
+				top: 25%;
+				left: 50%;
+				margin-left: -226px;
+				margin-top: -160px;
+				overflow: hidden;
+			}
+			.model_popup .popup-ts{
+				height: 45px;
+				text-align: center;
+				line-height: 45px;
+				font-size: 16px;
+				color: #333333;
+			}
+			.model_popup .popup-text{
+				padding: 25px 40px 35px;
+				text-align: center;
+				font-size: 16px;
+				color: #333333;
+				border-top: 1px solid #99bafa;
+			}
+			.popup-btn{
+				text-align: center;
+				overflow: hidden;
+			}
+			.sure{
+				text-align: center;
+				display: inline-block;
+				width: 100px;
+				height: 34px;
+				line-height: 34px;
+				background-color: #3475f5;
+				cursor: pointer;
+				font-size: 14px;
+				color: #fff;
+				border-radius: 4px;
+				border: 1px solid transparent;
+				margin: 0;
+			}
+
+
+        </style>
+	</head>
+	<body>
+		
+		<!--头部-->
+		<div class="header">
+			<img src="img/logo17.jpg" height="80" style="margin-left: 60px;" />
+		</div>
+			
+			
+		<!--导航条-->
+		<div class="banxin nav">
+			<ul>
+				<li><a href="indexPage.html">首页</a></li>
+				<li><a href="lectures">讲座</a></li>
+				<li><a href="index" >管理系统</a></li>
+				<li><a href="Alumni">经管校友</a></li>
+				<li><a href="#" id="btn_login">登录</a></li>
+			</ul>
+		</div>
+			
+			
+		<!--焦点图-->
+		<div class="banxin banner">
+			<img src="img/1.jpg" width="1000" height="310"/>
+		</div>
+
+
+		<!--内容-->
+		<div class="banxin content">
+			<!--左边部分-->
+			<div class="main">
+				讲座活动
+				<div style="background:linear-gradient(to left,#efefef,#b6b6b6,#efefef);height:1px;"></div>
+			    <div id="lectureDiv">
+		
+			</div>	
+			
+		</div>
+			
+			
+			<!--右边部分-->
+			<div class="aside">
+				<div class="contact">
+					<p>想在这里发起自己的沙龙活动吗？</p>
+					<button type="button" class="btn btn-primary" id="aboutus">联系我们</button>
+				</div>
+				<div class="aside-title">精品讲座</div>
+				<div class="past-talk" id="topPriority">
+					<div >
+						<h5>
+							<span class="recommended-icon">精</span>
+							<a href="" style="margin-left: 8px;">2018TOP10全球巅峰年会</a>
+						</h5>
+						<a href="">
+							<img src="#" width="300" height="100"/>
+						</a>
+						<p>2018年11月30日-12月3日，由msup主办的第七届全球软件案例研究峰会（以下简...<a href="">[详情]</a></p>
+					</div>
+					<div>
+						
+						<h5>
+							<span class="recommended-icon">精</span>
+							<a href="" style="margin-left: 8px;">2018TOP10全球巅峰年会</a>
+						</h5>
+						<a href="">
+							<img src="#" width="300" height="100"/>
+						</a>
+						<p>2018年11月30日-12月3日，由msup主办的第七届全球软件案例研究峰会（以下简...<a href="">[详情]</a></p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--<div id="aboutusBox">-->
+			<!--<h3>：</h3>-->
+			<!--<p></p>-->
+			<!--<button type="button" class="btn btn-primary" id="">确定</button>-->
+		<!--</div>-->
+
+		<div class="model" id="aboutus_model" style="display: none;">
+
+			<div class="model_popup" style="">
+				<div class="popup-ts">零一团队</div>
+				<div class="popup-text" id="alertContent">QQ群：675160906</div>
+				<div class="popup-btn">
+						<span class="sure alert_sure" id="sure-popup">确定</span>
+				</div>
+			</div>
+		</div>
+		
+		<!--脚部-->
+		<div class="footer">
+			<p>“ 分享·碰撞是一种快速成长的方式 ”</p>
+			<p>- 长沙理工大学 -</p>
+			<p>备案/许可证编号为：湘ICP备19019593号</p>
+		</div>
+		
+		<!--登录的模态框-->
+ <div class="modal" id="loginModal" style="display: none;">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times</button>
+                        <h4 class="modal-title" id="myModalLabel">登录</h4>
+                    </div>
+                    <div class="modal-body" align="center">
+            	       <p>账号：<input id="userName" type="text"></p>
+            	       <p>密码：<input id="password" type="password"></p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default closeModal" data-dismiss="modal"> 关闭</button>
+                        <button type="button" class="btn btn-primary" id="login">登录</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal -->
+        </div>
+	</body>
+</html>

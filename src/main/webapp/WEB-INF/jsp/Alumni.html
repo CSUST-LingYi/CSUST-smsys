@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+			<script src="./js/jquery.min.js"></script>
+			<script src="./js/schoolmate/Alumni.js"></script>
+			<link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css">
+		<title></title>
+	</head>
+	<style>
+	        body{
+	        }
+          	.banxin{width:1000px;background: none;margin:0 auto;}
+        	.header{height: 80px;background: #0168B5;padding-left: 13%;}
+        	.nav{height: 50px;background: whitesmoke;}
+        	.nav ul{
+        		list-style-type: none;
+        		margin: 0;
+        		padding: 0;
+        		overflow: hidden;
+        	}
+        	.nav li{
+        		float: left;
+        	}
+        	.nav ul li a{
+        		display: block;
+        		background-color: whitesmoke;
+        		color:#183D75;
+        		height: 50px;
+        		width: 200px;
+        		text-align: center;
+        		font-size: 16px;
+        		padding:12px 0px;
+        		text-decoration: none;
+        	}
+        	.nav ul li a:hover,a:active{
+        		background: white;
+        		text-decoration: none;
+        	}
+        	.footer{
+        		height: 90px;background: #2578B0;margin:10px auto 0;
+        		text-align: center;
+        		padding-top: 20px;
+        		font-size: 12px;
+        		color: whitesmoke;
+        	}
+	    #AlumniName {width:1000px; 
+	                 min-height:300px;
+	                 margin:10px auto 0;
+	    	          display: block;
+	                 color: #000000;
+	                 font-size: 1.5em;
+	                 text-align: center;
+	                 }
+		#AlumniName li{
+			      list-style-image: url('img/alumniName.png') ;		  			      
+			      padding: 10px;
+			      float: left;
+			      margin: 0 200px;		      
+			}
+		#AlumniName li a{text-decoration: none;		
+		                display: inline-block;position: absolute;
+		                margin-top: -2px;}
+
+	</style>
+	<body>
+			<!--头部-->
+		<div class="header">
+			<img src="img/logo17.jpg" height="80" style="margin-left: 60px;" />
+		</div>
+			
+			
+		<!--导航条-->
+		<div class="banxin nav">
+			<ul>
+				<li><a href="indexPage.html">首页</a></li>
+				<li><a href="lectures">讲座</a></li>
+				<li><a href="index" >管理系统</a></li>
+				<li><a href="Alumni">经管校友</a></li>
+				<li><a href="#" id="btn_login">登录</a></li>
+			</ul>
+		</div>
+			
+			
+		<!--焦点图-->
+		<div class="banxin banner">
+			<img src="img/aa.jpg" width="1000" height="310"/>
+		</div>
+		
+		 <div class="right">
+		 	<div style="width:1000px;margin:10px auto 0; ">
+		       <h3>校友风采&nbsp;>></h3>
+		       <hr>
+		    </div>
+			  <ul id="AlumniName">
+			   	
+			  </ul>	
+		 </div>
+		 <div style="clear:both;"></div>
+				<!--脚部-->
+		<div class="footer">
+			<p>“ 分享·碰撞是一种快速成长的方式 ”</p>
+			<p>- 长沙理工大学 -</p>
+			
+		</div>
+			<div class="modal" id="loginModal" style="display: none;">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times</button>
+							<h4 class="modal-title" id="myModalLabel">登录</h4>
+						</div>
+						<div class="modal-body" align="center">
+							<p>账号：<input id="userName" type="text"></p>
+							<p>密码：<input id="password" type="password"></p>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default closeModal" data-dismiss="modal"> 关闭</button>
+							<button type="button" class="btn btn-primary" id="login">登录</button>
+						</div>
+					</div><!-- /.modal-content -->
+				</div><!-- /.modal -->
+			</div>
+	</body>
+</html>

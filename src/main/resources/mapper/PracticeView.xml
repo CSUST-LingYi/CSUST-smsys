@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="csust.mapper.PracticeViewMapper">
+<select id="getPracticeViewByNianji0" resultType="PracticeView">
+	    select * from view_practice where 
+	             termYear=#{0}
+	          and startTime like concat('%',#{1},'%')	and stuType=#{2}   
+	</select>
+	<select id="getPracticeViewByNianji1" resultType="PracticeView">
+	    select * from view_practice where 
+	             termYear=#{0}
+	           and startTime like concat('%',#{1},'%')	
+	           and type=#{2}	and stuType=#{3}  
+	</select>
+	<select id="getPracticeViewByNianji2" resultType="PracticeView">
+	    select * from view_practice where 
+	             termYear=#{0}
+	         and startTime like concat('%',#{1},'%')	
+             and stuType=#{4}
+	         and type in (#{2},#{3})  
+	</select>
+	
+		<select id="getPracticeViewByMajor0" resultType="PracticeView">
+	    select * from view_practice where 
+	             termYear=#{0}
+	             and    major=#{1}
+	            and startTime like concat('%',#{2},'%')		and stuType=#{3}  
+	</select>
+	<select id="getPracticeViewByMajor1" resultType="PracticeView">
+	    select * from view_practice where 
+	             termYear=#{0}
+	          and   major=#{1}
+	            and startTime like concat('%',#{2},'%')	 
+	           and type=#{3}  	and stuType=#{4}  
+	</select>
+	<select id="getPracticeViewByMajor2" resultType="PracticeView">
+	    select * from view_practice where 
+	             termYear=#{0}
+	          and major=#{1}
+	          and startTime like concat('%',#{2},'%')	
+              and stuType=#{5}
+	          and type in (#{3},#{4})   
+	</select>
+	
+		<select id="getPracticeViewByClass0" resultType="PracticeView">
+	    select * from view_practice where 
+	             termYear=#{0}
+	               and   major=#{1}
+	               and class=#{2}
+	            and startTime like concat('%',#{3},'%')			and stuType=#{4}  
+	</select>
+	<select id="getPracticeViewByClass1" resultType="PracticeView">
+	    select * from view_practice where 
+	             termYear=#{0}
+	          and   major=#{1}
+	          and class=#{2}
+	          and startTime like concat('%',#{3},'%')		
+	           and type=#{4}  	and stuType=#{5}  
+	</select>
+	<select id="getPracticeViewByClass2" resultType="PracticeView">
+	    select * from view_practice where 
+	             termYear=#{0}
+	               and   major=#{1}
+	               and class=#{2}
+	          and startTime like concat('%',#{3},'%')		
+              and stuType=#{6}  
+	          and type in (#{4},#{5})
+	</select>
+
+
+</mapper>

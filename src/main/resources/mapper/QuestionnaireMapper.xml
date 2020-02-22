@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+	<mapper namespace="csust.mapper.QuestionnaireMapper">
+	
+	     <insert id="addQuestionnaire" useGeneratedKeys="true" keyProperty="qnid" parameterType="Questionnaire">	     
+	        insert into questionnaire(uid,questionnaireName,termYear,releaseTime,bz)
+	        values(#{uid},#{questionnaireName},#{termYear},#{releaseTime},#{bz})	        
+	     </insert>
+	
+	    <insert id="addQuestions"  parameterType="java.util.List">
+	       insert into question(qnid,questionName,introduce)
+	       values
+	      <foreach collection="list" item="item" index= "index" separator =",">
+           (
+              #{item.qnid},
+              #{item.questionName},
+              #{item.introduce}
+           )
+         </foreach>
+	    </insert>
+	
+	  <insert id="addAnswers"  parameterType="java.util.List">
+	       insert into answer(qid,answer,studentNo) values
+	       <foreach collection="list" item="item" index= "index" separator=",">
+	         (
+	          #{item.qid},
+	          #{item.answer},
+	          #{item.studentNo}
+	         )
+	       </foreach>
+	    </insert>
+	
+	
+	   <select id="getAnswers"  resultType="Answer">
+	        select id,qid,answer,studentNo from answer where qid=#{arg0}
+	   </select>
+	
+	  <select id="getQuestions" resultType="Question">
+	       select id as qid, questionName from question
+	       where 
+	      qnid=#{arg0}
+	  </select>
+	  
+	   <select id="getQuestionnaireSelf"  resultType="Questionnaire">
+	       select * from questionnaire
+	       where 
+	      id=#{arg0}
+	  </select>
+	
+	  <select id="listQuestionnaires"  parameterType="Questionnaire"  resultType="Questionnaire">
+	      
+	       select q.id as qnid,q.uid,t.userName as uname,q.releaseTime as releaseTime,q.questionnaireName,q.termYear 
+	       from questionnaire q,user t
+	       where q.uid=t.userName  
+	              	<if test="uid!=0">
+	                and q.uid=#{uid} 
+	                </if>
+	               <if test="termYear!=null">
+	                and termYear = #{termYear}
+	               </if> 
+	               <if test="uname!=null">
+	                and t.userName = #{uname}
+	               </if>  
+	               order by releaseTime desc   
+	  </select>
+	
+	  <delete id="deleteQuestionnaire">
+	     delete from questionnaire where id=#{arg0}
+	  </delete>
+	
+	<insert id="addFilledOutStudent" >
+	   insert into filledout(studentNo,qnid) values(#{studentNo},#{qnid})
+	</insert>
+	
+	<select id="listQuestionnaireByStudentNo" resultType="Questionnaire">
+	   select s.termYear,q.id as qnid,q.questionnaireName,t.userName  as uname from questionnaire as q
+            inner join user as t on q.uid=t.userName 
+            inner join student as s on s.termYear = q.termYear 
+            left join filledout as f on f.qnid=q.id
+            where s.studentNo=#{studentNo} and f.studentNo is null
+	</select>
+	
+	</mapper>

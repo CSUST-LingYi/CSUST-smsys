@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>综测审核界面2</title>
+        <script src="http://libs.baidu.com/jquery/1.9.1/jquery.js"></script>
+		<!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" >
+	    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
+<style type="text/css"> 
+a:link,a:visited{ 
+ text-decoration:none;  /*超链接无下划线*/ 
+} 
+a:hover{ 
+ text-decoration:underline;  /*鼠标放上去有下划线*/ 
+} 
+</style> 
+<style type="text/css" mce_bogus="1">/* css document */ body {
+	font: normal 11px auto "trebuchet ms", verdana, arial, helvetica, sans-serif;
+	color: #4f6b72;
+	background: #fffffb;
+}
+a {
+	color: #c75f3e;
+}
+#mytable {
+	width: 700px;
+	padding: 0;
+	margin: 0;
+}
+caption {
+	padding: 0 0 5px 0;
+	width: 1000px;
+	font: italic 11px "trebuchet ms", verdana, arial, helvetica, sans-serif;
+	text-align: right;
+}
+th {
+	font: bold 20px "trebuchet ms", verdana, arial, helvetica, sans-serif;
+	color: #4f6b72;
+	border-right: 1px solid #c1dad7;
+	border-bottom: 1px solid #c1dad7;
+	border-top: 1px solid #c1dad7;
+	letter-spacing: 2px;
+	text-transform: uppercase;
+	text-align: left;
+	padding: 6px 6px 6px 12px;
+	background: #cae8ea url(images/bg_header.jpg) no-repeat;
+}
+td {
+	border-right: 1px solid #c1dad7;
+	border-bottom: 1px solid #c1dad7;
+	background: #fff;
+	font-size:11px;
+	padding: 6px 6px 6px 12px;
+	color: #4f6b72;
+}
+td.alt {
+	background: #f5fafa;
+	color: #797268;
+}
+th.spec {
+	border-left: 1px solid #c1dad7;
+	border-top: 0;
+	background: #fff url(images/bullet1.gif) no-repeat;
+	font: bold 10px "trebuchet ms", verdana, arial, helvetica, sans-serif;
+}
+th.specalt {
+	border-left: 1px solid #c1dad7;
+	border-top: 0;
+	background: #f5fafa url(images/bullet2.gif) no-repeat;
+	font: bold 10px "trebuchet ms", verdana, arial, helvetica, sans-serif;
+	color: #797268;
+} /*-----for ie 5.x bug*/
+html>body td {
+	font-size:11px;
+}</style>
+
+<script type="text/javascript">
+
+  $(function(){
+	  var sno = $("#sno").val();
+	  alert(sno);
+	  
+  })
+</script>
+
+	</head>
+	<body>
+		
+<nav class="navbar navbar-default" role="navigation" style="color: #65c294;">
+	<div class="container-fluid" style="color: #65c294;"> 
+	<div class="navbar-header" style="color: #65c294;">
+		<button type="button" class="navbar-toggle" data-toggle="collapse"
+				data-target="#example-navbar-collapse" >
+			<span class="sr-only">切换导航</span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+		</button>
+		<a class="navbar-brand" href="#"><strong>审核中心</strong></a>
+	</div>
+	<div class="collapse navbar-collapse" id="example-navbar-collapse">
+		<ul class="nav navbar-nav">
+			<li><a href="#">班级审核情况</a></li>
+			<li class="active"><a href="#">个人审核情况</a></li>
+			<li class="dropdown">
+			</li>
+		</ul>
+	</div>
+	</div>
+</nav>		
+		<div style="text-align: center; "><br />
+		<h3><strong>查询:</strong>
+        <input type="text" placeholder="专业班级">
+        <button type="submit" class="btn btn-primary btn-sm">检索</button></h3>
+        </div>
+        <br>        
+        <div>
+                <h4><strong>班级成员：</strong></h4><br>
+        <div class="table-responsive">
+        	<table class="table">
+        		<thead>
+        			<tr scope="col" abbr="configurations">
+        				<th>学号</th>
+        				<th>姓名</th>
+        				<th>智育分</th>
+        				<th>德育分</th>
+        				<th>体育分</th>
+        				<th>挂科课次</th>
+        				<th>综合测评总分</th>
+        				<th>审核状态</th>
+        				<th>审核结果</th>
+        			</tr>
+        		</thead>
+        		<tbody>
+        			<tr>
+        				<th scope="row" abbr="model" class="spec">20174301</th>
+        				<td><a href="#">甲</a></td>
+        				<td>60</td>
+                        <td>20</td>
+                        <td>4.6</td>
+                        <td>0</td>
+                        <td>90</td>
+                        <td>
+                        	已完成
+                        </td>
+                        <td>
+<form>
+	<input type="radio" name="result" value="pass" checked>
+    通过
+
+<br />
+    <input type="radio" name="result" value="no">
+    不通过
+</form>
+                        
+        				</td>
+        			</tr>
+        			<tr>
+        				<th scope="row" abbr="g5 processor" class="specalt">20174302</th>
+        				<td class="alt"><a href="#">乙</a></td>
+        				<td class="alt">60</td>
+                        <td class="alt">20</td>
+                        <td class="alt">4.6</td>
+                        <td class="alt">0</td>
+                        <td class="alt">90</td>
+        				<td class="alt">
+        					已完成
+        				</td>
+		                <td class="alt">
+<form>
+    <input type="radio" name="result" value="pass" >
+    通过
+<br />
+    <input type="radio" name="result" value="no" checked>
+    不通过
+</form>
+		                </td>
+        			</tr> 
+        			<tr>
+        				<th scope="row" abbr="frontside bus" class="spec">20174303</th>
+        				<td><a href="#">乙</a></td>
+        				<td>60</td>
+                        <td>20</td>
+                        <td>4.6</td>
+                        <td>0</td>
+                        <td>90</td>
+        				<td>
+        					待审核
+		                </td>
+		                <td>
+<form>
+    <input type="radio" name="result" value="pass">
+    通过
+<br />
+    <input type="radio" name="result" value="no">
+    不通过
+</form>
+		                </td>
+		                
+        			</tr> 
+        			<tr>
+        				<th scope="row" abbr="l2 cache" class="specalt">20174304</th>
+        				<td class="alt"><a href="#">乙</a></td>
+        				<td class="alt">60</td>
+                        <td class="alt">20</td>
+                        <td class="alt">4.6</td>
+                        <td class="alt">0</td>
+                        <td class="alt">90</td>
+        				<td class="alt">
+        					待审核
+                        <td class="alt">
+<form>
+    <input type="radio" name="result" value="pass">
+    通过
+<br />
+    <input type="radio" name="result" value="no">
+    不通过
+</form>
+         	
+                        </td>
+        				</td>
+        			</tr>
+        			<tr>
+        				<th scope="row" abbr="model" class="spec">20174301</th>
+        				<td><a href="#">甲</a></td>
+        				<td>60</td>
+                        <td>20</td>
+                        <td>4.6</td>
+                        <td>0</td>
+                        <td>90</td>
+                        <td>
+                        	已完成
+                        </td>
+                        <td>
+<form>
+	<input type="radio" name="result" value="pass" checked>
+    通过
+
+<br />
+    <input type="radio" name="result" value="no">
+    不通过
+</form>
+                        
+        				</td>
+        			</tr>
+        			<tr>
+        				<th scope="row" abbr="g5 processor" class="specalt">20174302</th>
+        				<td class="alt"><a href="#">乙</a></td>
+        				<td class="alt">60</td>
+                        <td class="alt">20</td>
+                        <td class="alt">4.6</td>
+                        <td class="alt">0</td>
+                        <td class="alt">90</td>
+        				<td class="alt">
+        					已完成
+        				</td>
+		                <td class="alt">
+<form>
+    <input type="radio" name="result" value="pass" >
+    通过
+<br />
+    <input type="radio" name="result" value="no" checked>
+    不通过
+</form>
+		                </td>
+        			</tr> 
+        			<tr>
+        				<th scope="row" abbr="frontside bus" class="spec">20174303</th>
+        				<td><a href="#">乙</a></td>
+        				<td>60</td>
+                        <td>20</td>
+                        <td>4.6</td>
+                        <td>0</td>
+                        <td>90</td>
+        				<td>
+        					待审核
+		                </td>
+		                <td>
+<form>
+    <input type="radio" name="result" value="pass">
+    通过
+<br />
+    <input type="radio" name="result" value="no">
+    不通过
+</form>
+		                </td>
+		                
+        			</tr> 
+        			<tr>
+        				<th scope="row" abbr="l2 cache" class="specalt">20174304</th>
+        				<td class="alt"><a href="#">乙</a></td>
+        				<td class="alt">60</td>
+                        <td class="alt">20</td>
+                        <td class="alt">4.6</td>
+                        <td class="alt">0</td>
+                        <td class="alt">90</td>
+        				<td class="alt">
+        					待审核
+                        <td class="alt">
+<form>
+    <input type="radio" name="result" value="pass">
+    通过
+<br />
+    <input type="radio" name="result" value="no">
+    不通过
+</form>
+         	
+                        </td>
+        				</td>
+        			</tr>
+        			<tr>
+        				<th scope="row" abbr="model" class="spec">20174301</th>
+        				<td><a href="#">甲</a></td>
+        				<td>60</td>
+                        <td>20</td>
+                        <td>4.6</td>
+                        <td>0</td>
+                        <td>90</td>
+                        <td>
+                        	已完成
+                        </td>
+                        <td>
+<form>
+	<input type="radio" name="result" value="pass" checked>
+    通过
+
+<br />
+    <input type="radio" name="result" value="no">
+    不通过
+</form>
+                        
+        				</td>
+        			</tr>
+        			<tr>
+        				<th scope="row" abbr="g5 processor" class="specalt">20174302</th>
+        				<td class="alt"><a href="#">乙</a></td>
+        				<td class="alt">60</td>
+                        <td class="alt">20</td>
+                        <td class="alt">4.6</td>
+                        <td class="alt">0</td>
+                        <td class="alt">90</td>
+        				<td class="alt">
+        					已完成
+        				</td>
+		                <td class="alt">
+<form>
+    <input type="radio" name="result" value="pass" >
+    通过
+<br />
+    <input type="radio" name="result" value="no" checked>
+    不通过
+</form>
+		                </td>
+        			</tr> 
+        			<tr>
+        				<th scope="row" abbr="frontside bus" class="spec">20174303</th>
+        				<td><a href="#">乙</a></td>
+        				<td>60</td>
+                        <td>20</td>
+                        <td>4.6</td>
+                        <td>0</td>
+                        <td>90</td>
+        				<td>
+        					待审核
+		                </td>
+		                <td>
+<form>
+    <input type="radio" name="result" value="pass">
+    通过
+<br />
+    <input type="radio" name="result" value="no">
+    不通过
+</form>
+		                </td>
+		                
+        			</tr> 
+        			<tr>
+        				<th scope="row" abbr="l2 cache" class="specalt">20174304</th>
+        				<td class="alt"><a href="#">乙</a></td>
+        				<td class="alt">60</td>
+                        <td class="alt">20</td>
+                        <td class="alt">4.6</td>
+                        <td class="alt">0</td>
+                        <td class="alt">90</td>
+        				<td class="alt">
+        					待审核
+                        <td class="alt">
+<form>
+    <input type="radio" name="result" value="pass">
+    通过
+<br />
+    <input type="radio" name="result" value="no">
+    不通过
+</form>
+         	
+                        </td>
+        				</td>
+        			</tr>
+        			<tr>
+        				<th scope="row" abbr="model" class="spec">20174301</th>
+        				<td><a href="#">甲</a></td>
+        				<td>60</td>
+                        <td>20</td>
+                        <td>4.6</td>
+                        <td>0</td>
+                        <td>90</td>
+                        <td>
+                        	已完成
+                        </td>
+                        <td>
+<form>
+	<input type="radio" name="result" value="pass" checked>
+    通过
+
+<br />
+    <input type="radio" name="result" value="no">
+    不通过
+</form>
+                        
+        				</td>
+        			</tr>
+        			<tr>
+        				<th scope="row" abbr="g5 processor" class="specalt">20174302</th>
+        				<td class="alt"><a href="#">乙</a></td>
+        				<td class="alt">60</td>
+                        <td class="alt">20</td>
+                        <td class="alt">4.6</td>
+                        <td class="alt">0</td>
+                        <td class="alt">90</td>
+        				<td class="alt">
+        					已完成
+        				</td>
+		                <td class="alt">
+<form>
+    <input type="radio" name="result" value="pass" >
+    通过
+<br />
+    <input type="radio" name="result" value="no" checked>
+    不通过
+</form>
+		                </td>
+        			</tr> 
+        			<tr>
+        				<th scope="row" abbr="frontside bus" class="spec">20174303</th>
+        				<td><a href="#">乙</a></td>
+        				<td>60</td>
+                        <td>20</td>
+                        <td>4.6</td>
+                        <td>0</td>
+                        <td>90</td>
+        				<td>
+        					待审核
+		                </td>
+		                <td>
+<form>
+    <input type="radio" name="result" value="pass">
+    通过
+<br />
+    <input type="radio" name="result" value="no">
+    不通过
+</form>
+		                </td>
+		                
+        			</tr> 
+        			<tr>
+        				<th scope="row" abbr="l2 cache" class="specalt">20174304</th>
+        				<td class="alt"><a href="#">乙</a></td>
+        				<td class="alt">60</td>
+                        <td class="alt">20</td>
+                        <td class="alt">4.6</td>
+                        <td class="alt">0</td>
+                        <td class="alt">90</td>
+        				<td class="alt">
+        					待审核
+                        <td class="alt">
+<form>
+    <input type="radio" name="result" value="pass">
+    通过
+<br />
+    <input type="radio" name="result" value="no">
+    不通过
+</form>
+         	
+                        </td>
+        				</td>
+        			</tr>
+        			<tr>
+        				<th scope="row" abbr="model" class="spec">20174301</th>
+        				<td><a href="#">甲</a></td>
+        				<td>60</td>
+                        <td>20</td>
+                        <td>4.6</td>
+                        <td>0</td>
+                        <td>90</td>
+                        <td>
+                        	已完成
+                        </td>
+                        <td>
+<form>
+	<input type="radio" name="result" value="pass" checked>
+    通过
+
+<br />
+    <input type="radio" name="result" value="no">
+    不通过
+</form>
+                        
+        				</td>
+        			</tr>
+        			<tr>
+        				<th scope="row" abbr="g5 processor" class="specalt">20174302</th>
+        				<td class="alt"><a href="#">乙</a></td>
+        				<td class="alt">60</td>
+                        <td class="alt">20</td>
+                        <td class="alt">4.6</td>
+                        <td class="alt">0</td>
+                        <td class="alt">90</td>
+        				<td class="alt">
+        					已完成
+        				</td>
+		                <td class="alt">
+<form>
+    <input type="radio" name="result" value="pass" >
+    通过
+<br />
+    <input type="radio" name="result" value="no" checked>
+    不通过
+</form>
+		                </td>
+        			</tr> 
+        			<tr>
+        				<th scope="row" abbr="frontside bus" class="spec">20174303</th>
+        				<td><a href="#">乙</a></td>
+        				<td>60</td>
+                        <td>20</td>
+                        <td>4.6</td>
+                        <td>0</td>
+                        <td>90</td>
+        				<td>
+        					待审核
+		                </td>
+		                <td>
+<form>
+    <input type="radio" name="result" value="pass">
+    通过
+<br />
+    <input type="radio" name="result" value="no">
+    不通过
+</form>
+		                </td>
+		                
+        			</tr> 
+        			<tr>
+        				<th scope="row" abbr="l2 cache" class="specalt">20174304</th>
+        				<td class="alt"><a href="#">乙</a></td>
+        				<td class="alt">60</td>
+                        <td class="alt">20</td>
+                        <td class="alt">4.6</td>
+                        <td class="alt">0</td>
+                        <td class="alt">90</td>
+        				<td class="alt">
+        					待审核
+                        <td class="alt">
+<form>
+    <input type="radio" name="result" value="pass">
+    通过
+<br />
+    <input type="radio" name="result" value="no">
+    不通过
+</form>
+         	
+                        </td>
+        				</td>
+        			</tr>
+        			<tr>
+        				<th scope="row" abbr="model" class="spec">20174301</th>
+        				<td><a href="#">甲</a></td>
+        				<td>60</td>
+                        <td>20</td>
+                        <td>4.6</td>
+                        <td>0</td>
+                        <td>90</td>
+                        <td>
+                        	已完成
+                        </td>
+                        <td>
+<form>
+	<input type="radio" name="result" value="pass" checked>
+    通过
+
+<br />
+    <input type="radio" name="result" value="no">
+    不通过
+</form>
+                        
+        				</td>
+        			</tr>
+        			<tr>
+        				<th scope="row" abbr="g5 processor" class="specalt">20174302</th>
+        				<td class="alt"><a href="#">乙</a></td>
+        				<td class="alt">60</td>
+                        <td class="alt">20</td>
+                        <td class="alt">4.6</td>
+                        <td class="alt">0</td>
+                        <td class="alt">90</td>
+        				<td class="alt">
+        					已完成
+        				</td>
+		                <td class="alt">
+<form>
+    <input type="radio" name="result" value="pass" >
+    通过
+<br />
+    <input type="radio" name="result" value="no" checked>
+    不通过
+</form>
+		                </td>
+        			</tr> 
+        			<tr>
+        				<th scope="row" abbr="frontside bus" class="spec">20174303</th>
+        				<td><a href="#">乙</a></td>
+        				<td>60</td>
+                        <td>20</td>
+                        <td>4.6</td>
+                        <td>0</td>
+                        <td>90</td>
+        				<td>
+        					待审核
+		                </td>
+		                <td>
+<form>
+    <input type="radio" name="result" value="pass">
+    通过
+<br />
+    <input type="radio" name="result" value="no">
+    不通过
+</form>
+		                </td>
+		                
+        			</tr> 
+        			<tr>
+        				<th scope="row" abbr="l2 cache" class="specalt">20174304</th>
+        				<td class="alt"><a href="#">乙</a></td>
+        				<td class="alt">60</td>
+                        <td class="alt">20</td>
+                        <td class="alt">4.6</td>
+                        <td class="alt">0</td>
+                        <td class="alt">90</td>
+        				<td class="alt">
+        					待审核
+                        <td class="alt">
+<form>
+    <input type="radio" name="result" value="pass">
+    通过
+<br />
+    <input type="radio" name="result" value="no">
+    不通过
+</form>
+         	
+                        </td>
+        				</td>
+        			</tr>
+
+        		</tbody>
+        	</table>
+        </div>
+        </form>
+        <br><br>
+        </div>
+        <div style="text-align: center; ">
+        	<button>提交</button>
+        	<br />
+        </div>
+        <br />
+        <br />
+	</body>
+</html>

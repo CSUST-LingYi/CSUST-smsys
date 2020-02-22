@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="csust.mapper.PermissionMapper">
+
+<!-- 通过用户名获取权限集合 -->
+   <select id="listPermissions"  resultType="String">
+      select p.url from permission as p
+      left join user as u on u.userType=p.userType
+      where u.userName=#{userName} 
+   </select>
+<!-- 通过用户名获取用户类型 -->
+   <select id="listRoleNames"  resultType="String">
+     select userType from user where userName=#{userName}
+   </select>
+<!-- 判断某个url是否需要拦截 -->   
+   <select id="needInterceptor" resultType="boolean">
+       <![CDATA[ select count(id) from permission where url=#{url} ]]>
+      </select>
+   
+<!-- 增加monitor信息 --> 
+    <insert id="addMonitor" parameterType="BasicInfo">
+       insert into monitor(studentNo,studentName,nianji,major,className,bz)
+       values(#{studentNo},#{studentName},#{termYear},#{major},#{className},#{bz})
+    </insert> 
+    
+<!-- 删除monitor信息 -->           
+     <delete id="deleteMonitor">
+     delete from monitor where studentNo=#{studentNo}
+     </delete>
+     
+<!-- 查询monitor信息 -->      
+     <select id="getMonitor" resultType="BasicInfo">
+       select studentNo,studentName,nianji as termYear,major,
+        className,bz
+       from monitor where nianji=#{termYear}
+       <if test="major!='mj'">
+        and major=#{major}
+       </if>
+     </select>
+<!-- 修改monitor信息 -->
+     <update id="updateMonitor" parameterType="BasicInfo">
+       update monitor set studentName=#{studentName},
+                          nianji=#{termYear},
+                          major=#{major},
+                          className=#{className},
+                          bz=#{bz}
+        where studentNo=#{studentNo}
+     </update>   
+</mapper>

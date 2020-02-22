@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>优秀校友信息</title>
+		<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">  
+  		<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+  		<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	</head>
+	<style>
+		body{
+			min-width: 120px;
+		}
+		.header{height: 80px;
+        	       background: #0168B5;
+        	       text-align: center;
+                   }
+        	.header img{
+        		 margin: 0 auto;
+        	}
+        .excellent{
+        	display: none;
+        	width: 60%;
+        	position: absolute;
+        	margin-top: 30px;
+        	margin-left: 25%;
+        }
+        .message{      	
+        	margin-top: 30px;
+        	margin-left: 10%;
+        }
+        .row{
+        	font-weight: 800;
+        	margin-right: 0;
+        }
+        .img-responsive{
+          float: left;
+          clear: right;
+          width: 300px;
+        }
+        .myimg{
+        	margin-top: 45px;
+        	width: 100%;
+        }
+        .introduce{
+        	/*float: right;*/
+        	margin-left: 20px;
+        	margin-right: 120px;
+        	font-size: 80%;
+        	
+        }
+        
+        .table table-hover{
+        	width: 100%;
+        	margin: 20px;
+        }
+        pre{
+        	border: 0px;
+        	font-size: 1.5em;
+        	width: 800px;
+        	white-space: pre-wrap;    
+        	  white-space: -moz-pre-wrap; 
+        	  white-space: -pre-wrap;    
+        	 white-space: -o-pre-wrap;   word-wrap: break-word;  
+        }
+        a:link{text-decoration: none;}
+        a{color: black;}
+        body{
+        	background-color: #F7F7F7;
+        	font: "微软雅黑";
+        	font-size: 16px;
+        }
+	</style>
+	
+	<body>
+		<!--头部-->
+		<div class="header">
+			<img src="img/logo17.jpg" height="80" style="margin-left: 60px;" />
+		</div>
+		
+		<!--显示所有优秀校友 -->
+		<div class="excellent">
+			<center><h3>优秀校友信息</h3></center>
+			<table class="table table-hover" id="allExcellents">
+				<tbody>
+				<tr>
+					<td><a href="#""> <span class="glyphicon glyphicon-star-empty"></span>小黑:什么是经管人的骄傲</a></td>
+					<td>time</td>
+				</tr>
+				<tr>
+					<td> <span class="glyphicon glyphicon-star-empty"></span>小黑</td>
+					<td>time</td>
+				</tr>
+				<tr>
+					<td><span class="glyphicon glyphicon-star-empty"></span>小黑</td>
+					<td>time</td>
+				</tr>
+				<tr>
+					<td><a href="#""> <span class="glyphicon glyphicon-star-empty"></span>小黑:什么是经管人的骄傲</a></td>
+					<td>time</td>
+				</tr>
+				<tr>
+					<td><a href="#""> <span class="glyphicon glyphicon-star-empty"></span>小黑:什么是经管人的骄傲</a></td>
+					<td>time</td>
+				</tr>
+				</tbody>
+			</table>
+			<center>
+			<ul class="pagination">
+				<li><a>上一页</a></li>
+				<li><a>1</a></li>
+				<li><a>2</a></li>
+				<li><a>下一页</a></li>
+			</ul>
+			</center>
+		</div>
+		<!--展示优秀校友的具体信息-->
+		<div class="message">
+		<div class="page-header">
+		    <h1><span id="name">丁永泉</span>
+		        <small>简介</small>
+		    </h1>
+		</div>
+			<div class="row">				
+				<div class="col-xs-8 brief">
+					<pre>
+
+丁永泉，男，出生于1963年12月,EMBA学历,高级会计师，我校80级财4班校友。
+					</pre>
+				</div>
+				<div class="col-xs-3">
+					<div class="img-responsive">
+						<img src="img/schoolmate/15307603472.png" class="myimg"/>
+					</div>
+				</div>
+			</div>
+			
+			<div class="page-header">
+			    <h1>
+			        <small>工作经历</small>
+			    </h1>
+			</div>
+			<div class="introduce">				
+				<pre> 
+丁永泉先生自2009年2月至2012年1月,任中国水利水电建设集团公司(中国水利水电建设股份有限公司)资金管理部主任;
+2012年1月至今,任中国水利水电建设股份有限公司党委常委、总会计师。
+2014年2月至2015年3月，任中国电力建设股份有限公司总经理助理；
+2015年3月至今，任中国电力建设股份有限公司董事会秘书。
+			</pre>
+			</div>
+		</div>
+		<!--新增优秀校友信息-->
+		<div>
+			<table class="table table-hover">
+				
+			</table>
+		</div>
+		<!--修改优秀校友信息-->
+	</body>
+</html>

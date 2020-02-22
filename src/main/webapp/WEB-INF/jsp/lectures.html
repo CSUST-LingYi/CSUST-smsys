@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>讲座</title>
+		<meta charset="UTF-8">
+		<title>主页</title>
+<script src="./js/jquery.min.js"></script>
+<script src="./js/lecture/lectures.js"></script>
+<link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css">
+<script type="text/javascript" src="./js/bootstrap.min.js"></script>
+        <style type="text/css">
+        	.banxin{width:1000px;background: none;margin:0 auto;}
+        	.header{height: 80px;background: #0168B5;padding-left: 13%;}
+        	.nav{height: 50px;background: whitesmoke;}
+        	.content{min-height:650px;}
+        	.main{width:680px;
+        	      min-height:600px;
+        	      float:left;}
+        	.aside{width:300px;height:600px;float:right;}
+        	.nav ul{
+        		list-style-type: none;
+        		margin: 0;
+        		padding: 0;
+        		overflow: hidden;
+        	}
+        	.nav li{
+        		float: left;
+        	}
+        	.nav ul li a{
+        		display: block;
+        		background-color: whitesmoke;
+        		color:#183D75;
+        		height: 50px;
+        		width: 200px;
+        		text-align: center;
+        		font-size: 16px;
+        		padding:12px 0px;
+        		text-decoration: none;
+        	}
+        	.nav ul li a:hover,a:active{
+        		background: white;
+        		text-decoration: none;
+        	}
+        	.talk{
+        		height:150px;
+        		width:680px;
+        		border-bottom:1px solid gainsboro;
+        		float: left;
+        	}
+        	.pic{
+        		height: 185px;
+        		width: 280px;
+        		float:left;
+        	}
+        	.info{
+        		height: 185px;
+        		width: 400px;
+        		font-size: 12px;
+        		font-family: "微软雅黑";
+        		color:grey;
+        		float: right;
+        	}
+        	.turnpage{
+        	   text-align: center;
+        	}
+        	.footer{
+        		height: 90px;background: #2578B0;margin:10px auto 0;
+        		text-align: center;
+        		padding-top: 20px;
+        		font-size: 12px;
+        		color: whitesmoke;
+        	}
+       	
+        	.search{
+        		border: 1px solid gainsboro;
+        		width: 300px;
+        		height: 170px;
+        		margin-top: 20px;
+        	}
+        	.search-control{
+        		height: 30px;
+        		width: 210px;
+        		border-radius: 4px;
+        		margin-left: 40px;
+        	}
+        	.introduce{
+        	  display: -webkit-box;
+        	  overflow : hidden;
+        	  text-overflow: ellipsis;
+        	  -webkit-line-clamp: 4;
+        	  -webkit-box-orient: vertical;
+        	}
+        </style>
+	</head>
+	<body>
+		<!--头部-->
+		<div class="header">
+			<img src="img/logo17.jpg" height="80" style="margin-left: 60px;" />
+		</div>
+			
+			
+		<!--导航条-->
+		<div class="banxin nav">
+			<ul>
+				<li><a href="indexPage.html">首页</a></li>
+				<li><a href="lectures">讲座</a></li>
+				<li><a href="index" >管理系统</a></li>
+				<li><a href="Alumni">经管校友</a></li>
+				<li><a href="#" id="btn_login">登录</a></li>
+			</ul>
+		</div>
+		
+		<!--内容-->
+		<div class="banxin content">
+			<!--左侧部分-->
+			<div class="main" id="lectureDiv" >
+
+
+			</div>
+			
+			<!--右侧部分-->
+			<div class="aside">
+				<div class="search">
+					<p style="margin: 25px 0 10px 25px;">搜索感兴趣的讲座：</p>
+					<input type="text" id="InputKeyword" class="search-control" placeholder="主题/主讲人">
+					<br />
+					<button type="button" onclick="searchByKeyWord()" class="btn btn-primary btn-sm" style="float: right;margin:10px 50px 0 0;">搜索</button>
+				</div>
+			</div>
+		</div>
+		
+		<div style="clear:both;"></div>
+		
+		<!--翻页-->
+		<div>
+		   <div class="turnpage" id="turnpage">
+			<ul>
+
+			</ul>
+			
+		  </div>
+		</div>
+		
+	
+		
+		<!--脚部-->
+		<div class="footer">
+			<p>“ 分享·碰撞是一种快速成长的方式 ”</p>
+			<p>- 长沙理工大学 -</p>
+		</div>
+		
+		<!--登录的模态框-->
+ <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times</button>
+                        <h4 class="modal-title" id="myModalLabel">登录</h4>
+                    </div>
+                    <div class="modal-body" align="center">
+            	       <p>账号：<input id="userName" type="text"></p>
+            	       <p>密码：<input id="password" type="password"></p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                        <button type="button" class="btn btn-primary" id="login">登录</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal -->
+        </div>
+	</body>
+
+</html>

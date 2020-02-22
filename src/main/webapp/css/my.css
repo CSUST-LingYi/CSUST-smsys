@@ -1,0 +1,131 @@
+.selection{
+	margin-top: 60px;
+	margin-bottom: 30px;
+	padding:5px;
+	padding-bottom: 2px;
+}
+#MoreOption{
+	width:80%;
+	margin-top: 10px;
+	padding: 0px;
+	margin-right: 5px;
+}
+.options-btn{
+	margin-left: 50%;
+	margin-right: 0px;
+}
+
+.ListStyle .list-group-item{
+	padding: 0px;
+	margin:0px;
+	font-size: 15px;
+}
+.list-group-item{
+	padding-left: 9px;
+}
+.listheader{
+	font-size: 18px;
+	margin:7px;
+}
+
+
+.form-group-search{
+	margin-right: 15px;
+	display: inline;
+}
+
+.group-header{
+	margin:9px;
+	margin-left: 27px;
+}
+
+.group-body{
+	margin-right: 0px;
+	margin-top: 2px;
+}
+
+.group-header{
+	width:20%;
+	vertical-align:center;
+}
+
+
+
+.panel-in-leadingin{
+	width: 80%;
+	height: 736px; 
+	position: relative;
+	left: 5%;
+}
+.set-in-title{
+	margin-top: 40px;
+	position: relative;
+	right: 10%;
+}
+
+.page-wrapper{
+	padding: 30px 15px 0 15px;
+    min-height: 1000px;
+    background-color: #fff;
+}
+.personPage{
+	cursor: pointer;
+}
+
+@media(min-width:768px) {
+    .page-wrapper {
+        position: inherit;
+        margin-left: 250px;
+        padding: 30px 30px 0 30px;
+        border-left: 1px solid #e7e7e7;
+    }    
+}
+
+@media(max-width:1100px){
+	.set-in-title{
+    	margin-top: 40px;
+    	position: relative;
+		left: -20%;
+    }
+    .panel-in-leadingin{
+    	position: relative;
+    	width: 80%;
+    }
+}
+@media(max-width: 700px){
+	.set-in-title{
+    	margin-top: 20px;
+    	margin-bottom: 20px;
+    	position: relative;
+    	left: 10%;
+    }
+}
+.form-getin{
+	font-size: 15px;
+	margin-left: 8%;
+}
+.formline{
+	padding:0px;
+	margin-bottom: 12px;
+}
+.form-group-line{
+	margin-right: 10px;
+}
+
+/*淇℃伅褰曞叆鐨勬柊鏍囬鏍�*/
+.headtitle{
+	padding:0px;
+	margin: 0px;
+}
+.headtitle-btn{
+	padding: 0px;
+	margin-top: 40px;
+}
+
+/*闈㈡澘鏂拌缃�*/
+.panel-getin{
+	font-size: 15px;
+}
+#file-upload{
+	margin: 0px;
+}

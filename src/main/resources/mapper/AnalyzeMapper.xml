@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="csust.mapper.AnalyzeMapper">
+<select id="getPunishCount" resultType="Double" >
+  select count(*) from punish where studentNo=#{0}
+</select>
+
+<select id="getAwardCount" resultType="Double" >
+  select count(*) from jl where studentNo=#{0}
+</select>
+
+<select id="getSkillCount" resultType="Double" >
+  select count(*) from skill where studentNo=#{0}
+</select>
+
+<select id="getActiveCount" resultType="Double" >
+  select count(*) from practice where studentNo=#{0} and type="校外"
+</select>
+
+<select id="getSchoolCount" resultType="Double" >
+  select count(*) from practice where studentNo=#{0} and type="校内"
+</select>
+
+<select id="getAvgCPA" resultType="Double" >
+  select AVG(avgCPA) from grade  where studentNo=#{0}
+</select>
+
+<select id="listFileName"  resultType="FileName" >
+  select fileName from file where stuType=#{0}
+</select>
+
+<select id="getFileName"  resultType="FileName" >
+  select fileName from file where fileName=#{0} and stuType=#{1}
+</select>
+
+<insert id="addFilleName">
+ insert into file values(#{0},#{1})
+</insert>
+
+<delete id="deleteFileName">
+  delete from file where fileName=#{0} and stuType=#{1}
+</delete>
+
+<insert id="addStudentGrade" parameterType="StudentGrade">
+    insert into studentgrade(ranking,studentNo,studentName,sex,xuenian,xueqi,nianji,major,class,courseCount,fail,credit,getCredit,GPA,creditGPA,avgCreditGPA,avgGrade)
+    values(#{ranking},#{studentNo},#{studentName},#{sex},#{xuenian},#{xueqi},#{nianji},#{major},#{className},#{courseCount},#{fail},#{credit},#{getCredit},
+    #{GPA},#{creditGPA},#{avgCreditGPA},#{avgGrade})
+</insert>
+
+<select id="getClassName" resultType="String">
+   select distinct class from studentgrade where nianji=#{0} and major=#{1} 
+</select>
+
+<select id="getRewardByXuenianAndMajor" resultType="view_count_reward">
+   select distinct xuenian,nianji,major,level,name,adviser,sponsor from view_count_reward
+  where  xuenian=#{0} and nianji=#{1} and major=#{2} and level=#{3} and stuType=#{4}
+</select>
+
+
+<select id="selectStudentGrade" parameterType="StudentGrade" resultType="StudentGrade">
+  select distinct ranking,studentNo,studentName,sex,xuenian,xueqi,nianji,major,class,courseCount,fail,credit,getCredit,GPA,creditGPA,avgCreditGPA,avgGrade from studentgrade
+  <where>
+       <if test="xuenian!=null">
+       and xuenian=#{xuenian}
+     </if>
+     <if test="xueqi!=null">
+       and xueqi=#{xueqi}
+     </if>
+     <if test="nianji!=null">
+       and nianji=#{nianji}
+     </if>
+     <if test="major!=null">
+       and major=#{major}
+     </if>
+     <if test="className!=null">
+       and class =#{className}
+     </if>
+     <if test="fail==1">
+       and fail>0
+     </if>
+     <if test="minGrade!=null">
+       and avgGrade between #{minGrade} and #{maxGrade}
+     </if>
+     <if test="minGPA!=null">
+       and avgCreditGPA between #{minGPA} and #{maxGPA} order by  avgCreditGPA desc
+     </if>
+    </where>
+</select>
+
+
+<select id="getFails"  resultType="Integer">
+select count(*) from studentgrade where xuenian=#{0} and xueqi=#{1} and nianji=#{2} and major=#{3} and fail>0;
+</select>
+</mapper>

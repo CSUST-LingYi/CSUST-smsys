@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>讲座信息</title>
+<script src="../js/jquery.min.js"></script>
+<link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
+
+
+        <style type="text/css">
+        	body{
+        		background: snow;
+        	}
+        	header{
+	            height:70px;
+                font-weight: bold;
+                background:rgba(0,0,0,0.7);
+                font-size:150%;
+                font-family: "微软雅黑","黑体","宋体";
+                padding-top: 2px;
+                list-style: none;
+                }
+            header ul{
+            	margin: 0px;
+            	padding-top: 13px;
+            }
+            header ul li{
+            	display:inline;
+            	color: white;
+            	font-weight: bold;
+            }
+            header ul li a{
+            	color:white;
+            	line-height: 40px;
+            }
+            header ul li a:hover{
+            	background:none;
+            	border-bottom: 3px red;
+            	color:cornflowerblue;
+            }
+            header ul li a:focus{
+            	background:none;
+            }
+ 
+            #showAllTalk{
+            	margin:100px 50px;
+            }
+
+        </style>
+	</head>
+	<body>
+		<!--导航条-->
+		<span>
+			<header>
+			    <ul>
+				    <li>讲座信息管理</li>
+				    <li style="float:right;margin-right:30px;"><a href="../b">返回主页</a></li>
+			    </ul>
+		   </header>
+		</span>
+		
+		<!--显示多个讲座信息页面-->
+		<div id="showAllTalk" class="other-interface" align="center">
+			<table id="allTalk" class="table" data-toggle="table" align="center" border="1px">
+				<thead>
+					<th width="50px">学年</th>
+					<th width="50px">讲座主题</th>
+					<th width="50px">举办时间</th>
+					<th width="50px">举办地点</th>
+					<th width="50px">主讲人</th>
+					<th width="50px">操作</th>
+				</thead>
+
+				<tbody id="table_node">
+					<tr class="tr_node">
+
+					</tr>
+				</tbody>
+			</table>
+		
+			<button class="btn btn-primary btn-sm" onclick="history.back()">回到主页</button>
+			
+		</div>
+		
+	</body>
+	<script>
+	function check() {
+		$.ajax({
+			type: "get",
+			url: "../lecture/gerLecturesBySno",
+			async: false,
+			success: function(data) {
+				console.log(data);
+				var table = $('#table_node').empty();
+				console.log(data.length);
+				for(var index in data) {
+					console.log(data[index].id);
+					var rowTr = document.createElement('tr');
+					rowTr.className = "tr_node";
+					var child = 
+						"<td>" + data[index].xuenian + "</td>" +
+						"<td>" + data[index].title + "</td>" +
+						
+						"<td>" + data[index].holdTime + "</td>" +
+						"<td>" + data[index].location + "</td>" +
+						"<td>" + data[index].speaker + "</td>" +
+						"<td><a href='javascript:;' onclick='cancelSignUp(" + data[index].id + ")'>取消报名</a>";
+					rowTr.innerHTML = child;
+					$('#table_node').append(rowTr);
+				}
+			},
+			error: function() {
+				alert("获取失败");
+			}
+		});
+	}
+	//取消报名讲座
+	function cancelSignUp(id) {
+		//	var id = document.getElementById('singleID').innerHTML;
+		if(id == null || id == '')
+			return;
+		$.ajax({
+			type: "post",
+			url: "../lecture/deleteRegistration",
+			async: true,
+			data: {
+				"id": id
+			},
+			success: function(data) {
+				alert(data);
+				check();
+			},
+			error: function() {
+				alert("取消失败，请检查网络和是否不在报名之列");
+			}
+		});
+	}
+	$(function(){
+		check();
+	})
+	</script>
+</html>

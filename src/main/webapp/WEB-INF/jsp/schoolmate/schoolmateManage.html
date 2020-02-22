@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>校友信息查询</title>
+		<link rel="stylesheet" type="text/css" href="../css/schoolmate/caidan.css" />
+		<link rel="stylesheet" type="text/css" href="../css/schoolmate/content.css"/>
+	
+   		 <script src="../js/jquery.min.js"></script>
+         <link href="../css/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+         <script src="../css/bootstrap/js/bootstrap.min.js"></script>
+		<script src="../js/schoolmate/main.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/schoolmate/schoolmate.js"  type="text/javascript" charset="utf-8"></script>
+	<style>
+		.header{height: 80px;
+        	       background: #0168B5;
+        	       text-align: center;
+                   }
+        	.header img{
+        		 margin: 0 auto;
+        	}
+       
+	</style>
+	</head>
+
+	<body>
+		
+				<!--头部-->
+		<div class="header">
+			<img src="../img/logo17.jpg" height="80" style="margin-left: 60px;" />
+		</div>
+		<!--
+        	侧方菜单
+        -->
+		<div class="box" style="z-index:200 ;" >
+			<div class="change-type">
+				<div class="type-left" :class="showType == true ? 'showListType':''">
+					<ul>
+						<li class="active"><a href="schoolmateManage.html">校友信息查询</a><span></span></li>
+						<li><a href="data_show.html">统计数据</a><span></span></li>
+						<li><a href="../teacher/comparisonAnalyze">学情分析</a><span></span></li>
+						<li> <a  href="../a">返回教师主页</a><span></span></li>
+						<li><a href="../logout">退出登录</a><span></span></li>
+					</ul>
+				</div>
+				<div class="type-right" id="showMenuBox" style="opacity: 0.8;">
+					<p>
+						<i class="el-icon-menu"></i>
+						<span class="glyphicon glyphicon-chevron-right" id="showMenu"></span>
+					</p>
+				</div>
+			</div>
+		</div>
+
+		<!--
+        	查询
+        -->
+   <div class="all">
+    <div class="title">校友信息查询</div>
+    <div class="content">
+        <!--搜索输入框及查询、重置按钮-->
+        <div class="container search_box">
+            <div class="person_search">
+                <div class="search_input">
+                    <div class="input-group col-lg-12">
+                        <span>专业：</span>
+                      
+                         <select id="major" type="text" class="form-control">
+                         	<option value=""></option>
+                         	
+                         </select>
+                     </div>
+                </div>
+                <div class="search_input">
+                    <div class="input-group col-lg-12" >
+                        <span>工作地区：</span>
+                        
+						<select id="area" type="text" class="form-control">
+                         	<option value=""></option>
+                         	
+                         </select>
+				      </div>
+                </div>
+                <div class="search_input">
+                    <div class="input-group col-lg-12" >
+                        <span>毕业年份：</span>
+                        <select id="graduationYear" type="text" class="form-control">
+                         	<option value=""></option>
+                         	
+                         </select>
+                        	<!--后台数据导入
+                            -->
+                        
+                        
+                    </div>
+                </div>
+                
+             
+                <div class="search_input">
+                    <button class="btn btn-primary search_btn" type="button" id="search_btn">按条件查询</button>
+                   
+                </div>
+            </div>
+            <div class="person_search">
+            	<div class="search_input">
+                    <div class="input-group col-lg-12" >
+                        <span>关键字：</span>
+                        <input id="keyword" type="text" class="form-control" placeholder="请输入姓名等关键字" >                       	
+				      </div>
+				     
+            	</div>    
+            	<div class="search_input">
+                    <button class="btn btn-primary search_btn" type="button" id="search_key_btn">关键字查询</button>
+               
+            	</div>
+            </div>
+            <div class="line"></div>
+        </div>
+		<!--
+        	添加按钮
+        -->
+        <div class="export">
+            <button id="new_add" type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#add">
+                
+                <span><span class="glyphicon glyphicon-plus-sign" ></span>&nbsp;添加</span>
+            </button>
+            <!--
+            	添加信息模态框
+            -->
+            <div class="modal fade" id="add">
+                <div class="modal-dialog modal-lg modal_position">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">添加</h4>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <table id="addInfo" class="table">
+                                
+                                <tbody>
+                                <tr>
+                                    <td class="tb_bg"><label for="">姓名</label>
+                                    </td>
+                                    <td><input id="addUserName" type="text" placeholder="请输入姓名" class="add"/></td>
+                                 
+                                 	<td class="tb_bg"><label for="">专业</label></td>
+                                    <td><input type="text" placeholder="请输入专业" id="addMajor" class="add"/></td>
+                                    
+                                </tr>
+                                <tr>
+                                	
+                                    <td class="tb_bg"><label for="">年级</label></td>
+                                	<td>
+                                       <input id="addTerm" type="text" placeholder="请输入年级" class="add" />
+                                    </td>
+                                    
+                                    <td class="tb_bg"><label for="">毕业年份</label>
+                                    </td>
+                                    <td><input id="addYear" type="text" placeholder="请输入毕业年份" class="add"/></td>
+                                    
+                                </tr>
+                              
+                                <tr>
+                                	<td class="tb_bg"><label for="">工作地区</label></td>
+                                    <td>
+                                        <input id="addArea" type="text" placeholder="请输入工作地区" class="add"/>
+                                    </td>
+                                    <td class="tb_bg"><label for="">工作单位</label></td>
+                                    <td>
+                                        <input id="addCompany" type="text" placeholder="请输入工作单位" class="add"/>
+                                    </td>
+                                    
+                                </tr><tr>
+                                	
+                                    <td class="tb_bg"><label for="">职位名称</label></td>
+                                    <td>
+                                        <input id="addJob" type="text" placeholder="请输入职位名称" class="add"/>
+                                    </td>
+                                  
+                                	<td class="tb_bg"><label for="">校友会职务</label></td>
+                                    <td>
+                                       <input id="addA-position" type="tel" placeholder="请输入校友会职务" class="add"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                	<td class="tb_bg"><label for="">所属的校友会</label></td>
+                                    <td>
+                                       <input id="addAumni" type="tel" placeholder="请输入所属的校友会" class="add"/>
+                                    </td>
+                                	<td class="tb_bg"><label for="">手机</label></td>
+                                    <td>
+                                       <input id="addPhoneNum" type="tel" placeholder="请输入手机号" class="add"/>
+                                    </td>
+                                	
+                                </tr>
+                                <tr>
+                                	<td class="tb_bg"><label for="">微信</label></td>
+                                    <td>
+                                       <input id="addWechatId" type="tel" placeholder="请输入微信号" class="add"/>
+                                    </td>
+                                    <td class="tb_bg"><label for="">email</label></td>
+                                    <td>
+                                       <input id="addEmail" type="tel" placeholder="请输入邮箱" class="add"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                	<td class="tb_bg"><label for="">QQ</label></td>
+                                    <td>
+                                       <input id="addQQ" type="tel" placeholder="请输入QQ号" class="add"/>
+                                    </td>
+                                    <td class="tb_bg"><label for="">备注</label></td>
+                                	<td>
+                                       <input id="extra" type="text" placeholder="备注信息" class="add" />
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                            <button id="add_btn" type="button" class="btn btn-secondary" id="save" onclick="Add()">确定</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+           <!--
+            	编辑信息模态框
+            -->
+            <div class="modal fade" id="myeditModal">
+                <div class="modal-dialog modal-lg modal_position">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">修改</h4>
+                            <button type="button" class="close" data-dismiss="modal" id="closeBtn">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <table id="editInfo" class="table">
+                                
+                                <tbody>
+                                 <tr>
+                                 	<td class="tb_bg" id="lid" style="display: none;">
+                                    </td>
+                                    <td class="tb_bg"><label for="">姓名</label>
+                                    </td>
+                                    <td><input id="editUserName" type="text" placeholder="请输入姓名" class="add"/></td>
+                                    
+                                    <td class="tb_bg"><label for="">专业</label></td>
+                                    <td><input type="text" placeholder="请输入专业" id="editMajor" class="add"/></td>
+                                    
+                                 </tr>
+                                <tr>
+                                	
+                                    <td class="tb_bg"><label for="">年级</label></td>
+                                	<td>
+                                       <input id="editTerm" type="text" placeholder="请输入年级" class="add" />
+                                    </td>
+                                    <td class="tb_bg"><label for="">毕业年份</label>
+                                    </td>
+                                    <td><input id="editYear" type="text" placeholder="请输入毕业年份" class="add"/></td>
+
+                                </tr>
+                               
+                                <tr>
+                                	<td class="tb_bg"><label for="">工作地区</label></td>
+                                    <td>
+                                        <input id="editArea" type="text" placeholder="请输入工作地区" class="add"/>
+                                    </td>
+                                    <td class="tb_bg"><label for="">工作单位</label></td>
+                                    <td>
+                                        <input id="editCompany" type="text" placeholder="请输入工作单位" class="add"/>
+                                    </td>
+                                    
+                                </tr><tr>
+                                	
+                                    <td class="tb_bg"><label for="">职位名称</label></td>
+                                    <td>
+                                        <input id="editJob" type="text" placeholder="请输入职位名称" class="add"/>
+                                    </td>
+                                    <td class="tb_bg"><label for="">校友会职务</label></td>
+                                    <td>
+                                       <input id="editA-position" type="tel" placeholder="请输入校友会职务" class="add"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                	<td class="tb_bg"><label for="">所属的校友会</label></td>
+                                    <td>
+                                       <input id="editAumni" type="tel" placeholder="请输入所属的校友会" class="add"/>
+                                    </td>
+                                	<td class="tb_bg"><label for="">手机</label></td>
+                                    <td>
+                                       <input id="editPhoneNum" type="tel" placeholder="请输入手机号" class="add"/>
+                                    </td>
+                                	
+                                </tr>
+                                <tr>
+                                	<td class="tb_bg"><label for="">微信</label></td>
+                                    <td>
+                                       <input id="editWechatId" type="tel" placeholder="请输入微信号" class="add"/>
+                                    </td>
+                                    <td class="tb_bg"><label for="">email</label></td>
+                                    <td>
+                                       <input id="editEmail" type="tel" placeholder="请输入邮箱" class="add"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                	<td class="tb_bg"><label for="">QQ</label></td>
+                                    <td>
+                                       <input id="editQQ" type="tel" placeholder="请输入QQ号" class="add"/>
+                                    </td>
+                                    <td class="tb_bg"><label for="">备注</label></td>
+                                	<td>
+                                       <input id="editextra" type="text" placeholder="备注信息" class="add" />
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeEdit">关闭</button>
+                            <button id="add_btn" type="button" class="btn btn-secondary" id="editButton" onclick="Update()">确定</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--表格列表-->
+        <div class="table-responsive">
+        <table id="tb" class="table table-hover">
+            <thead>
+            <tr>
+                <th>姓名</th>
+                
+                <th>专业</th>
+                <th>所属年级</th>
+                <th>毕业年份</th>
+                <th>所属的校友会</th>
+                <th>校友会职位</th>
+                <th>工作地区</th>
+                <th>工作单位</th>
+               
+                <th>职位名称</th>
+                <th>手机号</th>
+                <th>邮箱</th>
+                <th>微信</th>
+                <th>QQ</th>
+                <th>备注</th>
+                
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody id="show_tbody">
+            <tr>
+           
+            </tbody>
+        </table>
+        <center><ul class="pagination" id="page"></ul></center>
+        </div>
+    </div>
+</div>
+
+
+	</body>
+
+</html>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>查看消息</title>
+<script src="../js/jquery.min.js"></script>
+<style>
+#feedbackArea{
+	word-break:break-all; 
+	white-space: pre-wrap;
+}
+	h3{
+		text-align:center;
+	}
+	table{
+		margin: 0 auto;
+		text-align:center;
+	}
+</style>
+</head>
+<body>
+	<h3>学习部返回的审核修改意见，请班长认真核对并修改德育分扣分情况，并通知学生本人修改相应的德育分加分情况</h3>
+	<table border=1 cellspacing="1" cellpadding="0px" width="100%">
+		<tr>
+			<th style="width:120px;">学号</th>
+			<th style="width:100px;">姓名</th>
+			<th>德育分扣分修改</th>
+			<th>德育分加分修改</th>
+			<th>状态</th>
+		</tr>
+		<tbody id="feedbackArea">
+			<tr>
+				<td class="stuNo">201788888888</td>
+				<td>小明明</td>
+				<td>扣分扣分扣分扣分扣分扣分扣分扣分扣分扣分扣分扣分扣分扣分扣分扣分扣分
+				扣分扣分扣分扣分扣分扣分扣分扣分扣分扣分扣分扣分扣分扣分扣分扣分扣分</td>
+				<td>加分加分加分加分加分加分加分加分加分加分加分加分加分加分加分加分加分
+				加分加分加分加分加分加分加分加分加分加分加分加分加分加分加分加分加分</td>
+				<td><input type="button" value="设为已读" class='readStatus' data-status='1'></td>
+			</tr>	
+		</tbody>
+		
+	</table>
+	
+	<script>
+		var thisURL = document.URL;
+		var monitorNo = ((thisURL.split("?")[1]).split("="))[1];
+		//console.log(monitorNo);
+		
+		$(function(){
+			$.ajax({
+				type:"post",
+				url:"../monitor/getFeedback",
+				data:{
+					"monitorNo":monitorNo
+				},
+				dataType:"json",
+				success:function(fb){
+					//console.log(fb);
+					for(var i = 0;i<fb.length;i++){
+						var $tr = $("<tr></tr>");
+						var stuNo = fb[i].studentNo;
+						var stuName = fb[i].studentName;
+						var p_moral = fb[i].p_moral;
+						var d_moral = fb[i].d_moral;
+						var isRead = parseInt(fb[i].read);
+						$tr.html(`<td class='stuNo'>${stuNo}</td>
+								  <td>${stuName}</td>
+								  <td>${d_moral}</td>
+								  <td>${p_moral}</td>`);
+						if(isRead==0){
+							$tr.append("<td><input type='button' value='设为已读' class='readStatus' data-status='1'></td>")
+						}else{
+							$tr.append("<td><input type='button' value='设为未读' class='readStatus' data-status='0'></td>")
+						}
+						$('#feedbackArea').append($tr);
+					}
+				},
+				error:function(){
+					alert('Error3:查询出错,请重试');
+				}
+			})
+			
+			$('body').on('click','.readStatus',function(e){									
+				var studentNo = $(this).parent().parent().children('.stuNo').text();
+				var isRead = parseInt($(this).attr('data-status'));
+				$.ajax({
+					type:"post",
+					url:"../public/updateFeedbackStatus",
+					data:{
+						"studentNo":studentNo,
+						"isRead":isRead
+					},
+					success:(data)=>{
+						if(isRead==1){							
+							$(this).val('设为未读');
+							//console.log($(this));
+						}else{
+							$(this).val('设为已读');
+						}						
+					},
+					error:function(){
+						alert("Error4:发生未知错误，请刷新后重试");
+					}
+				})
+			})
+		})
+	</script>
+</body>
+</html>

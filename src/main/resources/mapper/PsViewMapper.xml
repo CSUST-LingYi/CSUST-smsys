@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="csust.mapper.PsViewMapper">
+<select id="getPsViewByNianji0" resultType="PsStudentView">
+	    select * from view_pstudent where 
+	             termYear=#{0}	   and stuType=#{1}
+	</select>
+	<select id="getPsViewByNianji1" resultType="PsStudentView">
+	    select * from view_pstudent where 
+	             termYear=#{0}
+	           and type =#{1}	   and stuType=#{2}
+	</select>
+	<select id="getPsViewByNianji2" resultType="PsStudentView">
+	    select * from view_pstudent where 
+	             termYear=#{0}
+             and stuType=#{3}
+	         and type in (#{1},#{2})
+	</select>
+	
+		<select id="getPsViewByMajor0" resultType="PsStudentView">
+	    select * from view_pstudent where 
+	             termYear=#{0}
+	         and    major=#{1}	   and stuType=#{2}
+	</select>
+	<select id="getPsViewByMajor1" resultType="PsStudentView">
+	    select * from view_pstudent where 
+	             termYear=#{0}
+	          and   major=#{1}
+	           and type =#{2}	   and stuType=#{3}
+	</select>
+	<select id="getPsViewByMajor2" resultType="PsStudentView">
+	    select * from view_pstudent where 
+	             termYear=#{0}
+	          and major=#{1}
+              and stuType=#{4}
+	          and type in (#{2},#{3})
+	</select>
+	
+		<select id="getPsViewByClass0" resultType="PsStudentView">
+	    select * from view_pstudent where 
+	             termYear=#{0}
+	               and   major=#{1}
+	               and class=#{2}	   and stuType=#{3}
+	</select>
+	<select id="getPsViewByClass1" resultType="PsStudentView">
+	    select * from view_pstudent where 
+	             termYear=#{0}
+	          and   major=#{1}
+	          and class=#{2}	
+	           and  type =#{3}	   and stuType=#{4}
+	</select>
+	<select id="getPsViewByClass2" resultType="PsStudentView">
+	    select * from view_pstudent where 
+	             termYear=#{0}
+	               and   major=#{1}
+	               and class=#{2}	
+                   and stuType=#{5}
+	               and type in (#{3},#{4})
+	</select>
+
+
+</mapper>

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="http://libs.baidu.com/jquery/1.9.1/jquery.js"></script>
+		<!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" >
+	<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
+	</head>
+	
+	<style>
+		td span{
+			margin-left: 10px;
+			color: red;
+			font-size: smaller;
+		}
+	</style>
+	<script>
+	var searchStr = location.search;
+	
+	searchStr = searchStr.substr(1);
+	
+	//alert(searchStr);
+	   
+	  $.ajax({
+	         url:"getQuestionnare",
+	         type:"get",
+	         data:{"qnid":searchStr},
+	         dataType:"json",
+	         success:function(data){
+	        	 
+	        	 if(data.length==0){
+	        		  alert(data);
+	        		 var body = $("body");
+	        		     body.html("  ");
+	        		 alert("您访问的链接不存在，请确定链接正确");
+	        	//	 window.location.href="csust";
+	        	 }else{
+		        	 var table =$("#questionTable");
+	        	     table.html(" ");
+	        	 
+	        	     for(var i=0;i<data.length;i++){
+	        	    	 var tr = $("<tr></tr>");
+	        	    	     tr.html("<td>"+data[i].questionName+"</td><td><input type='text' class='form-control'></td><td>备注</td>");
+                         table.append(tr);	        	     
+	        	     }	 
+	        	 }
+	        	 
+	        	    
+	         }
+	     })
+	
+	</script>
+	<body>
+      
+          <div>
+          	  <div class="head">
+          	  	      <h3 class="bg-primary">>>>>信息填写</h3>
+          	  </div>
+          	   <br /><br />
+          	  <div align="center">
+          	  	     <h4>对本次信息填写的说明 </h4>
+          	  	     <div  style="max-width: 600px;">
+          	  	     	<pre>
+               有关于学习的名言警句：
+                学如逆水行舟，不进则退。——《增广贤文》
+                学而不思则罔，思而不学则殆 。——孔子《论语》 [2]  
+　　        学习知识要善于思考，思考，再思考。——爱因斯坦
+               学而不用则废，用而不学则滞；学用必须结合，二者缺一不可。——周海中　
+               我们一定要给自己提出这样的任务：第一，学习，第二是学习，第三还是学习。 ——列宁
+               在寻求真理的长河中，唯有学习，不断地学习，勤奋地学习，有创造性地学习，才能越重山跨峻岭。——华罗庚
+          	  	     	</pre>
+          	  	     	
+          	  	     </div>
+          	  </div>
+          	  <div class="body" >
+          	  	       <table class="table-hover table">
+          	  	       	   <thead>
+          	  	              <tr>
+          	  	       	      	<th>问题</th>
+          	  	       	      	<th>填写</th>
+          	  	       	      	<th>备注</th>
+          	  	       	      </tr>
+          	  	       	   </thead>
+          	  	       	   <tbody id="questionTable">
+          	  	       	   	 <tr>
+          	  	       	   	 	<td>
+          	  	       	   	 		这是一个问题1这是一个问题1
+          	  	       	   	 	</td>
+          	  	       	   	 	<td>
+          	  	       	   	 		<input type="text"  class="input-group  form-control"/>
+          	  	       	   	 	</td>
+          	  	       	   	 	<td>
+          	  	       	   	 		<span>
+          	  	       	   	 			这是一个备注这是一个备注
+          	  	       	   	 		</span>
+          	  	       	   	 	</td>
+          	  	       	   	 </tr>
+          	  	       	   	 <tr>
+          	  	       	   	 	<td>
+          	  	       	   	 		问题2
+          	  	       	   	 	</td>
+          	  	       	   	 	<td>
+          	  	       	   	 		<input type="text"  class="input-group  form-control"/>
+          	  	       	   	 	</td>
+          	  	       	   	 	<td>
+          	  	       	   	 		<span>这是一个备注</span>
+          	  	       	   	 	</td>
+          	  	       	   	 </tr>
+          	  	       	   	 <tr>
+          	  	       	   	 	<td>
+          	  	       	   	 		问题3
+          	  	       	   	 	</td>
+          	  	       	   	 	<td>
+          	  	       	   	 		<input type="text"  class="input-group  form-control"/>
+          	  	       	   	 	</td>
+          	  	       	   	 	<td>
+          	  	       	   	 		<span>这是一个备注</span>
+          	  	       	   	 	</td>
+          	  	       	   	 </tr>
+          	  	       	   	 <tr>
+          	  	       	   	 	<td>
+          	  	       	   	 		问题4
+          	  	       	   	 	</td>
+          	  	       	   	 	<td>
+          	  	       	   	 		<input type="text"  class="input-group  form-control"/>
+          	  	       	   	 	</td>
+          	  	       	   	 	<td>
+          	  	       	   	 		<span>这是一个备注</span>
+          	  	       	   	 	</td>
+          	  	       	   	 </tr>
+          	  	       	   	 <tr>
+          	  	       	   	 	<td>
+          	  	       	   	 		问题5
+          	  	       	   	 	</td>
+          	  	       	   	 	<td>
+          	  	       	   	 		<input type="text"  class="input-group  form-control"/>
+          	  	       	   	 	</td>
+          	  	       	   	 	<td>
+          	  	       	   	 		<span>这是一个备注</span>
+          	  	       	   	 	</td>
+          	  	       	   	 </tr>
+          	  	       	   	
+          	  	       	   </tbody>
+
+          	  	       </table>
+          	  </div>
+          </div>
+		
+	</body>
+</html>

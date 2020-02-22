@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+	<mapper namespace="csust.mapper.UserMapper">
+	   
+<!--按用户类型查询  -->	  
+	  <select id="listUser" resultType="User">
+	    select userName,password ,userType from user
+	    where userType=#{userType}
+	  </select>
+	  
+<!--按账号，密码，用户类型查询   -->	 	  
+	  <select id="getUser" resultType="User">
+	   select userName,password ,userType from user
+	   where userName=#{userName}
+	     and password = #{password}
+	  </select>
+	  
+<!--新增用户  -->	 	 
+     <insert id="addUser" parameterType="User">
+       insert into user(userName,password,userType)
+         values(#{userName},#{password},#{userType})
+     </insert> 
+     
+<!--修改用户密码  -->
+	 <update id="updatePassword">
+	    update user set password=#{password}
+	     where userName=#{userName}
+	 </update>
+	 
+<!--通过账号查询用户  -->	
+     <select id="getUserByName" resultType="User">
+       select userName,password,userType from user
+	   where userName=#{userName}
+     </select>   
+     
+<!--通过用户名删除一个用户  -->	
+    <delete id="deleteUser">
+     delete from user where userName=#{userName}
+    </delete>      
+    
+ <!--更改用户类型 -->	
+    <update id="changeUserType">
+     update user set userType=#{userType} where userName=#{userName}
+    </update>  
+	</mapper>

@@ -1,0 +1,106 @@
+<!doctype html>
+  <head>
+  	<meta charset="utf-8">
+  <title>综测成绩排名</title>
+   			 <script src="../js/jquery.min.js"></script>
+         <link href="../css/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+         <script src="../css/bootstrap/js/bootstrap.min.js"></script>
+	     <link rel="stylesheet" href="../css/mycss1.css" />
+	     <script src="../js/studyDept/mysort.js"></script>
+	<style>
+        ul {list-style-type: none; margin: 0; padding: 0;
+		            overflow: hidden; background-color:rgba(0,0,0,0.7);}
+		li {float: left;}
+		li a{display: block; color: white; text-align: center;
+		             padding: 20px  30px; text-decoration: none;}
+		li a:hover:not(.action){background-color:grey;}
+		.active {background-color: gray;}
+        </style>
+
+  </head>
+ <body   bgcolor = "E8E8FF">
+
+        <ul>
+			<li style="color: whitesmoke; font-family: '微软雅黑'; margin-top: 0px;"> <a   href="#"  onclick="window.location.reload()">综测排名</a></li>
+			<li style="float:right;  margin-top: 0px;"> <a   href="study-home.html">返回主页</a></li>
+		</ul>
+		
+        <br /><br />
+  <div  style="text-align: center;" >
+	
+     <select id="nianji" style="width: 150px; height: 32px;" >     
+	  <option>2015</option>
+	  <option>2016</option>
+	  <option>2017</option>
+	  <option>2018</option>
+	  <option>2019</option>
+	  
+	  
+  </select>    
+     <select id="xuenian" style="width: 150px; height: 32px;"  >  
+	  <option>2018-2019</option>	  
+  </select>    
+    <select id="major" style="width: 150px; height: 32px;" >     
+	  <option></option>
+	                        <option value="信息管理与信息系统">信息管理与信息系统</option>
+                        <option value="财务管理">财务管理</option>
+                        <option value="会计">会计</option>
+                        <option value="人力资源管理">人力资源管理</option>
+                        <option value="金融">金融</option>
+                        <option value="国际经济与贸易">国际经济与贸易</option>
+                        <option value="ACCA">ACCA</option>
+                        <option value="卓越会计">卓越会计</option>
+                        <option value="市场营销">市场营销</option>
+  </select>    
+  
+     <select id="classNo" style="width: 150px; height: 32px;" >     
+	  <option></option> 
+                                                     <option value="1">1</option>
+                                                     <option value="2">2</option>
+                                                     <option value="3">3</option>
+                                                     <option value="4">4</option>
+                                                     <option value="5">5</option>
+                                                     <option value="6">6</option>
+                                                     <option value="7">7</option>
+                                                     <option value="10">会计金融双学位班</option>
+                                                     <option value="11">卓越会计师班</option>
+                                                     <option value="12">中法班</option>
+	  
+  </select>  
+  <script>
+  	var pa;
+  	if(document.getElementById("major").value=="") pa=50;
+    else  pa=10;
+  </script>
+<button  class="btn btn-primary" onclick="search(pn,pa)">提交</button>
+<button  class="btn btn-primary" onclick="exportExcel()">导出excel</button>
+   </div>
+   <br /> <br />
+			<div  align="center"><font size="5" color="#777777">总分排名</font></div><br />
+		<table id="all" class="table table-bordered table-striped" border="1px"  align="center">
+			<thead style="text-align: center">
+				<th>学号</th>
+				<th>姓名</th>
+				<th>性别</th>
+				<th>智育分</th>
+				<th>德育分</th>
+				<th>体育分</th>
+				<th>扣分</th>
+				<th>挂科数</th>
+				<th>总分</th>
+				<th>备注</th>
+				<th>排名</th>
+				
+			</thead>
+			<tbody align="center">					</tbody>
+		</table>
+		<center>	
+      <ul class="pagination" id="p">  </ul>   
+    </center>
+
+ <form id="exportExcel" action="../monitor/exportComparisonExcel" method="post" style="display:none">
+       <input type="text" name="xuenian" id="f_xuenian">
+       <input type="text" name="nianji" id="f_nianji">     
+</form>
+ </body>
+</html>

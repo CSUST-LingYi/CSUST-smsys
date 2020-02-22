@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="csust.mapper.JLViewMapper">
+	
+	<select id="getJLByNianji0" resultType="JLView">
+	    select * from view_jl where 
+	             termYear=#{0}
+	          and getTime like concat('%',#{1},'%')	 and stuType=#{2}  
+	</select>
+	<select id="getJLByNianji1" resultType="JLView">
+	    select * from view_jl where 
+	             termYear=#{0}
+	           and getTime like concat('%',#{1},'%')	
+	           and JLlevel=#{2}  and stuType=#{3}
+	</select>
+	<select id="getJLByNianji2" resultType="JLView">
+	    select * from view_jl where 
+	             termYear=#{0}
+	         and getTime like concat('%',#{1},'%')	
+             and stuType=#{4}
+	         and JLlevel in (#{2},#{3})
+	</select>
+	<select id="getJLByNianji3" resultType="JLView">
+	    select * from view_jl   
+	             where termYear=#{0}
+	               and getTime like concat('%',#{1},'%')		  		      	   		     
+                   and stuType=#{5}
+	               and JLlevel in (#{2},#{3},#{4})
+	</select>
+	
+		<select id="getJLByMajor0" resultType="JLView">
+	    select * from view_jl where 
+	             termYear=#{0}
+	       and      major=#{1}
+	               and getTime like concat('%',#{2},'%') and stuType=#{3}	
+	</select>
+	<select id="getJLByMajor1" resultType="JLView">
+	    select * from view_jl where 
+	             termYear=#{0}
+	            and major=#{1}
+	            and getTime like concat('%',#{2},'%')	 
+	           and JLlevel=#{3}   and stuType=#{4}
+	</select>
+	<select id="getJLByMajor2" resultType="JLView">
+	    select * from view_jl where 
+	             termYear=#{0}
+	          and   major=#{1}
+	            and getTime like concat('%',#{2},'%')	
+              and stuType=#{5}
+	          and JLlevel in (#{3},#{4})
+	</select>
+	<select id="getJLByMajor3" resultType="JLView">
+	    select * from view_jl   
+	             where termYear=#{0}
+	          and   major=#{1}
+	          and getTime like concat('%',#{2},'%')			      	   		     
+              and stuType=#{6}
+	          and JLlevel in (#{3},#{4},#{5})
+	</select>
+	
+		<select id="getJLByClass0" resultType="JLView">
+	    select * from view_skill where 
+	             termYear=#{0}
+	               and   major=#{1}
+	               and class=#{2}
+	            and getTime like concat('%',#{3},'%')  and stuType=#{4}		
+	</select>
+	<select id="getJLByClass1" resultType="JLView">
+	    select * from view_skill where 
+	             termYear=#{0}
+	          and   major=#{1}
+	          and class=#{2}
+	          and getTime like concat('%',#{3},'%')		
+	           and JLlevel=#{4}   and stuType=#{5}
+	</select>
+	<select id="getJLByClass2" resultType="JLView">
+	    select * from view_jl where 
+	             termYear=#{0}
+	               and   major=#{1}
+	               and class=#{2}
+	          and getTime like concat('%',#{3},'%')		
+              and stuType=#{6}
+	          and JLlevel in (#{4},#{5})
+	</select>
+	<select id="getJLByClass3" resultType="JLView">
+	    select * from view_jl   
+	             where termYear=#{0}
+	               and   major=#{1}
+	            and class=#{2}
+	          and getTime like concat('%',#{3},'%')			      	   		     
+              and stuType=#{7}
+	          and JLlevel in (#{4},#{5},#{6})
+	</select>
+	
+	<select id="listRewardinfo"  resultType="Rewardinfo">
+	  select rewardId,rewardTime,rewardName,rewardLevel,sponsor,termOrindividual from rewardinfo where stuType=#{0}
+	</select>
+	
+	<select id="getRewardinfo" parameterType="Rewardinfo"   resultType="Rewardinfo">
+	  select distinct rewardId,rewardTime,rewardName,rewardLevel,sponsor,termOrindividual from rewardinfo
+	  <where>
+	        <if test="rewardTime!=null">
+	            and rewardTime like concat('%',#{rewardTime},'%') and stuType=#{stuType}
+	        </if>
+	        <if test="rewardLevel!=null">
+	             and rewardLevel=#{rewardLevel}
+	        </if>
+	          <if test="rewardName!=null">
+	             and rewardName=#{rewardName}
+	        </if>
+	          <if test="termOrindividual!=null">
+	             and termOrindividual=#{termOrindividual}
+	        </if>
+	        
+	  </where>
+	</select>
+	
+	<insert id="addRewardinfo" parameterType="Rewardinfo">
+	 insert into rewardinfo(rewardTime,rewardName,rewardLevel,sponsor,termOrindividual,stuType) values(#{rewardTime},#{rewardName},#{rewardLevel},#{sponsor},#{termOrindividual},#{stuType})
+	</insert>
+</mapper>

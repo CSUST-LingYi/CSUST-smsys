@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>综测审核</title>
+    <script src="../js/jquery.min.js"></script>
+    <link href="../css/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <script src="../js/bootstrap.min.js"></script>
+ 
+    <script type="text/javascript" src="../js/monitor/MonitorComparison_personDetails.js" ></script>
+    <style>
+		body{
+			background-color:rgba(116,116,116,0.2);
+		}
+	  #inav>li>a{
+			color: aliceblue;
+			line-height: 45px;
+		}
+		#inav a:hover{
+			background:none;		
+			border: 1px solid transparent;
+		}
+		#inav a:focus{
+			background:none;
+		}
+    	#inav{
+			font-weight: bold;
+    		background: rgba(0,0,0,0.7);
+    		height: 70px;
+    		font-size: 150%;
+			font-family: "微软雅黑","黑体","宋体";
+    	}
+		.caption{
+			height: 280px;
+		}
+		tr>th,tr>td{
+			text-align: center;
+		}
+		.thumbnail:hover{
+			box-shadow: 10px 10px rgba(0,0,0,0.6);
+		}
+		div#deductionList span{
+		   margin:10px;
+		}
+		 .prizePicture{
+				height:200px;
+				width:300px;
+            }
+        .dropdown-menu > li > a{
+    		display:inline;
+    		line-height:2;
+    		padding:0;
+    	}
+	  </style>
+	</head>
+	<body>
+<!--横向导航-->
+<div>
+ <ul class="nav nav-tabs" id="inav" >
+			<li role="presentation">
+				<a href="#"><span class="glyphicon glyphicon-education"></span><span id="bjhead">班级XXXX</span></a>
+			</li>
+			<li role="presentation" class="topright dropdown" style="float: right;">
+				 <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" >
+				 	<span class="glyphicon glyphicon-user">
+				 		 	</span>班级管理<span class="caret">
+				  </span>
+				 </a>
+	 	
+			<ul class="dropdown-menu " style="margin-right: 100px;" >
+				  <li role="presentation" style="text-align: center;">
+				  	<a href="monitorIndex.html">班级学生信息</a>
+				  </li>
+				 <li role="presentation" style="text-align: center;">
+				  	<a href="subjsetting.html">综测科目设置</a>
+				  </li>
+				  <li role="presentation" style="text-align: center;">
+				  	<a href="summary.html">综测成绩汇总</a>
+				  </li>
+			</ul>
+
+			</li>
+			<li role="presentation" class="topright" style="float: right;">
+			 <a href="../logout"><span class="glyphicon glyphicon-home"></span>退出登录</a>
+	 		</li>
+	</ul>
+	 	 	<nav class="navbar navbar-default" role="navigation">
+			<div class="container-fluid"> 
+				 <span class="navbar-text">年级：<span id="termYear">2016</span></span>
+			  	&nbsp;&nbsp;&nbsp;&nbsp;
+					<span class="navbar-text">专业：<span id="major">信息管理与信息系统</span></span>
+          &nbsp;&nbsp;&nbsp;&nbsp;
+          <span class="navbar-text">班级：<span id="className">2</span></span>
+          &nbsp;&nbsp;&nbsp;&nbsp;
+					<span class="navbar-text">班长：<span id="monitor">xxx</span></span>
+					&nbsp;&nbsp;&nbsp;&nbsp;
+					<span class="navbar-text">学年:<select id="xuenian"><option>2018-2019</option></select></span>
+					&nbsp;&nbsp;&nbsp;&nbsp;
+				<ul class="nav navbar-nav navbar-right">
+			 		
+				<li><a href="#" target="_blank"><span class="glyphicon glyphicon-info-sign"></span>全班学生信息</a></li> 
+				</ul>
+			</div>
+		</nav>
+ </div>
+<!--综测审核内容-->
+ <div class="tab-pane" id="zcsh">
+    <input  type="hidden" id="studentNo">
+  	<form action="">
+  		<div class="table-responsive">
+  			<table class="table table-hover" id="personSummaryTable">
+	    			<caption>本班综测初步审核
+	    			<a href="monitorIndex.html" id="reback"><span class="glyphicon glyphicon-backward" >返回上一层</span></a>
+	    			
+	    			</caption>
+	    			<thead>
+	    			 <tr>
+			        <th>学号</th>
+			        <th>姓名</th>
+			        <th>智育分</th>
+			        <th>德育分</th>
+			        <th>体育分</th>
+			        <th>扣分</th>
+			        <th>挂科数</th>
+			        <th>总分</th>
+			        <th>备注</th>
+			        <th>操作</th>
+			        <th>状态</th>
+			      </tr>
+	    			</thead>
+			    	<tbody>
+		      	
+			      	<tr>
+				        <td>000000000000</td>
+				        <td>XXX</td>
+				        <td>XX</td>
+				      	<td>xx</td>
+				      	<td>xx</td>
+				      	<td><a href="#" target="_blank">查看</a></td>
+				      	<td>XX</td>
+				      	<td><input type="button" class="btn btn-warning btn-xs" id="fixed" value="确认审核"><input type="button" class="btn  btn-xs btn-danger" id="return" value="恢复修改" onClick="return_confirm()"></td>
+				      	<td><span class="label label-warning" id="state">未审核</span></td>
+			      	</tr>
+			      	
+			      	
+			    	</tbody>
+  			</table>
+		</div>
+	 </form>
+		</div>
+		
+  	<!--明细分-->		
+  	<div class="container">
+	  <div class="row">
+		<div class="col-sm-6 col-md-4">
+				 <div class="thumbnail" style="background: rgba(255,255,255,1)">
+					  <h3>智育分明细</h3>
+					  <span style="font-size:12px;">（70%×[∑（各课程成绩×所获各课程学分）÷∑（各课程学分]）</span>
+				   <br/>
+				<table id="knowledge" class="table" style="position: relative;">					  	
+					  	<thead>
+					  		 <tr>
+					  		 	  <th>科目</th>
+					  		 	  <th>学分</th>
+					  		 	  <th>分数</th>
+					  		 </tr>
+					  	</thead>
+              <tbody>
+              	
+              </tbody>
+              
+					  </table>
+
+				 </div>
+			</div>
+		<div class="col-sm-6 col-md-4">
+		    <div class="thumbnail" style="background: rgba(0,0,0,0.7);">
+			    <div class="caption" style="position: relative;color: white;">
+			      <h3>德育分明细</h3>
+			     <form action="" class="details">
+			      <p id="">自&nbsp;&nbsp;评&nbsp;&nbsp;分（10%）：<span id="selfEvaluation">成绩1</span></p>
+			      <p id="">班级评分（60%）：<span id="classEvaluation">成绩2</span></p>
+			      <p id="">教师评分（30%）：<span id="teacherEvaluation">成绩3</span></p>
+			      <p id="">额外加分：<span id="additionnalScore">成绩4</span></p>
+			      <p id="btn_moralImage">加分材料：<a href="#nowhere" >查看</a></p>
+			      
+				  <div style="bottom: 5%;position: absolute;">
+				  <!--
+                  	<p >计算公式：<span id="total_way"></span></p>
+                  -->  
+				    <p id="">总&nbsp;&nbsp;分：<span id="MoralSummary">成绩</span></p>
+				  </div>
+		      </form>
+			      <p style="right:0px;bottom: 0; position: absolute;"><a href="#" class="btn btn-warning" role="button" data-toggle="modal" data-target="#moral_mark">修改</a></p>
+		        </div>
+        </div>
+	    </div>
+		<div class="col-sm-6 col-md-4">
+			  <div class="thumbnail" style="background: rgba(255,255,255,0.9)">
+			    <div class="caption" style="position: relative">
+			      <h3>体育分明细</h3>
+			      
+			      <p id="">第一学期（2.5%）：<span id="firstTerm">成绩1</span></p>
+			      <p id="">第二学期（2.5%）：<span id="secondTerm">成绩2</span></p>
+				    <div style="bottom: 5%;position: absolute;">
+				  	<p >总&nbsp;&nbsp;分：<span id="sportsSummary">成绩</span></p>
+				    </div>
+		    
+		        </div>
+		      </div>
+	    </div>
+	    <div class="col-sm-6 col-md-8">
+			  <div class="thumbnail" style="background: rgba(255,255,255,0.9)">
+			    <div  style="position: relative">
+			      <h3>扣分项明细</h3>
+                    <table  class="table" style="position: relative;">
+                        <thead>
+                          <tr>
+                              <th>名称</th>                            
+                              <th>单次分值</th>
+                              <th>次数</th>
+                              <th>编辑</th>
+                              <th>删除</th>
+                          </tr>
+                        </thead>
+                        <tbody id="deductionList">
+                        
+                        </tbody>
+                        <tfoot id="add_update_deduction">
+                           <tr>
+                               <td><input type="text" id="deductionName" readonly="readonly">
+                               </td>
+                               <td><input type="text" id="deductionScore" readonly="readonly"></td>
+                               <td><input type="number" id="deductionTimes" >
+                                   <input type="number" id="deductionDid" value="0"  style="display:none"></td>
+                               <td><button class="btn btn-sm btn-info" id="updateDeduction">update</button></td>
+                           </tr>
+                           <tr>
+                              <td>总&nbsp;&nbsp;扣&nbsp;&nbsp;分：</td>
+                              <td><span id="deductionSummary">成绩 </span></td>
+                              <td></td>
+                              <td><a  href="#nowhere" class="btn-danger" id="openDeductionModal">添加个人扣分项</a></td>
+                           </tr>
+
+                        </tfoot>
+                    </table>			      		         
+		        </div>
+		      </div>
+	    </div>
+</div>
+		
+   </div>
+		
+
+
+
+
+<!--德育分修改-->
+ <div class="modal fade" id="moral_mark" tabindex="-1" role="dialog" aria-labelledby="title" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+            <div class="modal-body">
+				<form action="">
+					<div class="table-responsive">
+						<table class="table table-hover" id="modal_moralTable">
+								<caption>修改德育分
+								<a href="#"><span class="glyphicon glyphicon-refresh"></span></a>			<!--刷新-->
+								</caption>
+							  <tr>
+								
+								<th>自评分</th>
+								<th>班级评分</th>
+								<th>教师评分</th>
+								<th>额外加分</th>
+								<th>总分</th>
+							  </tr>
+							<tbody>
+								<tr>
+									<td><input type="number" id="modal_selfEvaluation"  class="sumMoral form-control" value="" disabled="disabled"></td>
+									<td><input type="number" id="modal_classEvaluation"  onkeyup="moralInputChange();" class="sumMoral form-control" value=""></td>
+									<td><input type="number" id="modal_teacherEvaluation" onkeyup="moralInputChange();" class="sumMoral form-control" value=""></td>
+									<td><input type="number" id="modal_additionnalScore"  class="sumMoral form-control" value="" disabled="disabled"></td>
+									<td><input type="number" id="modal_MoralSummary"   class="form-control" value="" disabled="disabled"></td>
+								</tr>
+
+								</tbody>
+  			</table>
+  			<input type="button" class="btn btn-primary btn-sm" value="提交修改" id="updateMoral">
+
+			</div>
+		</form>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+
+
+<!--扣分增加模态框-->
+ <div class="modal fade" id="deductionModal" tabindex="-1" role="dialog" aria-labelledby="title" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+            <div class="modal-body">
+				<table class="table">
+				   <thead>
+				        <tr>
+				             <th>名称</th>
+				             <th>次数</th>
+				             <td>操作</td>
+				        </tr>
+				   </thead>
+				   <tbody>
+				         <tr>
+				             <td><select id="add_deductionName">
+				                    <option>请选择扣分项名称</option>
+				                 </select>
+				             </td>
+				             <td><input type="number" value="1" id="add_deductionTimes"></td>
+				             <td><button class="btn btn-danger" id="btn_addDeduction">提交</button></td>
+				        </tr>
+				   </tbody>
+				</table>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+
+<!--德育分加分证明材料模态框-->
+ <div class="modal fade" id="moralImage" tabindex="-1" role="dialog" aria-labelledby="title" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+            <div class="modal-body">
+            	<p>
+					总计（显示实际分数，但是超过10分只记10分）：<span id="moralSumSet"></span>
+				</p>
+				<table border="1" cellspacing="0" class="table">
+		            	<thead>
+		            		<tr>
+		            			<th style="text-align: center; padding: 5px 0px 5px 0px;background-color: whitesmoke;">奖项名称</th>
+			                	<th style="text-align: center; padding: 5px 0px 5px 0px;background-color: whitesmoke;">类别</th>
+			                	<th style="text-align: center; padding: 5px 0px 5px 0px;background-color: whitesmoke;">得分</th>
+			                	<th style="text-align: center; padding: 5px 0px 5px 0px;background-color: whitesmoke;">获奖时间</th>
+			                	<th style="text-align: center; padding: 5px 0px 5px 0px;background-color: whitesmoke;">奖项材料</th>
+		            		</tr>
+		            	</thead>
+		                <tbody id="moralPrizeTable1" class="tableCellInSearchm">
+		                </tbody>
+		            </table>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+	
+    
+    
+  <script>//已审核														    
+	 	$(document).ready(function(){
+			$("#fixed").click(function(){										
+				$("#state").text('已审核');
+				$("#state").css('background-color','green');    
+				
+			});     
+		});	
+	</script>
+	
+	
+<script>//恢复修改
+	function return_confirm(){
+		var a=confirm("是否确认恢复修改?");
+		if(a==true){								
+					$("#state").text('未审核');
+					$("#state").css('background-color','orange');		
+					$(".details").reset();
+			}
+		}
+
+</script>
+		 
+		  
+		   
+		     
+<script>//二级菜单展开动画
+ 	$(document).ready(function(){
+		$(".dropdown-toggle").click(function(){
+		$(".dropdown-menu").slideToggle("fast");
+			});
+		});
+</script>
+	  <!--script明细分面板内容与模态框内容关联-->
+	  <!--script模态框默认值与明细分面板分数同步-->
+	</body>
+
+</html>

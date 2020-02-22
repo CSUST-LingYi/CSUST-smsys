@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>优秀校友信息</title>
+		<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">  
+  		<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+  		<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	</head>
+	<style>
+		body{
+			min-width: 120px;
+		}
+		.header{height: 80px;
+        	       background: #0168B5;
+        	       text-align: center;
+                   }
+        	.header img{
+        		 margin: 0 auto;
+        	}
+        .excellent{
+        	display: none;
+        	width: 60%;
+        	position: absolute;
+        	margin-top: 30px;
+        	margin-left: 25%;
+        }
+        .message{      	
+        	margin-top: 30px;
+        	margin-left: 10%;
+        }
+        .img-responsive{
+          float: left;
+          clear: right;
+          width: 300px;
+        }
+        .myimg{
+        	margin-top: 45px;
+        	width: 100%;
+        }
+        .introduce{
+        	float: right;
+        	margin-left: 20px;
+        	margin-right: 120px;
+        	
+        }
+        
+        .table table-hover{
+        	width: 100%;
+        	margin: 20px;
+        }
+        pre{
+        	border: 0px;
+        	font-size: 1.5em;
+        	width: 800px;
+        	white-space: pre-wrap;    
+        	  white-space: -moz-pre-wrap; 
+        	  white-space: -pre-wrap;    
+        	 white-space: -o-pre-wrap;   word-wrap: break-word;  
+        }
+        a:link{text-decoration: none;}
+        a{color: black;}
+        body{
+        	background-color: #F7F7F7;
+        	font: "微软雅黑";
+        	font-size: 16px;
+        }
+	</style>
+	
+	<body>
+		<!--头部-->
+		<div class="header">
+			<img src="img/logo17.jpg" height="80" style="margin-left: 60px;" />
+		</div>
+		
+		<!--显示所有优秀校友 -->
+		<div class="excellent">
+			<center><h3>优秀校友信息</h3></center>
+			<table class="table table-hover" id="allExcellents">
+				<tbody>
+				<tr>
+					<td><a href="#""> <span class="glyphicon glyphicon-star-empty"></span>小黑:什么是经管人的骄傲</a></td>
+					<td>time</td>
+				</tr>
+				<tr>
+					<td> <span class="glyphicon glyphicon-star-empty"></span>小黑</td>
+					<td>time</td>
+				</tr>
+				<tr>
+					<td><span class="glyphicon glyphicon-star-empty"></span>小黑</td>
+					<td>time</td>
+				</tr>
+				<tr>
+					<td><a href="#""> <span class="glyphicon glyphicon-star-empty"></span>小黑:什么是经管人的骄傲</a></td>
+					<td>time</td>
+				</tr>
+				<tr>
+					<td><a href="#""> <span class="glyphicon glyphicon-star-empty"></span>小黑:什么是经管人的骄傲</a></td>
+					<td>time</td>
+				</tr>
+				</tbody>
+			</table>
+			<center>
+			<ul class="pagination">
+				<li><a>上一页</a></li>
+				<li><a>1</a></li>
+				<li><a>2</a></li>
+				<li><a>下一页</a></li>
+			</ul>
+			</center>
+		</div>
+		<!--展示优秀校友的具体信息-->
+		<div class="message">
+			<div class="img-responsive">
+				<img src="img/schoolmate/153129503029665.jpg" class="myimg"/>
+			</div>
+			
+			<div class="introduce">
+				<center><h4>王志宏</h4></center>
+				<pre> 
+王志宏，男，1964年7月生，湖北人。 1987年3月，毕业长沙水电师院（现长沙理工大学）财经系。
+
+ 1987年7月－1994年2月，扬子江工程咨询公司行政部，任主管会计。 1994年3月－2002年9月，长江科学院计财处，先后任科长、副处长。 2002年10月－至今，长江委财经局局长助理、副局长、局长。
+				</pre>
+			</div>
+		</div>
+		<!--新增优秀校友信息-->
+		<div>
+			<table class="table table-hover">
+				
+			</table>
+		</div>
+		<!--修改优秀校友信息-->
+	</body>
+</html>

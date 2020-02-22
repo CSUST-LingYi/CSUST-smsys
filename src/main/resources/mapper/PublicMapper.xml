@@ -1,0 +1,359 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+   PUBLIC "_//mybatis.org//DTD Mapper 3.0 //EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="csust.mapper.PublicMapper">
+
+     <select id="getStuInfo"  resultType="BasicInfo">
+        select  studentNo,studentName,termYear,major,class as className
+        from student where studentNo=#{userName}
+     </select>
+
+     <sql id="studentInfo">
+        studentNo,studentName,termYear,major,class,sex
+     </sql>
+
+
+    <update id="checkOneStudent">
+    
+       update personsummary set status = #{status}
+           where xuenian = #{xuenian} and studentNo = #{studentNo}
+          
+    </update>
+
+	 <update id="checkOneStudentT">
+    
+       update personsummary set status = #{status},Tban=1
+           where xuenian = #{xuenian} and studentNo = #{studentNo}
+          
+    </update>
+    
+    <select id="getTban" resultType="int">
+    	select Tban from personsummary where xuenian = #{xuenian} and studentNo = #{studentNo}
+    </select>
+    
+     <select id="getClasses" resultType="int">
+       select distinct class from student where termYear=#{nianji} and major=#{major} 
+     </select>
+     
+     <select id="getIsUpload" resultType="PersonSummary">
+     	select moral,knowledge,sports,deduction from personsummary where studentNo = #{studentNo}
+     </select>
+     
+      <select id="getStudentsByClass" resultType="Student">
+	    select <include refid="studentInfo"/>  from student 
+	        where termYear=#{nianji} 
+	              and major=#{major} 
+	              and class=#{classNo}	              
+	   </select>
+	   
+	  
+	  <select id="getSummaryByClass" resultType="PersonSummary">
+	     select sm.id,st.studentName,st.major,st.class as className,st.sex,st.termYear,sm.xuenian,sm.studentNo,
+	            sm.moral,sm.knowledge,sm.sports,sm.deduction,sm.bz,sm.status,
+	            if(sm.moral>25,25+sm.knowledge+sm.sports-sm.deduction,sm.moral+sm.knowledge+sm.sports-sm.deduction)
+	            as sum,
+	           sm.fails
+	           from personsummary sm
+	           left join student st on sm.studentNo =st.studentNo
+	           where sm.xuenian = #{xuenian}
+	           and  st.termYear = #{nianji}	           	       
+	               <if test="major!= 'majo'">
+	                 and  st.major = #{major}
+	               </if>
+	               <if test="classNo!=99">
+	                 and  st.class = #{classNo} 
+	               </if>   
+	           order by sum  desc	
+	  </select>
+	  
+	  <select id="getPersonSummaryBySno"  resultType="PersonSummary">
+		    select sm.id,st.studentName,sm.xuenian,sm.studentNo,
+	           if(sm.moral>25,25,sm.moral) as moral,
+	           sm.knowledge,sm.sports,sm.deduction,sm.bz,sm.status,
+               if(sm.moral>25,25+sm.knowledge+sm.sports-sm.deduction,sm.moral+sm.knowledge+sm.sports-sm.deduction)
+	           as sum,
+	           sm.fails
+	           from personsummary sm
+	           left join student st on sm.studentNo =st.studentNo 
+	        where   sm.xuenian = #{xuenian} 
+	           and sm.studentNo = #{studentNo}
+	  </select>
+
+	<!-- 重置审核状态：未审核 -->
+	<update id="resetStatus" parameterType="String">
+		update personsummary set status=0 where xuenian = #{xuenian} and studentNo = #{studentNo}
+	</update>
+
+ <!-- 个人德育分相关的操作 -->
+      
+      <insert id="addPersonMoral" parameterType="PersonMoral">
+        insert into personmoral(xuenian,studentNo,mid,name,score,getTime,imagePath) 
+           values(#{xuenian},#{studentNo},#{mid},#{name},#{score},#{getTime},#{imagePath})
+      </insert>
+      
+      <delete id="deletePersonMoral" >
+          delete from personmoral where id=#{id}
+      </delete>
+      
+      <update id="updatePersonMoral" parameterType="PersonMoral">
+         update  personmoral 
+             set name=#{name},
+                 score=#{score}
+             where id = #{id}
+      </update>
+      
+      <select id="getPersonMoral"  resultType="PersonMoral">
+           select id,xuenian,studentNo,mid,jid,name,score,getTime,imagePath from personmoral
+            where id=#{id}
+      </select>
+      
+      <select id="getPersonMoralsBySno" resultType="PersonMoral">
+          select  id,xuenian,studentNo,mid,jid,name,score,getTime,imagePath from personmoral
+           where studentNo = #{studentNo}   and xuenian = #{xuenian}
+      </select>
+      
+      <select id="getMoralTypeById"  resultType="Moral">
+         select  id,mid,name from moral
+           where id=#{id}
+      </select>
+      
+      <!-- 判断个人德育分汇总是否存在 -->
+      <select id="isExistsMoralSummary" resultType="boolean">
+       <![CDATA[ select count(id) from moralsummary where xuenian = #{xuenian} and studentNo = #{studentNo} ]]>
+      </select>
+      
+      <insert id="addMoralSummary"  parameterType="MoralSummary">
+         insert into moralsummary(xuenian,studentNo,selfEvaluation,classEvaluation,teacherEvaluation)
+           values(#{xuenian},#{studentNo},#{selfEvaluation},#{classEvaluation},#{teacherEvaluation})
+      </insert>
+      
+      <update id="updateMoralSummary" parameterType="MoralSummary">
+          update moralsummary
+               <set>
+                   <if test="xuenian!=null">
+                      xuenian = #{xuenian},
+                   </if>
+                   <if test="studentNo">
+                      studentNo = #{studentNo},
+                   </if>
+                   <if test="selfEvaluation!=0">
+                    selfEvaluation = #{selfEvaluation},
+                   </if>
+                   <if test="classEvaluation!=0">
+                       classEvaluation = #{classEvaluation},
+                   </if>
+                   <if test="teacherEvaluation!=0">
+                      teacherEvaluation = #{teacherEvaluation},
+                   </if>
+               </set>
+               where id = #{id}
+      </update>
+      
+      <delete id="deleteMoralSummary">
+           delete from moralsummary where id = #{id}
+      </delete>
+      
+      <select id="getMoralSummary"  resultType="MoralSummary">
+         select id,xuenian,studentNo,
+                selfEvaluation,classEvaluation,teacherEvaluation,
+               (select if(sum(score)>10,10,sum(score))  from personmoral 
+               where xuenian=#{xuenian} and studentNo=#{studentNo})
+                as additionnalScore,
+               ((selfEvaluation*0.015+classEvaluation*0.09+teacherEvaluation*0.045)
+                + (select if(sum(score)>10,10,if(sum(score) is null,0,sum(score)))  from personmoral where xuenian=#{xuenian} and studentNo=#{studentNo})
+                 )as summary from moralsummary 
+             where xuenian = #{xuenian} and studentNo = #{studentNo}
+      </select>
+      
+ <!-- 个人智育分相关的操作 -->
+       
+       <insert id="addPersonKnowledge" parameterType="PersonKnowledge">
+         insert into personknowledge(studentNo,cid,score)
+            values(#{studentNo},#{cid},#{score})
+       </insert>
+       
+       <update id="updatePersonKnowledge" parameterType="PersonKnowledge">
+         update personknowledge 
+
+            set  score = #{score}
+
+           where studentNo = #{studentNo} and cid=#{cid}
+       </update>
+       
+       <delete id="deletePersonKnowledge">
+          delete from personknowledge where id = #{id}
+       </delete>
+       
+       <select id="getPersonKnowlwdge">
+            select id,studentNo,studentName,cid,score from personknowledge
+              where id = #{id}
+       </select>
+       
+       <select id="getPersonKnowlwdgesBySno" resultType="PersonKnowledge">
+          select p.id,c.xuenian,c.courseName,c.credit,p.studentNo,p.cid,p.score from personknowledge p
+              left join course c on p.cid = c.id
+             where c.xuenian=#{xuenian} and p.studentNo = #{studentNo}
+       </select>
+       
+       <select id="getKnowledgeBySnoAndCourseId" resultType="PersonKnowledge">
+         select p.id,c.xuenian,c.courseName,c.credit,p.studentNo,p.cid,p.score from personknowledge p
+              left join course c on p.cid = c.id
+             where c.xuenian=#{xuenian} and p.studentNo = #{studentNo} and c.id=#{id}
+       </select>
+       
+ <!-- 个人体育分相关的操作 -->
+        
+        <insert id="addPersonSports" parameterType="PersonSports">
+          insert into personsports(xuenian,studentNo,firstTerm,secondTerm)
+             values(#{xuenian},#{studentNo},#{firstTerm},#{secondTerm})
+        </insert>
+        
+        <update id="updatePersonSports" parameterType="PersonSports">
+          update personSports 
+             <set>
+                 <if test="firstTerm!=0">
+                   firstTerm = #{firstTerm},
+                 </if>
+                 <if test="secondTerm!=0">
+                   secondTerm = #{secondTerm},
+                 </if>
+             </set>
+             where xuenian = #{xuenian} and studentNo = #{studentNo}
+        </update>
+        
+        <delete id="deletePersonSports">
+          delete from personsports where id = #{id}
+        </delete>
+        
+        <select id="getPersonSports" resultType="PersonSports">
+          select id,xuenian,studentNo,firstTerm,secondTerm,
+                cast((firstTerm+secondTerm)*0.025  as  decimal(18,2)) as sum
+              from personsports
+             where xuenian = #{xuenian} and studentNo = #{studentNo}
+        </select>
+        
+  <!-- 个人综测汇总相关的操作 -->  
+  
+        <!-- 判断个人汇总是否存在 -->
+      <select id="isExistsPersonSummary" resultType="boolean">
+         <![CDATA[ select count(id) from personsummary where xuenian = #{xuenian} and studentNo = #{studentNo} ]]>
+      </select>
+  
+  <!--初始化个人综测汇总  -->
+        <insert id="addPersonSummary"  parameterType="PersonSummary">
+          insert into personsummary(xuenian,studentNo,moral,knowledge,sports,deduction)
+             values(#{xuenian},#{studentNo},0,0,0,0)
+        </insert>
+       
+       <!-- 增加反馈信息 -->
+      <!-- <insert id="insertFeedback" parameterType="String" >
+      	insert into feedback(monitorNo,studentNo,P_moral,D_moral)
+             values(#{monitorNo},#{studentNo},#{P_moral},#{D_moral})
+      </insert> -->
+      <insert id="insertFeedback" parameterType="Feedback" >
+      	replace into feedback(monitorNo,studentNo,P_moral,D_moral)
+             values(#{monitorNo},#{studentNo},#{P_moral},#{D_moral})
+      </insert>
+      
+      <!--  更新反馈信息阅读状态-->
+      <update id="updateFeedbackStatus">
+      	update feedback set isRead = #{isRead} where studentNo = #{studentNo}
+      </update>	
+      	
+       <!-- 更新个人的综测汇总，相当于重新统计计算了一次 -->
+       <update id="updatePersonSummary">
+         update personsummary
+               set moral=  (select if(sum(score)>10,10,if(sum(score) is null,0,sum(score))) from personmoral where  xuenian=#{xuenian} and studentNo=#{studentNo}) 
+                          +(select selfEvaluation*0.015+classEvaluation*0.09+teacherEvaluation*0.045
+                            from moralsummary where xuenian=#{xuenian} and studentNo=#{studentNo}),
+                            
+                   knowledge=(select if(cast(sum(case 
+                               when pk.score>=60 then c.credit*pk.score
+                               when pk.score>=0 then  c.credit*0
+                               when pk.score &lt;  0 then 0
+                               end )*0.7/sum(
+                                          case
+                                            when pk.score>=0 then  c.credit
+                                            when pk.score &lt; 0 then 0
+                                            end
+                                         ) as decimal(18,2)) is null,0,cast(sum(case 
+                               when pk.score>=60 then c.credit*pk.score
+                               when pk.score>=0 then  c.credit*0
+                               when pk.score &lt;  0 then 0
+                               end )*0.7/sum(
+                                          case
+                                            when pk.score>=0 then  c.credit
+                                            when pk.score &lt; 0 then 0
+                                            end
+                                         ) as decimal(18,2)))      
+                                 from course as c left join personknowledge as pk on pk.cid=c.id 
+                                 where  c.xuenian=#{xuenian} and pk.studentNo=#{studentNo}),
+                                   
+                   sports= cast(if((select cast((firstTerm+secondTerm)*0.025 as decimal(18,2)) 
+                                 from personsports where  xuenian=#{xuenian} and studentNo=#{studentNo}) is null,0,(select cast((firstTerm+secondTerm)*0.025 as decimal(18,2)) 
+                                 from personsports where  xuenian=#{xuenian} and studentNo=#{studentNo})) as decimal(18,2)),
+                                 
+                   deduction = cast(if((select sum(pd.times*d.score) from persondeduction as pd 
+                                  left join deduction as d on pd.did=d.id 
+                                  where  pd.xuenian=#{xuenian} and pd.studentNo=#{studentNo}) is null,0,(select sum(pd.times*d.score) from persondeduction as pd 
+                                  left join deduction as d on pd.did=d.id 
+                                  where  pd.xuenian=#{xuenian} and pd.studentNo=#{studentNo})) as decimal(18,2)),
+                  
+                   fails = if((select count(1) from personknowledge as p  
+                             left join course as c on c.id=p.cid
+                             where p.score &lt; 60 and p.score>=0
+                              and c.courseName not like "%补%"
+                              and  c.xuenian=#{xuenian} and p.studentNo=#{studentNo}
+                              ) is null,0,(select count(1) from personknowledge as p  
+                             left join course as c on c.id=p.cid
+                             where p.score &lt; 60 and p.score>=0
+                              and c.courseName not like "%补%"
+                              and  c.xuenian=#{xuenian} and p.studentNo=#{studentNo}
+                              ))
+                                  
+                   where xuenian=#{xuenian} and studentNo=#{studentNo}
+       </update>
+       
+       
+       	<!-- **************个人扣分项**********************************/ -->
+	<!-- 增加个人扣分项 -->
+	<insert id="addPersonDeduction" parameterType="PersonDeduction">
+	     insert into persondeduction(xuenian,studentNo,did,times)
+	       values(#{xuenian},#{studentNo},#{did},#{times})
+	</insert>
+
+	<!-- 修改个人扣分项 -->
+	<update id="updatePersonDeduction" parameterType="PersonDeduction">
+	    update persondeduction 
+	        set times=#{times}
+	        where id=#{id}
+	</update>
+
+
+	<!-- 删除个人扣分项 -->
+    <delete id="deletePersonDeduction">
+       delete from persondeduction where id=#{id}
+    </delete>
+
+	<!-- 列出个人的扣分项 -->
+     <select id="listPersonDeduction" resultType="PersonDeduction">
+      select pd.id,pd.xuenian,pd.studentNo,pd.did,pd.times,
+             d.name,d.score,d.bz 
+         from persondeduction as pd
+         left join deduction as d on pd.did=d.id
+         where pd.xuenian=#{xuenian} and pd.studentNo=#{studentNo}
+     </select>
+     
+    <select id="getPersonOneDeduction"  resultType="PersonDeduction">
+            select pd.id,pd.xuenian,pd.studentNo,pd.did,pd.times,
+             d.name,d.score,d.bz 
+         from persondeduction as pd
+         left join deduction as d on pd.did=d.id
+         where pd.xuenian=#{xuenian} and pd.studentNo=#{studentNo} and pd.did=#{did}
+    </select>
+
+    <select id="getZcStatus" resultType="int">
+        SELECT switch FROM zc_control WHERE xuenian = #{xuenian}
+    </select>
+</mapper>

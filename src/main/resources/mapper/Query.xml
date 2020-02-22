@@ -1,0 +1,363 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+	<mapper namespace="csust.mapper.QueryMapper">
+	
+	<select id="getXjydView" resultType="XJYDView">
+	        select * from view_xjyd where stuType=#{0}
+	   </select>
+	
+	  <select id="getStudentByNo" resultType="Student">
+	        select * from student where studentNo=#{id}
+	   </select>
+	     
+		<select id="getGrade" resultType="Grade">
+	        select * from grade where studentNo=#{studentNo}
+	   </select>
+	     
+	     <select id="getJL" resultType="JL">
+	        select * from jl where studentNo=#{studentNo}
+	    </select>
+	    
+	    <select id="getMajor" resultType="String">
+	        select major from student where studentNo=#{studentNo}
+	    </select>
+	    
+	    <select id="getPractice" resultType="Practice">
+	        select * from practice where studentNo=#{0} and type=#{1}
+	   </select>
+	   
+	    <select id="getPunish" resultType="punish">
+	        select * from punish where studentNo=#{studentNo}
+	   </select>
+	    <select id="getPunishByType" resultType="punish">
+	        select * from punish where punishName=#{0} and stuType=#{1}
+	   </select>
+	   
+	  <select id="getMonitorByStudent" resultType="String">
+	  	select studentNo from monitor where nianji = #{nianji} and major = #{major} and className = #{className}
+	  </select>
+	   
+	   
+	     <select id="getPS" resultType="psStudent">
+	        select * from pstudent where pstudentNo=#{0}
+	   </select>
+	    
+	    <select id="getSkill" resultType="Skill">
+	        select * from skill where studentNo=#{studentNo}
+	    </select>
+	    
+	    <select id="getClassByMajorAndTerm" resultType="int">
+	        select distinct class from student where termYear=#{0} and major=#{1} and stuType=#{2}
+	    </select>
+	     <select id="getByNianjiAndMajor" resultType="ALLfield">
+	        select * from view_all where termYear=#{0} and major=#{1} and stuType=#{2}
+	    </select>
+	    
+	    <select id="getStudentByClassName" resultType="ALLfield">
+	        select * from  view_all where termYear=#{0} and major=#{1} and class=#{2} and stuType=#{3}
+	   </select>
+	    
+	    <select id="SelectAllField" resultType="ALLfield">
+        	select * from view_all where stuType=#{0}
+  		</select>
+
+	    
+	    <insert id="insertTest" parameterType="Student">
+	      insert into student(studentNo,studentName,termYear,major,class,sex,MZ,address,stuType) values(#{studentNo},#{studentName},#{termYear},#{major},#{Class},#{sex},#{MZ},#{address},#{stuType})
+	    </insert>
+	    
+	    <select id="getStudentByNianji" resultType="ALLfield">
+	       select * from  view_all where  termYear=#{0} and stuType=#{1}   order by class asc 
+	    </select>
+	   
+	    <select id="getStudentBySexAndNianji" resultType="ALLfield">
+	        select * from  view_all where termYear=#{0} and sex=#{1} and stuType=#{2}  order by class asc
+	   </select>
+	    <select id="getStudentBySexAndMajor" resultType="ALLfield">
+	        select * from  view_all where termYear=#{0} and major=#{1} and sex=#{2} and stuType=#{3}  order by class asc
+	   </select>
+	    <select id="getStudentBySexAndClass" resultType="ALLfield">
+	        select * from  view_all where termYear=#{0} and major=#{1} and class=#{2} and sex=#{3} and stuType=#{4} order by class asc
+	   </select>
+	   
+	   	    <select id="getStudentByMZAndNianji" resultType="ALLfield">
+	        select * from  view_all where termYear=#{0} and MZ=#{1} and stuType=#{2}  order by class asc
+	   </select>
+	    <select id="getStudentByMZAndMajor" resultType="ALLfield">
+	        select * from  view_all where termYear=#{0} and major=#{1} and MZ=#{2} and stuType=#{3}  order by class asc
+	   </select>
+	    <select id="getStudentByMZAndClass" resultType="ALLfield">
+	        select * from  view_all where termYear=#{0} and major=#{1} and class=#{2} and MZ=#{3} and stuType=#{4}  order by class asc
+	   </select>
+	   
+	   	   	    <select id="getStudentByZZMMAndNianji" resultType="ALLfield">
+	        select * from  view_all where termYear=#{0} and ZZMM=#{1} and stuType=#{2}  order by class asc
+	   </select>
+	    <select id="getStudentByZZMMAndMajor" resultType="ALLfield">
+	        select * from  view_all where termYear=#{0} and major=#{1} and ZZMM=#{2} and stuType=#{3}  order by class asc
+	   </select>
+	    <select id="getStudentByZZMMAndClass" resultType="ALLfield">
+	        select * from  view_all where termYear=#{0} and major=#{1} and class=#{2} and ZZMM=#{3} and stuType=#{4} order by class asc
+	   </select>
+	   
+	   
+	    <select id="getStudentByBuildingAndNianji" resultType="ALLfield">
+	        select * from  view_all where termYear=#{0} and buildingName=#{1} and roomNum=#{2} and stuType=#{3}  order by class asc
+	   </select>
+	    <select id="getStudentByBuildingAndMajor" resultType="ALLfield">
+	        select * from  view_all where termYear=#{0} and major=#{1} and buildingName=#{2}  and roomNum=#{3} and stuType=#{4]  order by class asc
+	   </select>
+	    <select id="getStudentByBuildingAndClass" resultType="ALLfield">
+	        select * from  view_all where termYear=#{0} and major=#{1} and class=#{2} and buildingName=#{3}  and roomNum=#{4} and stuType=#{5}  order by class asc
+	   </select>
+	   
+	    <select id="getStudentByCommonQuery" resultType="ALLfield">
+	    	  select * from  view_all
+	    	  <where>
+	    	  	termYear=#{nianji}
+	    	  	<if test="major != null and major != '' and major !='ALL' and major !='All' ">
+	              and major = #{major}
+		         </if>
+		         <if test="className !=null and className != '' and className !=0 and className !='0' and className !='All' ">
+		             and class=#{className}
+		         </if>
+		        
+		         <if test="mingzu != 'null' and mingzu != '' ">
+		         	and MZ=#{mingzu}
+		         </if>
+		         <if test="sex != 'null' and sex != '' ">
+		         	and sex=#{sex}
+		         </if>
+		          <if test="zzmm != 'null' and zzmm != '' ">
+		               and ZZMM=#{zzmm}
+		         </if>
+		         and stuType=#{stuType}
+	    	  </where>
+	    	  order by class asc
+	    </select>
+	    
+	    
+	     <select id="getStudentByBuildingAndNianji1" resultType="ALLfield">
+	        select * from  view_all where termYear=#{0} and buildingName=#{1} and stuType=#{2}
+	   </select>
+	    <select id="getStudentByBuildingAndMajor1" resultType="ALLfield">
+	        select * from  view_all where termYear=#{0} and major=#{1} and buildingName=#{2}  and stuType=#{3}
+	   </select>
+	    <select id="getStudentByBuildingAndClass1" resultType="ALLfield">
+	        select * from  view_all where termYear=#{0} and major=#{1} and class=#{2} and buildingName=#{3} and stuType=#{4}
+	   </select>  
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   <insert id="addXJYD" parameterType="XJYD">
+	    	insert into xjyd(studentNo,YDtime,YDreason,BZ,stuType) values(#{studentNo},#{YDtime},#{YDreason},#{BZ},#{stuType})
+	    </insert>
+	    
+	    <select id="isExistXJYD" resultType="XJYD">
+		        select * from xjyd where studentNo=#{0} and YDtime=#{1} and YDreason=#{2} and BZ=#{3}
+	    </select>
+	    
+	    <insert id="addXJZC" parameterType="XJZC">
+	    	insert into xjzc(studentNo,ZCyear,term,ZCorNot,stuType) values(#{studentNo},#{ZCyear},#{term},#{ZCorNot},#{stuType})
+	    </insert>
+	    
+	    <select id="isExistXJZC" resultType="XJZC">
+		        select * from xjzc where studentNo=#{0} and ZCyear=#{1} and term=#{2} and ZCorNot=#{3}
+	    </select>
+	    
+	    <insert id="addPunish" parameterType="punish">
+	    	insert into punish(studentNo,punishName,punishReason,punishTime,stuType) values(#{studentNo},#{punishName},#{punishReason},#{punishTime},#{stuType})
+	    </insert>
+	    
+	    <insert id="addJL" parameterType="JL">
+	    	insert into jl(studentNo,JLname,JLlevel,getTime,adviser,sponsor,termOrindividual,imageName,stuType) values(#{studentNo},#{JLname},#{JLlevel},#{getTime},#{adviser},#{sponsor},#{termOrindividual},#{imageName},#{stuType})
+	    </insert>
+	    
+	    <select id="isExistJL" resultType="JL">
+		        select * from jl where studentNo=#{0} and JLname=#{1} and JLlevel=#{2} and getTime=#{3}
+		</select>
+		
+		  <select id="isExistPunish" resultType="punish">
+		        select * from punish where studentNo=#{0} and punishTime=#{1} and punishReason=#{2} and punishName=#{3}
+		</select>
+	    
+	    <insert id="addSkill" parameterType="Skill">
+	    	insert into skill(studentNo,skillName,gettime,skillType,stuType) values(#{studentNo},#{skillName},#{gettime},#{type},#{stuType})
+	    </insert>
+	    
+	    <select id="isExistSkill" resultType="Skill">
+		        select * from skill where studentNo=#{0} and skillName=#{1} and getTime=#{2}
+		</select>
+	    
+	    <insert id="addPractice" parameterType="Practice">
+	    	insert into practice(studentNo,practiceName,type,startTime,endTime,stuType) values(#{studentNo},#{practiceName},#{type},#{startTime},#{endTime},#{stuType})
+	    </insert>
+	    
+	    <select id="isExistPractice" resultType="Practice">
+		        select * from practice where studentNo=#{0} and practiceName=#{1} and type=#{2} and startTime=#{3} and endTime=#{4}
+		</select>
+	    
+	    <insert id="addPstudent" parameterType="psStudent">
+	    	insert into pstudent(pstudentNo,SFZK,ZZname,ZZmoney,ZZtime,type,stuType) values(#{pstudentNo},#{SFZK},#{ZZname},#{ZZmoney},#{ZZtime},#{type},#{stuType})
+	    </insert>
+	    
+	    <select id="isExistPstudent" resultType="psStudent">
+		        select * from pstudent where pstudentNo=#{0} and SFZK=#{1} and ZZname=#{2} and ZZtime=#{3}
+		</select>
+	    
+	    <insert id="addGrade" parameterType="Grade">
+	    	insert into grade(studentNo,termNo,avgGrade,avgCPA,stuType) values(#{studentNo},#{termNo},#{avgGrade},#{avgCPA},#{stuType})
+	    </insert>
+	    
+	    <select id="isExistGrade" resultType="Grade">
+		        select * from grade where studentNo=#{0} and termNo=#{1}
+		</select>
+	    
+	    <select id="selectStudent" resultType="Student">
+        	select * from student where studentNo = #{studentNo}
+  		</select>
+  		
+  		<select id="selectGrade" resultType="Grade">
+        	select * from grade where studentNo = #{studentNo}
+  		</select>
+  		
+  		<select id="selectJL" resultType="JL">
+        	select * from jl where studentNo = #{studentNo}
+  		</select>
+  		
+  		<select id="selectSkill" resultType="Skill">
+        	select * from skill where studentNo = #{studentNo}
+  		</select>
+  		
+  		<select id="selectPractice" resultType="Practice">
+        	select * from practice where studentNo = #{studentNo}
+  		</select>
+  		
+  		<select id="selectPstudent" resultType="psStudent">
+        	select * from pstudent where pstudentNo = #{studentNo}
+  		</select>
+  		
+  		<select id="selectXJYD" resultType="XJYD">
+        	select * from xjyd where studentNo = #{studentNo}
+  		</select>
+	    
+	    <select id="selectXJZC" resultType="XJZC">
+        	select * from xjzc where studentNo = #{studentNo}
+  		</select>
+  		
+  		<update id="updateGrade">
+        	update grade set avgGrade=#{2},avgCPA=#{3} where studentNo=#{0} and termNo=#{1}
+  		</update>
+  		
+  		<delete id="deleteGrade">
+        	delete from grade where studentNo=#{0} and termNo=#{1}
+  		</delete>
+  		
+  		<update id="updatePractice">
+        	update practice set practiceName=#{1},type=#{2},startTime=#{3},endTime=#{4} 
+        	where studentNo=#{0} and practiceName=#{5} and type=#{6} and startTime=#{7} and endTime=#{8}
+  		</update>
+  		
+  		<delete id="deletePractice">
+        	delete from practice where studentNo=#{0} and practiceName=#{1} and type=#{2} and startTime=#{3} and endTime=#{4}
+  		</delete>
+  		
+  		<update id="updatePstudent">
+        	update pstudent set ZZname=#{1},ZZtime=#{2},type={3} where pstudentNo=#{0} and ZZname=#{4} and ZZtime=#{5}
+  		</update>
+  		
+  		
+  		<select id="isExistStudent" resultType="Student">
+		        select * from student where studentNo=#{studentNo}
+		</select>
+		
+		<select id="isExistStudent2" resultType="Student">
+		        select * from student where studentNo=#{0} and studentName=#{1} and termYear=#{2} 
+		        and major=#{3} and class=#{4} and sex=#{5} and MZ=#{6} and ZZMM=#{7}
+		</select>
+		
+		<update id="updateStudent" parameterType="Student">
+		        update student set
+		       studentName= #{studentName},termYear=#{termYear},major=#{major},class=#{className},sex=#{sex},birthday=#{birthday},tutor=#{tutor},spouse=#{spouse},MZ=#{MZ},ZZMM=#{ZZMM},
+		       JG= #{JG},personID=#{personID},phone=#{phone},QQ=#{QQ},fatherName=#{fatherName},fatherPhone=#{fatherPhone},motherName=#{motherName},motherPhone=#{motherPhone},
+		        address=#{address},buildingName=#{buildingName},roomNum=#{roomNum},bedNum=#{bedNum},TC=#{TC},SFPS=#{sfps},studyType=#{studyType},motherWorkplace=#{motherWorkplace},fatherWorkplace=#{fatherWorkplace}
+		       where studentNo=#{studentNo}
+		</update>
+		
+		<delete id="deleteJL">
+		  delete from jl where JLId=#{0}
+		</delete>
+		
+			<delete id="deleteSkill">
+		  delete from skill where skillId=#{0}
+		</delete>
+		
+   <select id="selectProject" parameterType="project" resultType="project">
+     select projectId from project
+     <where>
+        <if test="studentNo!=null">
+          studentNo = #{studentNo}
+        </if>
+        <if test="projectName!=null">
+          and projectName = #{projectName} 
+        </if>
+        <if test="time!=null">
+          and time = #{time} 
+        </if>
+        <if test="isFirstCharge!=null">
+         and isFirstCharge = #{isFirstCharge}
+        </if>
+     </where>
+   </select>
+   
+   <insert id="addProject" parameterType="Project">
+     insert into project(studentNo,projectName,time,isFirstCharge,image,stuType)
+     values(#{studentNo},#{projectName},#{time},#{isFirstCharge},#{image},#{stuType})
+   </insert>
+   
+   <select id="selectProject0000" resultType="Project">
+   select projectId,studentNo,projectName,isFirstCharge,time,image from project where studentNo=#{0}
+   </select>
+   
+   <select id="selectSubmission" parameterType="Submission" resultType="Submission">
+     select submissionId from submissions
+     <where>
+      <if test="submissionId!=null">
+            and submissionId = #{submissionId}
+      </if>
+      <if test="studentNo!=null">
+            and studentNo = #{studentNo}
+      </if>
+      <if test="articleName!=null">
+          and articleName = #{articleName}
+      </if>
+       <if test="type!=null">
+          and type = #{type}
+      </if>
+       <if test="time!=null">
+          and time = #{time}
+      </if>
+      <if test="periodical!=null">
+          and periodical = #{periodical}
+      </if>
+     </where>
+   </select>
+   
+   <insert id="addSubmission" parameterType="Submission">
+    insert into submissions(studentNo,articleName,type,time,periodical,image)
+    values(#{studentNo},#{articleName},#{type},#{time},#{periodical},#{image}) 
+   </insert>
+   
+   <select id="selectLWFB" resultType="Submission">
+      select submissionId,studentNo,articleName,type,time,periodical,image from submissions where studentNo = #{0}
+   </select>
+   
+   
+	</mapper>
