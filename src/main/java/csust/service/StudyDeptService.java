@@ -2,10 +2,7 @@ package csust.service;
 
 import java.util.List;
 
-import csust.bean.ClassInfo;
-import csust.bean.Deduction;
-import csust.bean.Moral;
-import csust.bean.Proportion;
+import csust.bean.*;
 
 //综测service
 public interface StudyDeptService {
@@ -53,4 +50,12 @@ public interface StudyDeptService {
 	/************************************************/
 	// 通过学年，年级，专业查询该班名称，该班的人数，已经审核的人数
 	public List<ClassInfo> getClassCheckSummary(String xuenian, String termYear, String major);
+
+	//添加学年范围
+	void insertXuenian(String startTime,String endTime);
+
+	//查询所有学年
+	List<Xuenian> ListXuenian();
+    //查询综测状态
+    Boolean getZcStatusByXuenian(String xuenian);
 }

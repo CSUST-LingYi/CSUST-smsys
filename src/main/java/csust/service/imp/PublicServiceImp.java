@@ -27,9 +27,7 @@ public class PublicServiceImp implements PublicService {
 	@Autowired
 	PublicMapper publicMapper;
 
-	public Integer getZcStatus(String xuenian){
-		return publicMapper.getZcStatus(xuenian);
-	}
+
 
 	public void checkOneStudent(String xuenian, String studentNo, boolean status) {
 

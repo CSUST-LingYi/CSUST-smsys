@@ -3,21 +3,19 @@ package csust.controller;
 import java.util.Collections;
 import java.util.List;
 
+import csust.bean.*;
 import org.apache.shiro.authz.annotation.Logical;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
-import csust.bean.BasicInfo;
-import csust.bean.ClassInfo;
-import csust.bean.Deduction;
-import csust.bean.Moral;
-import csust.bean.PersonSummary;
-import csust.bean.Proportion;
 import csust.service.MonitorService;
 import csust.service.PermissionService;
 import csust.service.PublicService;
@@ -322,4 +320,28 @@ public class StudyDeptController {
 
 		return list;
 	}
+
+	@RequestMapping(value = "getZcStatus",method = RequestMethod.POST)
+    public ResponseEntity<Boolean> getZcStatus(@RequestParam(value = "xuenian") String xuenian){
+        Boolean zcStatusByXuenian = this.studyDeptService.getZcStatusByXuenian(xuenian);
+        return ResponseEntity.ok(zcStatusByXuenian);
+    }
+
+    @RequestMapping(value = "insertXuenian",method = RequestMethod.POST)
+    @RequiresRoles("stuAdmin")
+    public ResponseEntity<Void> insertXuenian(@RequestParam(value = "startTime",required = true) String startTime,
+                                @RequestParam(value = "endTime",required = true) String endTime){
+        this.studyDeptService.insertXuenian(startTime,endTime);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
+    @RequestMapping(value = "listXuenian",method = RequestMethod.GET)
+    public ResponseEntity<List<Xuenian>> listXuenian(){
+        List<Xuenian> xuenians = this.studyDeptService.ListXuenian();
+        if (CollectionUtils.isEmpty(xuenians)){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+        return ResponseEntity.ok(xuenians);
+
+    }
 }

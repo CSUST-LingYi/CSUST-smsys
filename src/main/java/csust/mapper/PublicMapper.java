@@ -31,8 +31,7 @@ public interface PublicMapper {
 	//检查学习部是否审核
 	public int getTban(@Param("xuenian") String xuenian, @Param("studentNo") String studentNo);
 		
-	//获取综测开启状态
-	public Integer getZcStatus(@Param("xuenian") String xuenian);
+
 	
 	// 通过年级专业查询班级
 	public List<Integer> getClasses(@Param("nianji") String nianji, @Param("major") String major);

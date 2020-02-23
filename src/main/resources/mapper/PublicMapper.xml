@@ -354,6 +354,6 @@
     </select>
 
     <select id="getZcStatus" resultType="int">
-        SELECT switch FROM zc_control WHERE xuenian = #{xuenian}
+        SELECT zc_switch FROM zc_control WHERE xuenian = #{xuenian}
     </select>
 </mapper>

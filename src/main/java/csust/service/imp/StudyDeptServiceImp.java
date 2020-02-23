@@ -3,18 +3,17 @@ package csust.service.imp;
 import java.util.ArrayList;
 import java.util.List;
 
+import csust.bean.*;
+import csust.mapper.XuenianMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import csust.bean.ClassInfo;
-
-import csust.bean.Deduction;
-import csust.bean.Moral;
-import csust.bean.Proportion;
 import csust.mapper.StudyDeptMapper;
 
 import csust.mapper.PublicMapper;
 import csust.service.StudyDeptService;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 
 @Service
 public class StudyDeptServiceImp implements StudyDeptService {
@@ -24,6 +23,9 @@ public class StudyDeptServiceImp implements StudyDeptService {
 
 	@Autowired
 	PublicMapper publicMapper;
+
+	@Autowired
+	XuenianMapper xuenianMapper;
 
 	public void setProportion(Proportion p) {
 		// TODO Auto-generated method stub
@@ -123,4 +125,28 @@ public class StudyDeptServiceImp implements StudyDeptService {
 		return classInfos;
 	}
 
+	@Transactional
+	public void insertXuenian(String startTime, String endTime) {
+		String name = startTime+"-"+endTime;
+		Xuenian xuenian = new Xuenian();
+		xuenian.setXuenian(name);
+        List<Xuenian> xuenians = this.xuenianMapper.select(xuenian);
+        if (CollectionUtils.isEmpty(xuenians)){
+            this.xuenianMapper.insertSelective(xuenian);
+        }
+
+	}
+
+	public List<Xuenian> ListXuenian() {
+		return this.xuenianMapper.selectAll();
+	}
+
+    //查询综测开启状态
+    public Boolean getZcStatusByXuenian(String xuenian){
+        Xuenian xuenian1 = new Xuenian();
+        xuenian1.setXuenian(xuenian);
+        Xuenian xuenian3 = this.xuenianMapper.selectOne(xuenian1);
+        Boolean zcSwitch = xuenian3.getZcSwitch();
+        return zcSwitch;
+    }
 }

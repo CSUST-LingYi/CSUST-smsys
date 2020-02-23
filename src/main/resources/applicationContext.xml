@@ -79,9 +79,9 @@
 		
 	</bean>
 
-	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+	<bean class="tk.mybatis.spring.mapper.MapperScannerConfigurer">
 		<property name="basePackage" value="csust.mapper"/>
-		
+
 	</bean>
 	<!-- 事务管理器配置数据源事务 -->
 	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">

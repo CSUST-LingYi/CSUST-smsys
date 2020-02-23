@@ -65,12 +65,7 @@ public class PublicController {
 		String userName = (String) SecurityUtils.getSubject().getPrincipal();
 		return publicService.getStuInfo(userName);
 	}
-	//查询综测开启状态
-	@RequestMapping(value = "/getZcStatus",method = RequestMethod.POST)
-	@ResponseBody
-	public Integer getZcStatus(@RequestParam(value = "xuenian") String xuenian){
-		return publicService.getZcStatus(xuenian);
-	}
+
 
 	// 查询用户是否上传综测
 	@RequestMapping(value = "/getIsUpload",method = RequestMethod.POST)

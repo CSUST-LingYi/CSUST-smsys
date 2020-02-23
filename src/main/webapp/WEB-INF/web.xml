@@ -107,7 +107,7 @@
 	<!-- 500 服务器内部错误 -->
 	<error-page>
 		<error-code>500</error-code>
-		<location>/error500.html</location>
+		<location>/500.html</location>
 	</error-page>
 
   

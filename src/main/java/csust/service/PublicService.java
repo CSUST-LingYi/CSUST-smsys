@@ -15,8 +15,7 @@ import csust.bean.Student;
 /*次方法中所有增加，更新，修改数据都会在imp层调用一次更新综测汇总的接口*/
 public interface PublicService {
 
-	//获取综测开启状态
-	public  Integer getZcStatus(String xuenian);
+
 	// 获取学生的基础信息
 	public BasicInfo getStuInfo(String userName);
 

@@ -81,10 +81,10 @@
       </select>
 
     <update id="setZcStatus_o">
-        UPDATE zc_control SET switch=1 WHERE xuenian=#{xuenian}
+        UPDATE zc_control SET zc_switch=1 WHERE xuenian=#{xuenian}
     </update>
 
     <update id="setZcStatus_c">
-        UPDATE zc_control SET switch=0 WHERE xuenian=#{xuenian}
+        UPDATE zc_control SET zc_switch=0 WHERE xuenian=#{xuenian}
     </update>
 </mapper>

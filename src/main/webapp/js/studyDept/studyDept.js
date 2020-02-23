@@ -296,19 +296,17 @@ $(function(){
 	function getZcSta() {
         var zcxuenian = $("#zcxuenian").val();
         $.ajax({
-            url:"../public/getZcStatus",
+            url:"../studyDept/getZcStatus",
             type:"post",
             dataType:"json",
             data:{
                 xuenian:zcxuenian
             },
             success:function (res) {
-                if(res==1){
+                if(res){
                     $("#status").text("已开启/正在使用");
-                }else if(res==0){
+                }else{
                     $("#status").text("已停止/暂停使用");
-                }else {
-                    $("#status").text("加载中...");
                 }
             },
             error:function () {
