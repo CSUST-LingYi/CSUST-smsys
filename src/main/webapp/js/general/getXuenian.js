@@ -1,3 +1,4 @@
+//获取学年列表接口
 export let getXN = () => {
    return new Promise((resolve,reject) => {
        $.ajax({
@@ -13,5 +14,22 @@ export let getXN = () => {
            reject(error);
        });
    })
+};
+//增加学年接口
+export let addXN = (startTime,endTime) => {
+    return new Promise((resolve,reject) => {
+        $.ajax({
+            type:"post",
+            url:"insertXuenian",
+            data:{
+                "startTime":startTime,
+                "endTime":endTime
+            }
+        }).done((msg) => {
+            resolve(msg)
+        }).fail((errMsg) =>{
+            reject(errMsg)
+        })
+    })
 };
 

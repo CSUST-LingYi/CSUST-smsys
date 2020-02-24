@@ -126,14 +126,16 @@ public class StudyDeptServiceImp implements StudyDeptService {
 	}
 
 	@Transactional
-	public void insertXuenian(String startTime, String endTime) {
+	public Boolean insertXuenian(String startTime, String endTime) {
 		String name = startTime+"-"+endTime;
 		Xuenian xuenian = new Xuenian();
 		xuenian.setXuenian(name);
         List<Xuenian> xuenians = this.xuenianMapper.select(xuenian);
         if (CollectionUtils.isEmpty(xuenians)){
             this.xuenianMapper.insertSelective(xuenian);
+            return true;
         }
+        return false;
 
 	}
 

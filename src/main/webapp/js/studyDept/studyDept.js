@@ -1,7 +1,7 @@
 /**
  *
  */
-import {getXN} from "../general/getXuenian.js"
+import {addXN, getXN} from "../general/getXuenian.js"
 
 //解决浮点数加法精度问题
 function add(arg1, arg2) {
@@ -376,8 +376,54 @@ $(function () {
                 alert("操作失败，请重试")
             }
         })
-    })
+    });
 
+    //增加学年模态框展示
+    $("#addZcXuenian").click(function () {
+        $("#addXuenian").modal('toggle');
+    });
+    //增加学年按钮
+    $("#saveXuenian").click(function () {
+        let startTime = $("#startTime").val();
+        let endTime = $("#endTime").val();
+        let reg = /^\d{4}$/
+        if (startTime != "" && endTime != "") {
+            let SmatchRes = startTime.match(reg);
+            let EmatchRes = endTime.match(reg);
+            console.log(SmatchRes, EmatchRes);
+            if (SmatchRes != null && EmatchRes != null) {
+                if (Math.abs(startTime - endTime) != 1 || (startTime - endTime) > 0) {
+                    alert("请将学年范围间隔设置为1年");
+                } else {
+                    addXN(startTime, endTime)
+                        .then(msg => {
+                            alert(msg);
+                            getXN()
+                                .then(xuenians => {
+                                        $("#moralXuenian option").remove();
+                                        $("#zcxuenian option").remove();
+                                        for (let i = 0; i < xuenians.length; i++) {
+                                            $("#moralXuenian").append(`
+                                                <option style="margin: 5px; padding: 5px;">${xuenians[i].xuenian}</option>
+                                            `);
+                                            $("#zcxuenian").append(`
+                                                <option style="margin: 5px; padding: 5px;">${xuenians[i].xuenian}</option>
+                                            `)
+                                        }
+                                    }
+                                );
+                        })
+                        .catch(errMsg => {
+                            alert(errMsg.responseText);
+                        })
+                }
+            } else {
+                alert("请输入正确的年份格式!");
+            }
+        } else {
+            alert("学年不能为空");
+        }
+    });
 
     //增加一项德育分项
     addOneMoral();

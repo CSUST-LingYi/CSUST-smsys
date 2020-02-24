@@ -52,7 +52,7 @@ public interface StudyDeptService {
 	public List<ClassInfo> getClassCheckSummary(String xuenian, String termYear, String major);
 
 	//添加学年范围
-	void insertXuenian(String startTime,String endTime);
+	Boolean insertXuenian(String startTime,String endTime);
 
 	//查询所有学年
 	List<Xuenian> ListXuenian();

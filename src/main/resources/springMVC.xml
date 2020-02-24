@@ -21,7 +21,8 @@
     </context:component-scan>
 
     <mvc:annotation-driven />
- 
+
+
 
     <!--开通静态资源的访问-->
     <mvc:default-servlet-handler />

@@ -327,12 +327,17 @@ public class StudyDeptController {
         return ResponseEntity.ok(zcStatusByXuenian);
     }
 
-    @RequestMapping(value = "insertXuenian",method = RequestMethod.POST)
+    @RequestMapping(value = "insertXuenian",method = RequestMethod.POST,produces = {"text/plain;charset=utf-8","text/html;charset=utf-8"})
+    @ResponseBody
     @RequiresRoles("stuAdmin")
-    public ResponseEntity<Void> insertXuenian(@RequestParam(value = "startTime",required = true) String startTime,
+    public ResponseEntity<String> insertXuenian(@RequestParam(value = "startTime",required = true) String startTime,
                                 @RequestParam(value = "endTime",required = true) String endTime){
-        this.studyDeptService.insertXuenian(startTime,endTime);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+		Boolean aBoolean = this.studyDeptService.insertXuenian(startTime, endTime);
+		if (aBoolean){
+			return ResponseEntity.status(HttpStatus.CREATED).body("增加成功");
+		}
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("该学年已存在");
+
     }
 
     @RequestMapping(value = "listXuenian",method = RequestMethod.GET)
