@@ -386,7 +386,7 @@ $(function () {
     $("#saveXuenian").click(function () {
         let startTime = $("#startTime").val();
         let endTime = $("#endTime").val();
-        let reg = /^\d{4}$/
+        let reg = /^\d{4}$/;
         if (startTime != "" && endTime != "") {
             let SmatchRes = startTime.match(reg);
             let EmatchRes = endTime.match(reg);
