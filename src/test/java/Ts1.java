@@ -1,16 +1,12 @@
-import com.alibaba.druid.support.json.JSONUtils;
 import csust.bean.Lecture;
 import csust.bean.Xuenian;
-import csust.controller.StudyDeptController;
 import csust.service.LectureService;
 import csust.service.StudyDeptService;
-import org.apache.log4j.Logger;
 
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
