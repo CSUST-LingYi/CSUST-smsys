@@ -603,7 +603,7 @@
                 } else {
                     //ajax保存增加的扣分项
                     $.ajax({
-                        url: "http://csust.ngrok.xiaomiqiu.cn/comparsion/studyDept/addDeduction",
+                        url: "../studyDept/addDeduction",
                         type: "post",
                         data: {
                             "mid": mid,
@@ -633,7 +633,7 @@
             } else {
                 //ajax保存增加的扣分项
                 $.ajax({
-                    url: "http://csust.ngrok.xiaomiqiu.cn/comparsion/studyDept/updateDeduction",
+                    url: "../studyDept/updateDeduction",
                     type: "post",
                     data: {
                         "id": id,
@@ -660,7 +660,7 @@
             var id = $("#subId").val();
             //ajax删除增加的扣分项
             $.ajax({
-                url: "http://csust.ngrok.xiaomiqiu.cn/comparsion/studyDept/deleteDeduction",
+                url: "../studyDept/deleteDeduction",
                 type: "get",
                 data: {
                     "id": id

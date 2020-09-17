@@ -1,186 +1,223 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="UTF-8">
-		<title>学生成绩录入</title>
-     <script src="../js/jquery.min.js"></script>
-     <link href="../css/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-     <script src="../css/bootstrap/js/bootstrap.min.js"></script>
-    
-        <script src="../js/stu/functionsInStuPage.js"></script>
-        <script src="../js/stu/stuPage.js"></script>
-        <style type="text/css">
-            body{
-	        	background-color:white;
-            }
-            header{
-	            height:70px;
-                font-weight: bold;
-                background:rgba(0,0,0,0.7);
-                font-size:150%;
-                font-family: "微软雅黑","黑体","宋体";
-                padding-top: 2px;
-                list-style: none;
-                }
-            header ul{
-            	margin: 0px;
-            	padding-top: 13px;
-            }
-            header ul li{
-            	display:inline;
-            	color: white;
-            	font-weight: bold;
-            }
-            header ul li a{
-            	color:white;
-            	line-height: 40px;
-            }
-            header ul li a:hover{
-            	background:none;
-            	border-bottom: 3px red;
-            	color:cornflowerblue;
-            }
-            header ul li a:focus{
-            	background:none;
-            }
-            header h3{
-            	color: white;
-            	font-weight: bold;
-            }
-            #tab{
-            	height:50px;
-                font-weight: normal;
-                background:#F0F0F0;
-                font-size:100%;
-                font-family: "微软雅黑","黑体","宋体";
-                padding-top: 2px
-                style: none;
-            }
-            .navbar-text{
-            	padding:0px 5px;
-            	color:gray;
-            	margin-left: 30px;
-            }
-           .set{
-           	   background-color: whitesmoke;
-           	   border-style: outset;
-           	   height: auto;
-           	   width: 70%;
-           	   margin-top:10px;
-           	   margin-left:13.5%;
-           	   margin-bottom: 20px;
-           	   padding:30px 0px 30px 100px;
-            }
-           .x{
-	            margin-left: 70px;
-	            margin-top: 20px;
-            }
-            .content {
-                margin-left:260px;
-                margin-top: 10px;
-                background-color:white;
-                padding: 20px;
-                color:black;
-                list-style-type: none;
-            }
-            .b{
-	            
-            }
-            .menu{
-            	width: 12%;
-                position:absolute;
-            	margin-top: 8px;
-            	left: 0.5%;
-            	border:solid 1px;
-            }
-            .menu ul {
+<head>
+    <meta charset="UTF-8">
+    <title>学生成绩录入</title>
+    <script src="../js/jquery.min.js"></script>
+    <!-- Custom Fonts -->
+    <link href="../css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="../css/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <script src="../css/bootstrap/js/bootstrap.min.js"></script>
+
+    <script src="../js/stu/functionsInStuPage.js"></script>
+    <script type="module" src="../js/stu/stuPage.js"></script>
+    <style type="text/css">
+        body {
+            background-color: white;
+        }
+
+        header {
+            height: 70px;
+            font-weight: bold;
+            background: rgba(0, 0, 0, 0.7);
+            font-size: 150%;
+            font-family: "微软雅黑", "黑体", "宋体";
+            padding-top: 2px;
+            list-style: none;
+        }
+
+        header ul {
+            margin: 0px;
+            padding-top: 13px;
+        }
+
+        header ul li {
+            display: inline;
+            color: white;
+            font-weight: bold;
+        }
+
+        header ul li a {
+            color: white;
+            line-height: 40px;
+        }
+
+        header ul li a:hover {
+            background: none;
+            border-bottom: 3px red;
+            color: cornflowerblue;
+        }
+
+        header ul li a:focus {
+            background: none;
+        }
+
+        header h3 {
+            color: white;
+            font-weight: bold;
+        }
+
+        #tab {
+            height: 50px;
+            font-weight: normal;
+            background: #F0F0F0;
+            font-size: 100%;
+            font-family: "微软雅黑", "黑体", "宋体";
+            padding-top: 2px
+            style: none;
+        }
+
+        .navbar-text {
+            padding: 0px 5px;
+            color: gray;
+            margin-left: 30px;
+        }
+
+        .set {
+            background-color: whitesmoke;
+            border-style: outset;
+            height: auto;
+            width: 70%;
+            margin-top: 10px;
+            margin-left: 13.5%;
+            margin-bottom: 20px;
+            padding: 30px 0px 30px 100px;
+        }
+
+        .x {
+            margin-left: 70px;
+            margin-top: 20px;
+        }
+
+        .content {
+            margin-left: 260px;
+            margin-top: 10px;
+            background-color: white;
+            padding: 20px;
+            color: black;
+            list-style-type: none;
+        }
+
+        .b {
+
+        }
+
+        .menu {
+            width: 12%;
+            position: absolute;
+            margin-top: 8px;
+            left: 0.5%;
+            border: solid 1px;
+        }
+
+        .menu ul {
             list-style-type: none;
             margin: 0;
             padding: 0;
             width: 100%;
             background-color: #f1f1f1;
-            }
-           .menu li button {
-           	width: 100%;
-           	height: 60px;
+        }
+
+        .menu li button {
+            width: 100%;
+            height: 60px;
             display: block;
             color: #000;
             border-bottom: 1px solid grey;
             text-decoration: none;
-            
-            }
-            .menu button:hover {
-            background-color: rgba(0,0,0,0.1);
+
+        }
+
+        .menu button:hover {
+            background-color: rgba(0, 0, 0, 0.1);
             color: white;
-            }
-            .tableCellInSearch td{
-            	text-align: center;
-            	width: 120px;
-            	height: 30px;
-				background-color: white;
-				padding: 5px 10px 5px 10px;
-            }
-            .tableCellInSearchm td{
-				text-align: center;
-            	width: 140px;
-            	height: 30px;
-				background-color: white;
-				padding: 5px 10px 5px 10px;
-            }
-            .prizePicture{
-				height:200px;
-				width:300px;
-            }
-        </style>
-        <script>
-        	$(function(){
-        		$("#SetGrade").click(function(){
-        		    $("#Grade").show();
-        		    $("#Search").hide();
-        	    })
-        	    $("#SearchGrade").click(function(){
-        		    $("#Grade").hide();
-        		    $("#Search").show();
-        	    })
-        	    $("#SetKnowledge").click(function(){
-        		    $("#knowledge").show();
-        		    $("#sports").show();
-        		    $("#moral").hide();
-        	    })
-        	    $("#SetMoral").click(function(){
-        		    $("#knowledge").hide();
-        		    $("#sports").hide();
-        		    $("#moral").show();
-        	    })
-        	    
-        	     $("#SearchKnowledge").click(function(){
-        		    $("#SearchKnow").show();
-        		    $("#SearchPE").show();
-        		    $("#SearchMor").hide();
-        		    $("#SumOfAll").show();
-        		    $("#SearchDeductions").hide();
-        	    })
-        	    $("#SearchMoral").click(function(){
-        		    $("#SearchKnow").hide();
-        		    $("#SearchPE").hide();
-        		    $("#SearchMor").show();
-        		    $("#SumOfAll").show();
-        		    $("#SearchDeductions").hide();
-        	    })
-        	    $("#SearchDeductionsBtn").click(function(){
-        		    $("#SearchKnow").hide();
-        		    $("#SearchPE").hide();
-        		    $("#SearchMor").hide();
-        		    $("#SumOfAll").show();
-        		    $("#SearchDeductions").show();
-        	    })
-        	})
-        </script>
-	</head>
-	<body>
-		<!--导航条-->
-		<img src="../img/logo1.png" height="60px" width="60px" style="float:left;margin-left: 15px;"/>
-		<span>
+        }
+
+        .tableCellInSearch td {
+            text-align: center;
+            width: 120px;
+            height: 30px;
+            background-color: white;
+            padding: 5px 10px 5px 10px;
+        }
+
+        .tableCellInSearchm td {
+            text-align: center;
+            width: 140px;
+            height: 30px;
+            background-color: white;
+            padding: 5px 10px 5px 10px;
+        }
+
+        .prizePicture {
+            height: 200px;
+            width: 300px;
+        }
+    </style>
+    <script>
+        $(function () {
+            $("#SetGrade").click(function () {
+                $("#Grade").show();
+                $("#Search").hide();
+            })
+            $("#SearchGrade").click(function () {
+                $("#Grade").hide();
+                $("#Search").show();
+            })
+            $("#SetKnowledge").click(function () {
+                $("#knowledge").show();
+                $("#sports").show();
+                $("#moral").hide();
+            })
+            $("#SetMoral").click(function () {
+                $("#knowledge").hide();
+                $("#sports").hide();
+                $("#moral").show();
+            })
+
+            $("#SearchKnowledge").click(function () {
+                $("#SearchKnow").show();
+                $("#SearchPE").show();
+                $("#SearchMor").hide();
+                $("#SumOfAll").show();
+                $("#SearchDeductions").hide();
+            })
+            $("#SearchMoral").click(function () {
+                $("#SearchKnow").hide();
+                $("#SearchPE").hide();
+                $("#SearchMor").show();
+                $("#SumOfAll").show();
+                $("#SearchDeductions").hide();
+            })
+            $("#SearchDeductionsBtn").click(function () {
+                $("#SearchKnow").hide();
+                $("#SearchPE").hide();
+                $("#SearchMor").hide();
+                $("#SumOfAll").show();
+                $("#SearchDeductions").show();
+            })
+        })
+    </script>
+</head>
+<body>
+<!-- 加载动画 -->
+<div class="loadingBox"
+     style="position: absolute;width:100vw;height:100vh;z-index: 999;background-color: rgba(0,0,0,0.1);display:block;">
+    <div class="loadcenter" style="
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+">
+        <i class="fa fa-circle-o-notch fa-spin fa-5x fa-fw"></i>
+        <span class="sr-only">Loading...</span>
+        <br><br>
+        <span>&nbsp;&nbsp;&nbsp;&nbsp;正在加载..</span>
+    </div>
+</div>
+<!--导航条-->
+<img src="../img/logo1.png" height="60px" width="60px" style="float:left;margin-left: 15px;"/>
+<span>
 			<header>
 			    <ul>
 				    <li>综合测评系统</li>
@@ -189,326 +226,339 @@
 			    </ul>
 		   </header>
 		</span>
-		
-		<!--个人信息栏-->
-		<div>
-			<nav id="tab">
-					<span class="navbar-text" style="float: left;">专业：<span id="major">xxx</span></span>
-					<span class="navbar-text" style="float: left;">年级：<span id="nianji">xxx</span></span>
-					<span class="navbar-text" style="float: left;">班级：<span id="className">xx</span></span>
-					<span class="navbar-text" style="float: left;">姓名：<span id="studentName">xxx</span></span>
-					<span class="navbar-text" style="float: left;">学号：<span id="studentNo">xx</span></span>
-					<span class="navbar-text" style="float: right;margin-right:40px;">					
+
+<!--个人信息栏-->
+<div>
+    <nav id="tab">
+        <span class="navbar-text" style="float: left;">专业：<span id="major">加载中</span></span>
+        <span class="navbar-text" style="float: left;">年级：<span id="nianji">加载中</span></span>
+        <span class="navbar-text" style="float: left;">班级：<span id="className">加载中</span></span>
+        <span class="navbar-text" style="float: left;">姓名：<span id="studentName">加载中</span></span>
+        <span class="navbar-text" style="float: left;">学号：<span id="studentNo">加载中</span></span>
+        <span class="navbar-text" style="float: right;margin-right:40px;">
 					</span>
-					<span class="navbar-text" style="float: left;">	学年设置：
+        <span class="navbar-text" style="float: left;">	学年设置：
 					<select name="grade" style="height: 20px;" id="xuenian">
 					    <option value="2018-2019">2018-2019</option>
 					</select></span>
-			</nav>
-		</div>
+        <span class="navbar-text" style="float: left;">状态：<span id="zcStatus">加载中</span></span>
+    </nav>
+</div>
 
-		<!--竖向导航条-->
-		<div class="menu me">
-			<ul>
-				<li>
-					<button type="button" class="btn btn-link" style="padding-top: 0px;" id="SetGrade">
-					    <img src="../img/pen2.png" width="35px" height="35px"/>
-					    综测成绩录入
-					</button>
-				</li>
-				<li>
-					<button type="button" class="btn btn-link" style="padding-top: 0px;" id="SearchGrade">
-					    <img src="../img/search.png" width="25px" height="25px" style="margin-right: 7px;"/>
-					        综测成绩查询
-					</button>
-				</li>
-			</ul>
-		</div>
-		
-		<!--综测成绩录入模块-->
-	    <div id="Grade" class="me">
-		    <!--按键分区-->
-		    <div class="gradeList">
-		    	<button type="button" class="btn btn-primary btn-sm" style="margin: 8px 15px 0px 265px;" id="SetKnowledge">智育分和体育分录入</button>
-			    <button type="button" class="btn btn-primary btn-sm" style="margin-top: 8px;" id="SetMoral">德育分录入</button>
-			</div>
-		
-		    <!--智育分录入-->
-		    <div class="set" id="knowledge">
-		    	<img src="../img/pen.png" height="30px" width="25px" style="float:left;" />
-		    	<h4 style="font-weight: bold;">智育分录入</h4>
-				<br>
-		    	<table border="1" cellspacing="0" id="course_table">
-		    		<thead>
-		    			<tr>
-					    	<th style="text-align: center; padding: 5px 0px 5px 0px;">科目</th>
-					    	<th style="text-align: center; padding: 5px 0px 5px 0px;">课程学分</th>
-					    	<th style="text-align: center; padding: 5px 0px 5px 0px;">分数</th>
-						</tr>
-					</thead>
-					<tbody id="course_tableB">
-						<tr>
-							<td>管理信息系统</td>
-							<td>3</td>
-							<td><input type="text" class="form-control knowledgeScore" placeholder="请输入分数" ></td>
-						</tr>
-			  		</tbody>
-				</table>
-				<br><br>
-				<p>
-					总&nbsp;&nbsp;&nbsp;&nbsp;分：<span id="sumOfKnowInput"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					<!-- 不及格科目为：<span id="num_under60"></span>&nbsp;&nbsp;-->
-				</p>
-				计算后：<span id="scoreOfKnowInput"></span>&nbsp;&nbsp;&nbsp;&nbsp;
-				<button type="button" class="btn btn-primary btn-sm" id="input_knowledge">提交</button>
-		    </div>
-	    
-		    <!--体育分录入-->
-		    <div class="set" id="sports">
-		    	<img src="../img/pen.png" height="30px" width="25px" style="float:left;" />
-		    	<h4 style="font-weight: bold;">体育分录入
-		    		<button type="button" class="btn btn-primary btn-sm" id="input_sports" style="margin-left: 20px;">提交</button>
-		    	</h4>
-		    	<br>
-		    	<table border="1" cellspacing="0">
-		    		<!--tr内容为测试计算总分-->
-		    		<tr>
-					    <th width="100px" style="text-align: center; padding: 5px 0px 5px 0px;">学期</th>
-					    <th style="text-align: center; padding: 5px 0px 5px 0px;">分数</th>
-					</tr>
-					<tr>
-						<td width="100px" style="text-align: center;">第一学期</td>
-						<td><input type="text" class="form-control SportScore" placeholder="请输入分数" onkeyup="sumSport(this);" id="firstTermScore"></td>
-					</tr>
-					<tr>
-						<td width="100px" style="text-align: center;">第二学期</td>
-						<td><input type="text" class="form-control SportScore" placeholder="请输入分数" onkeyup="sumSport(this);" id="secondTermScore"></td>
-					</tr>
-				</table>
-				<br>
-				<p>
-					总计：<span id="sumOfPEinput"></span>
-				</p>
-				<p>
-					最终体育分：<span id="scoreOfPEinput"></span>
-				</p>
-		    </div>	      	
-	    
-		    <!--德育分录入-->
-		    <div class="set" id="moral" style="display: none;">
-		    	<img src="../img/pen.png" height="30px" width="25px" style="float:left;" />
-		    	<h3 style="font-weight: bold;">德育分加分项录入</h3>
-		    	<br>
-		    	<ul id="ul_Moral"></ul>
-		        <br>
-				<p>
-					总计：<span id="moralSumSet"></span>
-				</p>
+<!--竖向导航条-->
+<div class="menu me">
+    <ul>
+        <li>
+            <button type="button" class="btn btn-link" style="padding-top: 0px;" id="SetGrade">
+                <img src="../img/pen2.png" width="35px" height="35px"/>
+                综测成绩录入
+            </button>
+        </li>
+        <li>
+            <button type="button" class="btn btn-link" style="padding-top: 0px;" id="SearchGrade">
+                <img src="../img/search.png" width="25px" height="25px" style="margin-right: 7px;"/>
+                综测成绩查询
+            </button>
+        </li>
+    </ul>
+</div>
 
-				<div style="margin-top:50px;" class="moralHeader">
-					<h4 style="font-weight: bold;">获奖情况明细</h4>
-					<br>
-		            <table border="1" cellspacing="0">
-		            	<thead>
-		            		<tr>
-		            			<th style="text-align: center; padding: 5px 0px 5px 0px;background-color: whitesmoke;">奖项名称</th>
-			                	<th style="text-align: center; padding: 5px 0px 5px 0px;background-color: whitesmoke;">类别</th>
-			                	<th style="text-align: center; padding: 5px 0px 5px 0px;background-color: whitesmoke;">得分</th>
-			                	<th style="text-align: center; padding: 5px 0px 5px 0px;background-color: whitesmoke;">获奖时间</th>
-			                	<th style="text-align: center; padding: 5px 0px 5px 0px;background-color: whitesmoke;">奖项材料</th>
-			                	<th style="text-align: center; padding: 5px 0px 5px 0px;background-color: whitesmoke;">操作</th>
-		            		</tr>
-		            	</thead>
-		                <tbody id="moralPrizeTable1" class="tableCellInSearchm">
-		                </tbody>
-		            </table>
-		        </div>
-		    </div>
-	    </div>
+<!--综测成绩录入模块-->
+<div id="Grade" class="me">
+    <!--按键分区-->
+    <div class="gradeList">
+        <button type="button" class="btn btn-primary btn-sm" style="margin: 8px 15px 0px 265px;" id="SetKnowledge">
+            智育分和体育分录入
+        </button>
+        <button type="button" class="btn btn-primary btn-sm" style="margin-top: 8px;" id="SetMoral">德育分录入</button>
+    </div>
 
-		<!-- 奖项录入模态框  -->
-        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title" id="myModalLabel">奖项信息录入</h4>
-                        <span id="did-in-modal" style="display: none;"></span>
-                    </div>
-                    <div class="modal-body">
-            	        <p>奖项名称：<input id="prizeName" name="prizeName" type="text" class="form-control" placeholder="请输入奖项全称"></p>
-            	        <br>
-            	        <p>应获分数：<input id="prizeScore" name="prizeScore" type="text" class="form-control" placeholder="请输入奖项分数"></p>
-            	        <br>
-            	        <p>获得时间：<input id="prizeDate" name="prizeDate" type="text" class="form-control" placeholder="请输入奖项获得日期"></p>
-            	        <br>
-            	        <p>证明材料：<input id="prizeFile" name="prizeFile" type="file" class="form-control" placeholder="请上传证明材料" accept=".png,.jpg,.jpeg,.PNG,.JPG,.JPEG"></p>
-                    </div>
-                    <div class="modal-footer">
-                    	<strong style="color:red;">注意：图片大小最大2MB</strong>
-                        <button type="button" id="submitMoral" class="btn btn-primary">提交</button>
-                    </div>
-                </div><!-- /.modal-content -->
-            </div><!-- /.modal -->
+    <!--智育分录入-->
+    <div class="set" id="knowledge">
+        <img src="../img/pen.png" height="30px" width="25px" style="float:left;"/>
+        <h4 style="font-weight: bold;">智育分录入</h4>
+        <br>
+        <table border="1" cellspacing="0" id="course_table">
+            <thead>
+            <tr>
+                <th style="text-align: center; padding: 5px 0px 5px 0px;">科目</th>
+                <th style="text-align: center; padding: 5px 0px 5px 0px;">课程学分</th>
+                <th style="text-align: center; padding: 5px 0px 5px 0px;">分数</th>
+            </tr>
+            </thead>
+            <tbody id="course_tableB">
+            <tr>
+                <td>管理信息系统</td>
+                <td>3</td>
+                <td><input type="text" class="form-control knowledgeScore" placeholder="请输入分数"></td>
+            </tr>
+            </tbody>
+        </table>
+        <br><br>
+        <p>
+            总&nbsp;&nbsp;&nbsp;&nbsp;分：<span id="sumOfKnowInput"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <!-- 不及格科目为：<span id="num_under60"></span>&nbsp;&nbsp;-->
+        </p>
+        计算后：<span id="scoreOfKnowInput"></span>&nbsp;&nbsp;&nbsp;&nbsp;
+        <button type="button" class="btn btn-primary btn-sm" id="input_knowledge">提交</button>
+    </div>
+
+    <!--体育分录入-->
+    <div class="set" id="sports">
+        <img src="../img/pen.png" height="30px" width="25px" style="float:left;"/>
+        <h4 style="font-weight: bold;">体育分录入
+            <button type="button" class="btn btn-primary btn-sm" id="input_sports" style="margin-left: 20px;">提交
+            </button>
+        </h4>
+        <br>
+        <table border="1" cellspacing="0">
+            <!--tr内容为测试计算总分-->
+            <tr>
+                <th width="100px" style="text-align: center; padding: 5px 0px 5px 0px;">学期</th>
+                <th style="text-align: center; padding: 5px 0px 5px 0px;">分数</th>
+            </tr>
+            <tr>
+                <td width="100px" style="text-align: center;">第一学期</td>
+                <td><input type="text" class="form-control SportScore" placeholder="请输入分数" onkeyup="sumSport(this);"
+                           id="firstTermScore"></td>
+            </tr>
+            <tr>
+                <td width="100px" style="text-align: center;">第二学期</td>
+                <td><input type="text" class="form-control SportScore" placeholder="请输入分数" onkeyup="sumSport(this);"
+                           id="secondTermScore"></td>
+            </tr>
+        </table>
+        <br>
+        <p>
+            总计：<span id="sumOfPEinput"></span>
+        </p>
+        <p>
+            最终体育分：<span id="scoreOfPEinput"></span>
+        </p>
+    </div>
+
+    <!--德育分录入-->
+    <div class="set" id="moral" style="display: none;">
+        <img src="../img/pen.png" height="30px" width="25px" style="float:left;"/>
+        <h3 style="font-weight: bold;">德育分加分项录入</h3>
+        <br>
+        <ul id="ul_Moral"></ul>
+        <br>
+        <p>
+            总计：<span id="moralSumSet"></span>
+        </p>
+
+        <div style="margin-top:50px;" class="moralHeader">
+            <h4 style="font-weight: bold;">获奖情况明细</h4>
+            <br>
+            <table border="1" cellspacing="0">
+                <thead>
+                <tr>
+                    <th style="text-align: center; padding: 5px 0px 5px 0px;background-color: whitesmoke;">奖项名称</th>
+                    <th style="text-align: center; padding: 5px 0px 5px 0px;background-color: whitesmoke;">类别</th>
+                    <th style="text-align: center; padding: 5px 0px 5px 0px;background-color: whitesmoke;">得分</th>
+                    <th style="text-align: center; padding: 5px 0px 5px 0px;background-color: whitesmoke;">获奖时间</th>
+                    <th style="text-align: center; padding: 5px 0px 5px 0px;background-color: whitesmoke;">奖项材料</th>
+                    <th style="text-align: center; padding: 5px 0px 5px 0px;background-color: whitesmoke;">操作</th>
+                </tr>
+                </thead>
+                <tbody id="moralPrizeTable1" class="tableCellInSearchm">
+                </tbody>
+            </table>
         </div>
-        <!-- 奖项修改模态框  -->
-        <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title" id="myModalLabel2">奖项信息修改(注：修改奖项材料需要重新录入该奖项)</h4>
-                        <span id="did2-in-modal" style="display: none;"></span>
-                    </div>
-                    <div class="modal-body">
-            	        <p>奖项名称：<input id="prizeName2" name="prizeName2" type="text" class="form-control"></p>
-            	        <br>
-            	        <p>应获分数：<input id="prizeScore2" name="prizeScore2" type="text" class="form-control"></p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" id="submitMoral2" class="btn btn-primary">提交</button>
-                    </div>
-                </div><!-- /.modal-content -->
-            </div><!-- /.modal -->
+    </div>
+</div>
+
+<!-- 奖项录入模态框  -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">奖项信息录入</h4>
+                <span id="did-in-modal" style="display: none;"></span>
+            </div>
+            <div class="modal-body">
+                <p>奖项名称：<input id="prizeName" name="prizeName" type="text" class="form-control" placeholder="请输入奖项全称">
+                </p>
+                <br>
+                <p>应获分数：<input id="prizeScore" name="prizeScore" type="text" class="form-control" placeholder="请输入奖项分数">
+                </p>
+                <br>
+                <p>获得时间：<input id="prizeDate" name="prizeDate" type="text" class="form-control" placeholder="请输入奖项获得日期">
+                </p>
+                <br>
+                <p>证明材料：<input id="prizeFile" name="prizeFile" type="file" class="form-control" placeholder="请上传证明材料"
+                               accept=".png,.jpg,.jpeg,.PNG,.JPG,.JPEG"></p>
+            </div>
+            <div class="modal-footer">
+                <strong style="color:red;">注意：图片大小最大2MB</strong>
+                <button type="button" id="submitMoral" class="btn btn-primary">提交</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+<!-- 奖项修改模态框  -->
+<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel2">奖项信息修改(注：修改奖项材料需要重新录入该奖项)</h4>
+                <span id="did2-in-modal" style="display: none;"></span>
+            </div>
+            <div class="modal-body">
+                <p>奖项名称：<input id="prizeName2" name="prizeName2" type="text" class="form-control"></p>
+                <br>
+                <p>应获分数：<input id="prizeScore2" name="prizeScore2" type="text" class="form-control"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="submitMoral2" class="btn btn-primary">提交</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+
+<!--综测成绩查询模块-->
+<div id="Search" style="display: none;" class="me">
+    <!--按键分区-->
+    <div>
+        <button type="button" class="btn btn-primary btn-sm" id="SearchKnowledge" style="margin: 8px 0px 0px 0px;">
+            智育分和体育分查询
+        </button>
+        <button type="button" class="btn btn-primary btn-sm" id="SearchMoral" style="margin: 8px 0px 0px 0px;">德育分查询
+        </button>
+        <button type="button" class="btn btn-primary btn-sm" id="SearchDeductionsBtn" style="margin-top: 8px;">扣分情况
+        </button>
+    </div>
+    <!--综测成绩查询模块-->
+    <div class="set" id="SumOfAll">
+        <h3 style="font-weight: bold;">综合测评情况</h3>
+        <br>
+        <table border="1" cellspacing="0">
+            <thead>
+            <tr>
+                <th style="text-align: center; padding: 5px 0px 5px 0px;">智育分</th>
+                <th style="text-align: center; padding: 5px 0px 5px 0px;">德育分</th>
+                <th style="text-align: center; padding: 5px 0px 5px 0px;">体育分</th>
+                <th style="text-align: center; padding: 5px 0px 5px 0px;">扣分</th>
+                <th style="text-align: center; padding: 5px 0px 5px 0px;">挂科数</th>
+                <th style="text-align: center; padding: 5px 0px 5px 0px;">总分</th>
+                <th style="text-align: center; padding: 5px 0px 5px 0px;">审核状态</th>
+                <th style="text-align: center; padding: 5px 0px 5px 0px;">备注</th>
+            </tr>
+            </thead>
+            <tbody id="AllTable" class="tableCellInSearch">
+            </tbody>
+        </table>
+        <br><br>
+    </div>
+    <!--扣分查询模块-->
+    <div class="set" id="SearchDeductions" style="display: none;">
+        <h3 style="font-weight: bold;">扣分情况</h3>
+        <br>
+        <table border="1" cellspacing="0">
+            <thead>
+            <tr>
+                <th style="text-align: center; padding: 5px 0px 5px 0px;">扣分项目</th>
+                <th style="text-align: center; padding: 5px 0px 5px 0px;">单次扣分</th>
+                <th style="text-align: center; padding: 5px 0px 5px 0px;">次数</th>
+                <th style="text-align: center; padding: 5px 0px 5px 0px;">共扣除分数</th>
+                <th style="text-align: center; padding: 5px 0px 5px 0px;">备注</th>
+            </tr>
+            </thead>
+            <tbody id="DeducionsTable" class="tableCellInSearch">
+            </tbody>
+        </table>
+        <br><br>
+    </div>
+    <!--德育分查询结果-->
+    <div class="set" id="SearchMor" style="display: none;">
+        <h3 style="font-weight: bold;">德育分得分情况</h3>
+        <br>
+        <table border="1" cellspacing="0">
+            <thead>
+            <tr>
+                <th style="text-align: center; padding: 5px 0px 5px 0px;">自评</th>
+                <th style="text-align: center; padding: 5px 0px 5px 0px;">班评</th>
+                <th style="text-align: center; padding: 5px 0px 5px 0px;">教师评</th>
+                <th style="text-align: center; padding: 5px 0px 5px 0px;">加分</th>
+                <th style="text-align: center; padding: 5px 0px 5px 0px;">合计</th>
+            </tr>
+            </thead>
+            <tbody id="moralTable" class="tableCellInSearch">
+            </tbody>
+        </table>
+
+        <div style="margin-top:50px ;" class="moralHeader">
+            <h4 style="font-weight: bold;">获奖情况明细</h4>
+            <br>
+            <table border="1" cellspacing="0">
+                <thead>
+                <tr>
+                    <th style="text-align: center; padding: 5px 0px 5px 0px;background-color: whitesmoke;">奖项名称</th>
+                    <th style="text-align: center; padding: 5px 0px 5px 0px;background-color: whitesmoke;">类别</th>
+                    <th style="text-align: center; padding: 5px 0px 5px 0px;background-color: whitesmoke;">得分</th>
+                    <th style="text-align: center; padding: 5px 0px 5px 0px;background-color: whitesmoke;">获奖时间</th>
+                    <th style="text-align: center; padding: 5px 0px 5px 0px;background-color: whitesmoke;">奖项材料</th>
+                </tr>
+                </thead>
+                <tbody id="moralPrizeTable" class="tableCellInSearchm">
+                </tbody>
+            </table>
         </div>
-		
-	    <!--综测成绩查询模块-->
-	    <div id="Search" style="display: none;" class="me">
-	        <!--按键分区-->
-		    <div>
-		    	<button type="button" class="btn btn-primary btn-sm" id="SearchKnowledge" style="margin: 8px 0px 0px 0px;">智育分和体育分查询</button>
-			    <button type="button" class="btn btn-primary btn-sm" id="SearchMoral" style="margin: 8px 0px 0px 0px;">德育分查询</button>
-			    <button type="button" class="btn btn-primary btn-sm" id="SearchDeductionsBtn" style="margin-top: 8px;">扣分情况</button>
-			</div>
-			<!--综测成绩查询模块-->
-		    <div class="set" id="SumOfAll">
-		    	<h3 style="font-weight: bold;">综合测评情况</h3>
-				<br>
-		    	<table border="1" cellspacing="0">
-		    		<thead>
-		    			<tr>
-					    	<th style="text-align: center; padding: 5px 0px 5px 0px;">智育分</th>
-					    	<th style="text-align: center; padding: 5px 0px 5px 0px;">德育分</th>
-					    	<th style="text-align: center; padding: 5px 0px 5px 0px;">体育分</th>
-					    	<th style="text-align: center; padding: 5px 0px 5px 0px;">扣分</th>
-					    	<th style="text-align: center; padding: 5px 0px 5px 0px;">挂科数</th>
-					    	<th style="text-align: center; padding: 5px 0px 5px 0px;">总分</th>
-					    	<th style="text-align: center; padding: 5px 0px 5px 0px;">审核状态</th>
-					    	<th style="text-align: center; padding: 5px 0px 5px 0px;">备注</th>
-						</tr>
-					</thead>
-					<tbody id="AllTable" class="tableCellInSearch">
-			  		</tbody>
-				</table>
-				<br><br>
-			</div>
-			<!--扣分查询模块-->
-		    <div class="set" id="SearchDeductions" style="display: none;">
-		    	<h3 style="font-weight: bold;">扣分情况</h3>
-				<br>
-		    	<table border="1" cellspacing="0">
-		    		<thead>
-		    			<tr>
-					    	<th style="text-align: center; padding: 5px 0px 5px 0px;">扣分项目</th>
-					    	<th style="text-align: center; padding: 5px 0px 5px 0px;">单次扣分</th>
-					    	<th style="text-align: center; padding: 5px 0px 5px 0px;">次数</th>
-					    	<th style="text-align: center; padding: 5px 0px 5px 0px;">共扣除分数</th>
-					    	<th style="text-align: center; padding: 5px 0px 5px 0px;">备注</th>
-						</tr>
-					</thead>
-					<tbody id="DeducionsTable" class="tableCellInSearch">
-			  		</tbody>
-				</table>
-				<br><br>
-			</div>
-			<!--德育分查询结果-->
-			<div class="set" id="SearchMor" style="display: none;">
-		    	<h3 style="font-weight: bold;">德育分得分情况</h3>
-				<br>
-		    	<table border="1" cellspacing="0">
-		    		<thead>
-		    			<tr>
-					    	<th style="text-align: center; padding: 5px 0px 5px 0px;">自评</th>
-					    	<th style="text-align: center; padding: 5px 0px 5px 0px;">班评</th>
-					    	<th style="text-align: center; padding: 5px 0px 5px 0px;">教师评</th>
-					    	<th style="text-align: center; padding: 5px 0px 5px 0px;">加分</th>
-					    	<th style="text-align: center; padding: 5px 0px 5px 0px;">合计</th>
-						</tr>
-					</thead>
-					<tbody id="moralTable" class="tableCellInSearch">
-			  		</tbody>
-				</table>
+    </div>
+    <!--智育分查询结果-->
+    <div class="set" id="SearchKnow">
+        <h3 style="font-weight: bold;">智育分得分情况</h3>
+        <br>
+        <table border="1" cellspacing="0">
+            <thead>
+            <tr>
+                <th style="text-align: center; padding: 5px 0px 5px 0px;">科目</th>
+                <th style="text-align: center; padding: 5px 0px 5px 0px;">课程学分</th>
+                <th style="text-align: center; padding: 5px 0px 5px 0px;">分数</th>
+            </tr>
+            </thead>
+            <tbody id="knowledgeTable" class="tableCellInSearch">
+            </tbody>
+        </table>
+        <br><br>
+        <p>
+            总成绩：<span id="sumOfKnow"></span>
+        </p>
+        <p>
+            智育分得分：<span id="scoreOfKnow"></span>
+        </p>
+    </div>
+    <!--体育分查询结果-->
+    <div class="set" id="SearchPE">
+        <h3 style="font-weight: bold;">体育分得分情况</h3>
+        <br>
+        <table border="1" cellspacing="0">
+            <thead>
+            <tr>
+                <th style="text-align: center; padding: 5px 0px 5px 0px;">第一学期</th>
+                <th style="text-align: center; padding: 5px 0px 5px 0px;">第二学期</th>
+            </tr>
+            </thead>
+            <tbody id="PETable" class="tableCellInSearch">
+            <tr>
+                <td>3</td>
+                <td>3</td>
+            </tr>
+            </tbody>
+        </table>
+        <br><br>
+        <p>
+            总分：<span id="sumOfPE"></span>
+        </p>
+        <p>
+            体育分得分：<span id="scoreOfPE"></span>
+        </p>
+    </div>
+</div>
 
-				<div style="margin-top:50px ;" class="moralHeader">
-					<h4 style="font-weight: bold;">获奖情况明细</h4>
-					<br>
-		            <table border="1" cellspacing="0">
-		            	<thead>
-		            		<tr>
-		            			<th style="text-align: center; padding: 5px 0px 5px 0px;background-color: whitesmoke;">奖项名称</th>
-			                	<th style="text-align: center; padding: 5px 0px 5px 0px;background-color: whitesmoke;">类别</th>
-			                	<th style="text-align: center; padding: 5px 0px 5px 0px;background-color: whitesmoke;">得分</th>
-			                	<th style="text-align: center; padding: 5px 0px 5px 0px;background-color: whitesmoke;">获奖时间</th>
-			                	<th style="text-align: center; padding: 5px 0px 5px 0px;background-color: whitesmoke;">奖项材料</th>
-		            		</tr>
-		            	</thead>
-		                <tbody id="moralPrizeTable" class="tableCellInSearchm">
-		                </tbody>
-		            </table>
-		        </div>
-		    </div>
-        	<!--智育分查询结果-->
-		    <div class="set" id="SearchKnow">
-		    	<h3 style="font-weight: bold;">智育分得分情况</h3>
-				<br>
-		    	<table border="1" cellspacing="0">
-		    		<thead>
-		    			<tr>
-					    	<th style="text-align: center; padding: 5px 0px 5px 0px;">科目</th>
-					    	<th style="text-align: center; padding: 5px 0px 5px 0px;">课程学分</th>
-					    	<th style="text-align: center; padding: 5px 0px 5px 0px;">分数</th>
-						</tr>
-					</thead>
-					<tbody id="knowledgeTable" class="tableCellInSearch">
-			  		</tbody>
-				</table>
-				<br><br>
-				<p>
-					总成绩：<span id="sumOfKnow"></span>
-				</p>
-				<p>
-					智育分得分：<span id="scoreOfKnow"></span>
-				</p>
-		    </div>
-		    <!--体育分查询结果-->
-		    <div class="set" id="SearchPE">
-		    	<h3 style="font-weight: bold;">体育分得分情况</h3>
-				<br>
-		    	<table border="1" cellspacing="0">
-		    		<thead>
-		    			<tr>
-					    	<th style="text-align: center; padding: 5px 0px 5px 0px;">第一学期</th>
-					    	<th style="text-align: center; padding: 5px 0px 5px 0px;">第二学期</th>
-						</tr>
-					</thead>
-					<tbody id="PETable" class="tableCellInSearch">
-						<tr>
-							<td>3</td>
-							<td>3</td>
-						</tr>
-			  		</tbody>
-				</table>
-				<br><br>
-				<p>
-					总分：<span id="sumOfPE"></span>
-				</p>
-				<p>
-					体育分得分：<span id="scoreOfPE"></span>
-				</p>
-		    </div>
-		</div>
 
-		
-
-	</body>
+</body>
 </html>

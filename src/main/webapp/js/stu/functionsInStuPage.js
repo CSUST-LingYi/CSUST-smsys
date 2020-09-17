@@ -2,6 +2,7 @@
  *辅助函数
  **/
 
+
 //四舍五入小数的方法
 function round(num, decimal) {
     if (isNaN(num)) {
@@ -36,6 +37,7 @@ function resetStatus(xuenian,studentNo){
 
 //查询——按学号、学年查询智育分并写入相应表格
 function getKnowledgeInfo(xuenian,studentNo,nianji,major,className,tablename){
+    $(".loadingBox").show();
 	$.ajax({
 			url: "../public/getPersonKnowledgeBySno",
 			type: "post",
@@ -68,8 +70,10 @@ function getKnowledgeInfo(xuenian,studentNo,nianji,major,className,tablename){
 		    	//$("#scoreOfKnow").html(toFixed(score,2));
 		    	$("#scoreOfKnow").text($('#scoreOfKnowInput').text());
 		    	$("#sumOfKnow").html(sum);
+		    	$(".loadingBox").hide();
 		  	},
 			error: function() {
+                $(".loadingBox").hide();
 				alert("查询出错10");
 			}
 		});
@@ -104,6 +108,7 @@ function getPEInfo(year,sno,tablename){
 
 //按学号、学年查询德育分情况并写入相应表格
 function getMoralInfo(year,sno,tablename){
+    $(".loadingBox").show();
 	$.ajax({
 		url: "../public/getMoralSummary",
 		type: "post",
@@ -119,15 +124,18 @@ function getMoralInfo(year,sno,tablename){
 			var tr = $("<tr></tr>");
 			tr.html("<td>" + data.selfEvaluation + "</td><td>" + data.classEvaluation + "</td><td>" + data.teacherEvaluation + "</td><td>" + data.additionnalScore + "</td><td>" + data.summary + "</td>");
 			table.append(tr);
+            $(".loadingBox").hide();
 		},
 		error: function() {
 			alert("查询出错12");
+            $(".loadingBox").hide();
 		}
     });
 }
 
 //按学号、学年查询德育分中的获奖情况并写入相应表格
 function getMoralPrizeInfo(year,sno,tablename){
+    $(".loadingBox").show();
 	$.ajax({
 		url: "../public/getPersonMoralBySno",
 		type: "get",
@@ -162,15 +170,18 @@ function getMoralPrizeInfo(year,sno,tablename){
 				})
 			})
 			$("#moralSumSet").html(toFixed(summoral,2));
+            $(".loadingBox").hide();
 		},
 		error: function() {
 			alert("查询出错14");
+            $(".loadingBox").hide();
 		}
     });
 }
 
 //查询体育智育信息——录入界面
 function getPEAndKnowInfos(xuenian,studentNo,nianji,major,className){
+    $(".loadingBox").show();
 	//体育分
 	$.ajax({
 		url: "../public/getPersonSports",
@@ -179,16 +190,20 @@ function getPEAndKnowInfos(xuenian,studentNo,nianji,major,className){
 		scriptCharset: "utf-8",
 		data: {
 			"xuenian": xuenian,
-			"studentNo": studentNo		},
+			"studentNo": studentNo
+		},
 	  	success: function(data) {
 	  		$("#firstTermScore").val(data.firstTerm);
 	  		$("#secondTermScore").val(data.secondTerm);
 			$('#sumOfPEinput').html(data.firstTerm+data.secondTerm);
 			$("#scoreOfPEinput").html(data.sum);
+			console.log("获取体育分完成")
+            $(".loadingBox").hide();
 	  	},
 		error: function(data) {
 			alert("查询出错15");
 			console.log(data);
+            $(".loadingBox").hide();
 		}
 	});
 	//智育分
@@ -210,6 +225,7 @@ function getPEAndKnowInfos(xuenian,studentNo,nianji,major,className){
 	  			var table = $("#course_tableB");
 	  			    table.html(" ");
 	  			    table.append("<tr><td>暂无设置</td><td>暂无设置</td><td>暂无设置</td></tr>");
+                	$(".loadingBox").hide();
 	  			    return false;
 	  			    
 	  		}
@@ -237,9 +253,11 @@ function getPEAndKnowInfos(xuenian,studentNo,nianji,major,className){
 	    	score = 0.7*(temp/t2);
 	    	$("#scoreOfKnowInput").html(toFixed(score,2));
 	    	$("#sumOfKnowInput").html(sum);
+            $(".loadingBox").hide();
 	  	},
 		error: function() {
 			alert("查询出错16");
+            $(".loadingBox").hide();
 		}
 	});
 }
@@ -300,6 +318,9 @@ function getMoralByMid(mid,dom){
     	}
     })
 }
+
+
+
 
 //绑定德育分子层切换，如果有子层就收起或者隐藏
 //否则通过自身的did查询是否有下一层

@@ -4,43 +4,43 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="csust.mapper.AnalyzeMapper">
 <select id="getPunishCount" resultType="Double" >
-  select count(*) from punish where studentNo=#{0}
+  select count(*) from punish where studentNo=#{arg0}
 </select>
 
 <select id="getAwardCount" resultType="Double" >
-  select count(*) from jl where studentNo=#{0}
+  select count(*) from jl where studentNo=#{arg0}
 </select>
 
 <select id="getSkillCount" resultType="Double" >
-  select count(*) from skill where studentNo=#{0}
+  select count(*) from skill where studentNo=#{arg0}
 </select>
 
 <select id="getActiveCount" resultType="Double" >
-  select count(*) from practice where studentNo=#{0} and type="校外"
+  select count(*) from practice where studentNo=#{arg0} and type="校外"
 </select>
 
 <select id="getSchoolCount" resultType="Double" >
-  select count(*) from practice where studentNo=#{0} and type="校内"
+  select count(*) from practice where studentNo=#{arg0} and type="校内"
 </select>
 
 <select id="getAvgCPA" resultType="Double" >
-  select AVG(avgCPA) from grade  where studentNo=#{0}
+  select AVG(avgCPA) from grade  where studentNo=#{arg0}
 </select>
 
 <select id="listFileName"  resultType="FileName" >
-  select fileName from file where stuType=#{0}
+  select fileName from file where stuType=#{arg0}
 </select>
 
 <select id="getFileName"  resultType="FileName" >
-  select fileName from file where fileName=#{0} and stuType=#{1}
+  select fileName from file where fileName=#{arg0} and stuType=#{arg1}
 </select>
 
 <insert id="addFilleName">
- insert into file values(#{0},#{1})
+ insert into file values(#{arg0},#{arg1})
 </insert>
 
 <delete id="deleteFileName">
-  delete from file where fileName=#{0} and stuType=#{1}
+  delete from file where fileName=#{arg0} and stuType=#{arg1}
 </delete>
 
 <insert id="addStudentGrade" parameterType="StudentGrade">
@@ -50,12 +50,12 @@
 </insert>
 
 <select id="getClassName" resultType="String">
-   select distinct class from studentgrade where nianji=#{0} and major=#{1} 
+   select distinct class from studentgrade where nianji=#{arg0} and major=#{arg1}
 </select>
 
 <select id="getRewardByXuenianAndMajor" resultType="view_count_reward">
    select distinct xuenian,nianji,major,level,name,adviser,sponsor from view_count_reward
-  where  xuenian=#{0} and nianji=#{1} and major=#{2} and level=#{3} and stuType=#{4}
+  where  xuenian=#{arg0} and nianji=#{arg1} and major=#{arg2} and level=#{arg3} and stuType=#{arg4}
 </select>
 
 
@@ -91,6 +91,6 @@
 
 
 <select id="getFails"  resultType="Integer">
-select count(*) from studentgrade where xuenian=#{0} and xueqi=#{1} and nianji=#{2} and major=#{3} and fail>0;
+select count(*) from studentgrade where xuenian=#{arg0} and xueqi=#{arg1} and nianji=#{arg2} and major=#{arg3} and fail>0;
 </select>
 </mapper>

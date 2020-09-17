@@ -1,14 +1,9 @@
 package csust.controller;
 
-import java.io.FileOutputStream;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import csust.bean.*;
+import csust.service.MonitorService;
+import csust.service.PublicService;
+import csust.service.UserService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.Logical;
 import org.apache.shiro.authz.annotation.RequiresRoles;
@@ -18,19 +13,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import csust.bean.BasicInfo;
-import csust.bean.Course;
-import csust.bean.Feedback;
-import csust.bean.PersonDeduction;
-import csust.bean.PersonSummary;
-import csust.bean.Student;
-
-import csust.service.MonitorService;
-import csust.service.PublicService;
-import csust.service.UserService;
 import readExcel.ExportExcel;
 import utils.StudentNoComparator;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.FileOutputStream;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 @Controller
 @RequestMapping("/monitor")
@@ -148,7 +139,7 @@ public class MonitorController {
 	public String updateOneCourse(Course c) {
 
 		monitorService.updateCourse(c);
-		;
+
 
 		return "success";
 	}

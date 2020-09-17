@@ -1,4 +1,6 @@
-function compileStr(code){ //对字符串进行加密       
+import {getUrlVars, getXN} from "../general/getXuenian.js";
+
+function compileStr(code){ //对字符串进行加密
   var c=String.fromCharCode(code.charCodeAt(0)+code.length);
  for(var i=1;i<code.length;i++)
   {      
@@ -6,6 +8,26 @@ function compileStr(code){ //对字符串进行加密
  }   
  return escape(c);  
  }
+
+$(function(){
+    //渲染学年列表
+    getXN().then(xuenians => {
+        $("#xuenian option").remove();
+        xuenians.forEach((item,index) => {
+            if (item.xuenian === getUrlVars()['xuenian']){
+                $("#xuenian").append(`<option selected value="${item.xuenian}">${item.xuenian}</option>`);
+            }
+            else{
+                $("#xuenian").append(`<option value="${item.xuenian}">${item.xuenian}</option>`);
+            }
+        })
+    });
+    $("#xuenian option[value='']").attr("selected", true);
+    $('body').on('change','#xuenian',function () {
+        window.location = "monitorIndex?xuenian="+$(this).val();
+    })
+
+});
 
 $(function(){
 	$.ajax({
@@ -145,12 +167,12 @@ function getClassStudents(termYear,major,className){
 				    	   let sid = re[i].studentNo;
 				    	   let stu =  $("p:contains("+sid+")");
 				    	 //检查用户是否上传综测分数，否则不执行update操作
-				    	   
 				    		   $.ajax({
 					    	          type:"post",
 					    	          url:" ../public/getIsUpload",
 					    	          //async:false,
 					    	          data:{
+					    	          		"xuenian":xuenian,
 					    	        	  	"studentNo":sid
 					    	          },
 					    		       	dataType:"json",

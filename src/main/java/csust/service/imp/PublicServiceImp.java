@@ -1,31 +1,24 @@
 package csust.service.imp;
 
-import java.util.List;
-import java.util.Stack;
-
+import csust.bean.*;
+import csust.mapper.PublicMapper;
+import csust.mapper.XuenianMapper;
+import csust.service.PublicService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import csust.bean.BasicInfo;
-import csust.bean.Feedback;
-import csust.bean.Moral;
-import csust.bean.MoralSummary;
-import csust.bean.PersonDeduction;
-import csust.bean.PersonKnowledge;
-import csust.bean.PersonMoral;
-import csust.bean.PersonSports;
-import csust.bean.PersonSummary;
-import csust.bean.Student;
-
-import csust.mapper.PublicMapper;
-import csust.service.PublicService;
+import java.util.List;
+import java.util.Stack;
 
 @Service
 public class PublicServiceImp implements PublicService {
 
 	@Autowired
 	PublicMapper publicMapper;
+
+	@Autowired
+	XuenianMapper xuenianMapper;
 
 
 
@@ -268,9 +261,9 @@ public class PublicServiceImp implements PublicService {
 		return publicMapper.getStuInfo(userName);
 	}
 
-	public PersonSummary getIsUpload(String studentNo) {
+	public PersonSummary getIsUpload(String xuenian,String studentNo) {
 		// TODO 自动生成的方法存根
-		return publicMapper.getIsUpload(studentNo);
+		return publicMapper.getIsUpload(xuenian,studentNo);
 	}
 
 	/*public void insertFeedback(String monitorNo, String studentNo, String P_moral, String D_moral) {
@@ -293,6 +286,11 @@ public class PublicServiceImp implements PublicService {
 		publicMapper.resetStatus(xuenian,studentNo);
 	}
 
-
-
+	public Boolean getZcStatusByXuenian(String xuenian) {
+		Xuenian xuenian1 = new Xuenian();
+		xuenian1.setXuenian(xuenian);
+		Xuenian xuenian3 = this.xuenianMapper.selectOne(xuenian1);
+		Boolean zcSwitch = xuenian3.getZcSwitch();
+		return zcSwitch;
+	}
 }

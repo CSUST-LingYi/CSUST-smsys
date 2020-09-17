@@ -1,9 +1,11 @@
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import csust.bean.ALLfield;
 import csust.bean.Lecture;
 import csust.bean.Xuenian;
 import csust.service.LectureService;
+import csust.service.QueryService;
 import csust.service.StudyDeptService;
-
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +27,8 @@ public class Ts1 {
 
     @Autowired
     LectureService lectureService;
+    @Autowired
+    QueryService queryService;
     @Test
     public void testXuenian(){
         List<Xuenian> xuenians = this.studyDeptService.ListXuenian();
@@ -40,5 +44,15 @@ public class Ts1 {
     public void testgetLectureByPriority(){
         List<Lecture> lectureByPriority = this.lectureService.getLectureByPriority();
         System.out.println(lectureByPriority);
+    }
+
+    @Test
+    public void testGetAllByNianji(){
+        PageHelper.startPage(1, 10);
+        List<ALLfield> student = this.queryService.getStudentByNianji("2018", "本科生");
+        PageInfo<ALLfield> pageInfo = new PageInfo<ALLfield>(student, 5);
+        System.out.println(pageInfo);
+
+
     }
 }

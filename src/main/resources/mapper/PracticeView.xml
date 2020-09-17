@@ -5,68 +5,68 @@
 <mapper namespace="csust.mapper.PracticeViewMapper">
 <select id="getPracticeViewByNianji0" resultType="PracticeView">
 	    select * from view_practice where 
-	             termYear=#{0}
-	          and startTime like concat('%',#{1},'%')	and stuType=#{2}   
+	             termYear=#{arg0}
+	          and startTime like concat('%',#{arg1},'%')	and stuType=#{arg2}
 	</select>
 	<select id="getPracticeViewByNianji1" resultType="PracticeView">
 	    select * from view_practice where 
-	             termYear=#{0}
-	           and startTime like concat('%',#{1},'%')	
-	           and type=#{2}	and stuType=#{3}  
+	             termYear=#{arg0}
+	           and startTime like concat('%',#{arg1},'%')
+	           and type=#{arg2}	and stuType=#{arg3}
 	</select>
 	<select id="getPracticeViewByNianji2" resultType="PracticeView">
 	    select * from view_practice where 
-	             termYear=#{0}
-	         and startTime like concat('%',#{1},'%')	
-             and stuType=#{4}
-	         and type in (#{2},#{3})  
+	             termYear=#{arg0}
+	         and startTime like concat('%',#{arg1},'%')
+             and stuType=#{arg4}
+	         and type in (#{arg2},#{arg3})
 	</select>
 	
 		<select id="getPracticeViewByMajor0" resultType="PracticeView">
 	    select * from view_practice where 
-	             termYear=#{0}
-	             and    major=#{1}
-	            and startTime like concat('%',#{2},'%')		and stuType=#{3}  
+	             termYear=#{arg0}
+	             and    major=#{arg1}
+	            and startTime like concat('%',#{arg2},'%')		and stuType=#{arg3}
 	</select>
 	<select id="getPracticeViewByMajor1" resultType="PracticeView">
 	    select * from view_practice where 
-	             termYear=#{0}
-	          and   major=#{1}
-	            and startTime like concat('%',#{2},'%')	 
-	           and type=#{3}  	and stuType=#{4}  
+	             termYear=#{arg0}
+	          and   major=#{arg1}
+	            and startTime like concat('%',#{arg2},'%')
+	           and type=#{arg3}  	and stuType=#{arg4}
 	</select>
 	<select id="getPracticeViewByMajor2" resultType="PracticeView">
 	    select * from view_practice where 
-	             termYear=#{0}
-	          and major=#{1}
-	          and startTime like concat('%',#{2},'%')	
-              and stuType=#{5}
-	          and type in (#{3},#{4})   
+	             termYear=#{arg0}
+	          and major=#{arg1}
+	          and startTime like concat('%',#{arg2},'%')
+              and stuType=#{arg5}
+	          and type in (#{arg3},#{arg4})
 	</select>
 	
 		<select id="getPracticeViewByClass0" resultType="PracticeView">
 	    select * from view_practice where 
-	             termYear=#{0}
-	               and   major=#{1}
-	               and class=#{2}
-	            and startTime like concat('%',#{3},'%')			and stuType=#{4}  
+	             termYear=#{arg0}
+	               and   major=#{arg1}
+	               and class=#{arg2}
+	            and startTime like concat('%',#{arg3},'%')			and stuType=#{arg4}
 	</select>
 	<select id="getPracticeViewByClass1" resultType="PracticeView">
 	    select * from view_practice where 
-	             termYear=#{0}
-	          and   major=#{1}
-	          and class=#{2}
-	          and startTime like concat('%',#{3},'%')		
-	           and type=#{4}  	and stuType=#{5}  
+	             termYear=#{arg0}
+	          and   major=#{arg1}
+	          and class=#{arg2}
+	          and startTime like concat('%',#{arg3},'%')
+	           and type=#{arg4}  	and stuType=#{arg5}
 	</select>
 	<select id="getPracticeViewByClass2" resultType="PracticeView">
 	    select * from view_practice where 
-	             termYear=#{0}
-	               and   major=#{1}
-	               and class=#{2}
-	          and startTime like concat('%',#{3},'%')		
-              and stuType=#{6}  
-	          and type in (#{4},#{5})
+	             termYear=#{arg0}
+	               and   major=#{arg1}
+	               and class=#{arg2}
+	          and startTime like concat('%',#{arg3},'%')
+              and stuType=#{arg6}
+	          and type in (#{arg4},#{arg5})
 	</select>
 
 

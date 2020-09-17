@@ -1,19 +1,9 @@
 package csust.mapper;
 
-import java.util.List;
-
+import csust.bean.*;
 import org.apache.ibatis.annotations.Param;
 
-import csust.bean.BasicInfo;
-import csust.bean.Feedback;
-import csust.bean.Moral;
-import csust.bean.MoralSummary;
-import csust.bean.PersonDeduction;
-import csust.bean.PersonKnowledge;
-import csust.bean.PersonMoral;
-import csust.bean.PersonSports;
-import csust.bean.PersonSummary;
-import csust.bean.Student;
+import java.util.List;
 
 public interface PublicMapper {
 
@@ -50,7 +40,7 @@ public interface PublicMapper {
 	/*********** 个人德育分操作 ***********/
 
 	//查询用户是否上传综测分数
-	public PersonSummary getIsUpload(@Param("studentNo") String studentNo);
+	public PersonSummary getIsUpload(@Param("xuenian") String xuenian,@Param("studentNo") String studentNo);
 		
 	
 	// 增加一项个人德育分项

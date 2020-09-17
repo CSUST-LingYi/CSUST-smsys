@@ -1,8 +1,54 @@
 /**
  *页面测试阶段
  **/
+import {getUrlVars, getXN} from "../general/getXuenian.js"
 
+//检查综测系统是否关闭函数
+let isOpenQuery = (xuenian) => {
 
+    return new Promise((resolve,reject) => {
+        $.ajax({
+            type:"get",
+            url:"../public/getZcStatus",
+            data:{
+                "xuenian":xuenian
+            }
+        }).done((msg) => {
+            resolve(msg)
+        }).fail((errMsg) =>{
+            reject(errMsg)
+        })
+    })
+};
+function isOpen(xuenian,fn) {
+    isOpenQuery(xuenian).then(res => {
+      if (!res){
+        alert("综测系统已关闭,操作失败");
+        return false;
+      }else{
+        fn();
+      }
+    })
+}
+$(function(){
+  //渲染学年列表
+  getXN().then(xuenians => {
+      $("#xuenian option").remove();
+      xuenians.forEach((item,index) => {
+        if (item.xuenian === getUrlVars()['xuenian']){
+            $("#xuenian").append(`<option selected value="${item.xuenian}">${item.xuenian}</option>`);
+        }
+        else{
+            $("#xuenian").append(`<option value="${item.xuenian}">${item.xuenian}</option>`);
+        }
+      })
+  });
+  $("#xuenian option[value='']").attr("selected", true);
+  $('body').on('change','#xuenian',function () {
+      window.location = "to_stu?xuenian="+$(this).val();
+  })
+
+});
 //成绩录入——导航栏+按钮——查询智育体育 id="SetGrade"——2019-01-13成功
 $(function() {
 
@@ -24,18 +70,21 @@ $(function() {
 	 	    var className = $("#className").html(); //学号从前端的span中取出
             $.ajax({
                 url:"../public/getZcStatus",
-                type:"post",
+                type:"get",
                 dataType:"json",
                 data:{
                     "xuenian":xuenian
                 },
                 success:function (res) {
-                    if(res==0){
+                    if(!res){
                         $("input[type='text']").prop("disabled",true);
                         $("button[id ^= 'Set']").prop("disabled",true);
                         $("button[id ^= 'input']").prop("disabled",true);
                         $("input[type='text']").prop("readOnly",true);
                         console.log( $("[type='text']"));
+                        $("#zcStatus").css("color","red").text("关闭");
+                    }else{
+                        $("#zcStatus").css("color","green").text("开启");
                     }
                 },
                 error:function () {
@@ -83,34 +132,37 @@ $(function() {
 	    var className = $("#className").html(); 
     var firstTerm = parseFloat($("#firstTermScore").val());
     var secondTerm = parseFloat($("#secondTermScore").val());
-    
+
     if(firstTerm<0 | firstTerm>100 |secondTerm<0 | secondTerm>100 |firstTerm==null |secondTerm==null){
     	alert("请正确填写！");
     	return false;
     }
-    
-    $.ajax({
-      url: "../public/addPersonSports",
-      type: "post",
-      dataType: "text",
-      scriptCharset: "utf-8",
-      data: {
-        "studentNo": studentNo,
-        "xuenian": xuenian,
-        "firstTerm": firstTerm,
-        "secondTerm": secondTerm
-      },
-      success: function(data) {
-        alert("增加成功！");       
-        getPEAndKnowInfos(xuenian,studentNo,nianji,major,className);
-        resetStatus(xuenian,studentNo);
-      },
-      error: function(data) {
-        alert("增加失败！");
-      }
-    });
+      isOpen(xuenian,function(){
+          $.ajax({
+              url: "../public/addPersonSports",
+              type: "post",
+              dataType: "text",
+              scriptCharset: "utf-8",
+              data: {
+                  "studentNo": studentNo,
+                  "xuenian": xuenian,
+                  "firstTerm": firstTerm,
+                  "secondTerm": secondTerm
+              },
+              success: function(data) {
+                  alert("增加成功！");
+                  getPEAndKnowInfos(xuenian,studentNo,nianji,major,className);
+                  resetStatus(xuenian,studentNo);
+              },
+              error: function(data) {
+                  alert("增加失败！");
+              }
+          });
+      });
+
+
   })
-})
+});
 
 //成绩录入——提交单项智育分
 $(function() {
@@ -140,24 +192,27 @@ $(function() {
     })
 
     var list = JSON.stringify(json);
-    console.log(list);
-    $.ajax({
-      url: "../public/addPersonKnowledge",
-      type: "post",
-      dataType: "text",
-      scriptCharset: "utf-8",
-      data:{"list":list},
-      success:function(data){   	
-        alert("操作成功"); 
-        resetStatus(xuenian,studentNo);
-        getPEAndKnowInfos(xuenian,studentNo,nianji,major,className);
-      },
-      error:function(data){
-        alert("操作失败");
-      }
-    });
+    // console.log(list);
+      isOpen(xuenian,function(){
+          $.ajax({
+              url: "../public/addPersonKnowledge",
+              type: "post",
+              dataType: "text",
+              scriptCharset: "utf-8",
+              data:{"list":list,"xuenian":xuenian},
+              success:function(data){
+                  alert("操作成功");
+                  resetStatus(xuenian,studentNo);
+                  getPEAndKnowInfos(xuenian,studentNo,nianji,major,className);
+              },
+              error:function(data){
+                  alert("操作失败");
+              }
+          });
+      })
+
   })
-})
+});
 
 //成绩录入——德育分录入
 $(function(){
@@ -169,7 +224,6 @@ $(function(){
     var pscore = $("#prizeScore").val();
     var pDate =  $("#prizeDate").val();
     var pid = $("#did-in-modal").html();
-    
     if(pname.length<1|pDate.length<1|pscore.length<1){
     	alert("请输入完整的信息");
     	return false;
@@ -190,26 +244,27 @@ $(function(){
     pFile.append('xuenian',xuenian);
     pFile.append('studentNo',studentNo);
     pFile.append('getTime',pDate);
-
-    $.ajax({
-      url:"../public/addPersonMoral",
-      type:"post",
-      dataType:"text",
-      scriptCharset: "utf-8",
-      data:pFile,
-      cache:false,//上传文件无需缓存
-      processData:false,//用于对data参数进行序列化处理
-      contentType:false,//必须
-      success:function(data){
-        alert("添加成功");
-        $("#myModal").modal('hide');
-        resetStatus(xuenian,studentNo);
-        getMoralPrizeInfo(xuenian,studentNo,"moralPrizeTable1");
-      },
-      error:function(data){
-        alert("添加失败");
-      }
-    });
+    isOpen(xuenian,function(){
+        $.ajax({
+            url:"../public/addPersonMoral",
+            type:"post",
+            dataType:"text",
+            scriptCharset: "utf-8",
+            data:pFile,
+            cache:false,//上传文件无需缓存
+            processData:false,//用于对data参数进行序列化处理
+            contentType:false,//必须
+            success:function(data){
+                alert("添加成功");
+                $("#myModal").modal('hide');
+                resetStatus(xuenian,studentNo);
+                getMoralPrizeInfo(xuenian,studentNo,"moralPrizeTable1");
+            },
+            error:function(data){
+                alert("添加失败");
+            }
+        });
+    })
   })
 })
 
@@ -248,32 +303,36 @@ $(function(){
         var id = trnow.children("td").eq(0).attr("did");
         var name = trnow.children("td").eq(0).html();
         var sc =  trnow.children("td").eq(2).html();
+
     //    alert(trnow.html()+"____"+trnow.children("td").eq(0).html()+"_____"+name+"_____"+sc);
         $("#prizeName2").val(name);
         $("#prizeScore2").val(sc);
         $("#myModal2").modal('show');
         $("#submitMoral2").click(function(){
-          $.ajax({
-            url: "../public/updatePersonMoral",
-            type: "post",
-            dataType: "text",
-            scriptCharset: "utf-8",
-            data: {
-              "xuenian": xuenian,
-              "studentNo": studentNo,
-              "id": id,
-              "name":$("#prizeName2").val(),
-              "score":$("#prizeScore2").val() 
-            },
-              success: function(data) {
-                alert("修改成功");
-                $("#myModal2").modal('hide');
-                getMoralPrizeInfo(xuenian,studentNo,"moralPrizeTable1");
-              },
-            error: function() {
-              alert("修改失败");
-            }
-          });
+          isOpen(xuenian,function(){
+              $.ajax({
+                  url: "../public/updatePersonMoral",
+                  type: "post",
+                  dataType: "text",
+                  scriptCharset: "utf-8",
+                  data: {
+                      "xuenian": xuenian,
+                      "studentNo": studentNo,
+                      "id": id,
+                      "name":$("#prizeName2").val(),
+                      "score":$("#prizeScore2").val()
+                  },
+                  success: function(data) {
+                      alert("修改成功");
+                      $("#myModal2").modal('hide');
+                      getMoralPrizeInfo(xuenian,studentNo,"moralPrizeTable1");
+                  },
+                  error: function() {
+                      alert("修改失败");
+                  }
+              });
+          })
+
         });
       })
 })
@@ -285,24 +344,27 @@ $(function(){
       var xuenian = $("#xuenian").val();
       var studentNo = $("#studentNo").html();
       var id = $(this).parent().parent().children().attr("did");
-      $.ajax({
-        url: "../public/deletePersonMoral",
-        type: "post",
-        dataType: "text",
-        scriptCharset: "utf-8",
-        data: {
-          "xuenian": xuenian,
-          "studentNo": studentNo,
-          "id": id    
-        },
-        success: function(data) {
-          alert("删除成功");
-          getMoralPrizeInfo(xuenian,studentNo,"moralPrizeTable1");
-        },
-        error: function() {
-          alert("删除失败");
-        }
-      });
+      isOpen(xuenian,function(){
+          $.ajax({
+              url: "../public/deletePersonMoral",
+              type: "post",
+              dataType: "text",
+              scriptCharset: "utf-8",
+              data: {
+                  "xuenian": xuenian,
+                  "studentNo": studentNo,
+                  "id": id
+              },
+              success: function(data) {
+                  alert("删除成功");
+                  getMoralPrizeInfo(xuenian,studentNo,"moralPrizeTable1");
+              },
+              error: function() {
+                  alert("删除失败");
+              }
+          });
+      })
+
     }
   })
 })
@@ -368,7 +430,7 @@ $(function(){
       }
     });
   })
-})
+});
 
 
 

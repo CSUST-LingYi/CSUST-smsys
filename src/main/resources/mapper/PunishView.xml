@@ -7,140 +7,140 @@
 	
 	<select id="getPunishViewNianji0" resultType="PunishView">
 	    select * from view_punish where 
-	             termYear=#{0}
-	         and punishTime like  concat('%',#{1},'%')  and stuType=#{2}
+	             termYear=#{arg0}
+	         and punishTime like  concat('%',#{arg1},'%')  and stuType=#{arg2}
 	</select>
 	<select id="getPunishViewNianji1" resultType="PunishView">
 	    select * from view_punish where 
-	             termYear=#{0}
-	         and punishTime like  concat('%',#{1},'%')
-	         and punishName=#{2}  and stuType=#{3}
+	             termYear=#{arg0}
+	         and punishTime like  concat('%',#{arg1},'%')
+	         and punishName=#{arg2}  and stuType=#{arg3}
 	</select>
 	<select id="getPunishViewNianji2" resultType="PunishView">
 	    select * from view_punish where 
-	             termYear=#{0}
-	         and punishTime like  concat('%',#{1},'%')
-              and stuType=#{4}
-	         and punishName in(#{2},#{3})
+	             termYear=#{arg0}
+	         and punishTime like  concat('%',#{arg1},'%')
+              and stuType=#{arg4}
+	         and punishName in(#{arg2},#{arg3})
 	</select>
 	<select id="getPunishViewNianji3" resultType="PunishView">
 	    select * from view_punish where 
-	             termYear=#{0}
-	         and punishTime like  concat('%',#{1},'%')
-                and stuType=#{5}
-	          and punishName in(#{2},#{3},#{4})
+	             termYear=#{arg0}
+	         and punishTime like  concat('%',#{arg1},'%')
+                and stuType=#{arg5}
+	          and punishName in(#{arg2},#{arg3},#{arg4})
 	</select>
 	<select id="getPunishViewNianji4" resultType="PunishView">
 	    select * from view_punish where 
-	             termYear=#{0}
-	          and punishTime like  concat('%',#{1},'%')
-               and stuType=#{6}
-	           and punishName in(#{2},#{3},#{4},#{5})
+	             termYear=#{arg0}
+	          and punishTime like  concat('%',#{arg1},'%')
+               and stuType=#{arg6}
+	           and punishName in(#{arg2},#{arg3},#{arg4},#{arg5})
 	</select>
 	<select id="getPunishViewNianji5" resultType="PunishView">
 	    select * from view_punish where 
-	             termYear=#{0}
-	         and punishTime like  concat('%',#{1},'%')
-              and stuType=#{7}
-	          and punishName in(#{2},#{3},#{4},#{5},#{6})
+	             termYear=#{arg0}
+	         and punishTime like  concat('%',#{arg1},'%')
+              and stuType=#{arg7}
+	          and punishName in(#{arg2},#{arg3},#{arg4},#{arg5},#{arg6})
 	</select>
 	
 	<select id="getPunishViewMajor0" resultType="PunishView">
 	    select * from view_punish where 
-	             termYear=#{0}
-	         and major=#{1}
-	         and punishTime like  concat('%',#{2},'%')  and stuType=#{3}
+	             termYear=#{arg0}
+	         and major=#{arg1}
+	         and punishTime like  concat('%',#{arg2},'%')  and stuType=#{arg3}
 	</select>
 	<select id="getPunishViewMajor1" resultType="PunishView">
 	    select * from view_punish where 
-	             termYear=#{0}
-	             and major=#{1}
-	         and punishTime like  concat('%',#{2},'%')
-	         and punishName=#{3}  and stuType=#{4}
+	             termYear=#{arg0}
+	             and major=#{arg1}
+	         and punishTime like  concat('%',#{arg2},'%')
+	         and punishName=#{arg3}  and stuType=#{arg4}
 	</select>
 	<select id="getPunishViewMajor2" resultType="PunishView">
 	    select * from view_punish where 
-	             termYear=#{0}
-	             and major=#{1}
-	         and punishTime like  concat('%',#{2},'%')
-              and stuType=#{5}
-	          and punishName in(#{3},#{4})
+	             termYear=#{arg0}
+	             and major=#{arg1}
+	         and punishTime like  concat('%',#{arg2},'%')
+              and stuType=#{arg5}
+	          and punishName in(#{arg3},#{arg4})
 	</select>
 	<select id="getPunishViewMajor3" resultType="PunishView">
 	    select * from view_punish where 
-	             termYear=#{0}
-	             and major=#{1}
-	         and punishTime like  concat('%',#{2},'%')
-             and stuType=#{6}
-	         and punishName in(#{3},#{4},#{5})
+	             termYear=#{arg0}
+	             and major=#{arg1}
+	         and punishTime like  concat('%',#{arg2},'%')
+             and stuType=#{arg6}
+	         and punishName in(#{arg3},#{arg4},#{arg5})
 	</select>
 	<select id="getPunishViewMajor4" resultType="PunishView">
 	    select * from view_punish where 
-	             termYear=#{0}
-	             and major=#{1}
-	          and punishTime like  concat('%',#{2},'%')
-              and stuType=#{7}
-	          and punishName in(#{3},#{4},#{5},#{6})
+	             termYear=#{arg0}
+	             and major=#{arg1}
+	          and punishTime like  concat('%',#{arg2},'%')
+              and stuType=#{arg7}
+	          and punishName in(#{arg3},#{arg4},#{arg5},#{arg6})
 	</select>
 	<select id="getPunishViewMajor5" resultType="PunishView">
 	    select * from view_punish where 
-	             termYear=#{0}
-	             and major=#{1}
-	         and punishTime like  concat('%',#{2},'%')
-             and stuType=#{8}
-	         and punishName in(#{3},#{4},#{5},#{6},#{7})
+	             termYear=#{arg0}
+	             and major=#{arg1}
+	         and punishTime like  concat('%',#{arg2},'%')
+             and stuType=#{arg8}
+	         and punishName in(#{arg3},#{arg4},#{arg5},#{arg6},#{arg7})
 	</select>
 	
 	<select id="getPunishViewClass0" resultType="PunishView">
 	    select * from view_punish where 
-	             termYear=#{0}
-	         and major=#{1}
-	         and class=#{2}
-	         and punishTime like  concat('%',#{3},'%')  and stuType=#{4}
+	             termYear=#{arg0}
+	         and major=#{arg1}
+	         and class=#{arg2}
+	         and punishTime like  concat('%',#{arg3},'%')  and stuType=#{arg4}
 	</select>
 	<select id="getPunishViewClass1" resultType="PunishView">
 	    select * from view_punish where 
-	             termYear=#{0}
-	             and major=#{1}
-	             and class=#{2}
-	         and punishTime like  concat('%',#{3},'%')
-	         and  punishName=#{4}  and stuType=#{5}
+	             termYear=#{arg0}
+	             and major=#{arg1}
+	             and class=#{arg2}
+	         and punishTime like  concat('%',#{arg3},'%')
+	         and  punishName=#{arg4}  and stuType=#{arg5}
 	</select>
 	<select id="getPunishViewClass2" resultType="PunishView">
 	    select * from view_punish where 
-	             termYear=#{0}
-	             and major=#{1}
-	                   and class=#{2}
-	         and punishTime like  concat('%',#{3},'%')
-             and stuType=#{6}
-	          and punishName in(#{4},#{5})
+	             termYear=#{arg0}
+	             and major=#{arg1}
+	                   and class=#{arg2}
+	         and punishTime like  concat('%',#{arg3},'%')
+             and stuType=#{arg6}
+	          and punishName in(#{arg4},#{arg5})
 	</select>
 	<select id="getPunishViewClass3" resultType="PunishView">
 	    select * from view_punish where 
-	             termYear=#{0}
-	             and major=#{1}
-	                 and class=#{2}
-	         and punishTime like  concat('%',#{3},'%')
-             and stuType=#{7}
-	          and punishName in(#{4},#{5},#{6})
+	             termYear=#{arg0}
+	             and major=#{arg1}
+	                 and class=#{arg2}
+	         and punishTime like  concat('%',#{arg3},'%')
+             and stuType=#{arg7}
+	          and punishName in(#{arg4},#{arg5},#{arg6})
 	</select>
 	<select id="getPunishViewClass4" resultType="PunishView">
 	    select * from view_punish where 
-	             termYear=#{0}
-	             and major=#{1}
-	                 and class=#{2}
-	         and punishTime like  concat('%',#{3},'%')
-             and stuType=#{8}
-	          and punishName in(#{4},#{5},#{6},#{7})
+	             termYear=#{arg0}
+	             and major=#{arg1}
+	                 and class=#{arg2}
+	         and punishTime like  concat('%',#{arg3},'%')
+             and stuType=#{arg8}
+	          and punishName in(#{arg4},#{arg5},#{arg6},#{arg7})
 	</select>
 	<select id="getPunishViewClass5" resultType="PunishView">
 	    select * from view_punish where 
-	             termYear=#{0}
-	             and major=#{1}
-	             and class=#{2}
-	         and punishTime like  concat('%',#{3},'%')
-             and stuType=#{9}
-	         and punishName in(#{4},#{5},#{6},#{7},#{8})
+	             termYear=#{arg0}
+	             and major=#{arg1}
+	             and class=#{arg2}
+	         and punishTime like  concat('%',#{arg3},'%')
+             and stuType=#{arg9}
+	         and punishName in(#{arg4},#{arg5},#{arg6},#{arg7},#{arg8})
 	</select>
 	
 	</mapper>

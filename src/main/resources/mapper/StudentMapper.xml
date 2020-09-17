@@ -5,7 +5,7 @@
 
 	<mapper namespace="csust.mapper.StudentMapper">
 	   <select id="listAllStudent" resultType="Student">
-	       select * from student where stuType=#{0}
+	       select * from student where stuType=#{arg0}
 	    </select>
 	    
 	      <select id="getStudentByN" resultType="Student">
@@ -13,7 +13,7 @@
 	   </select>
 	    
 	    <select id="getTotal"  resultType="int">
-	     	select count(*) from student where stuType=#{1} 
+	     	select count(*) from student where stuType=#{arg1}
 	     </select>
 	    
 	    <delete id="deleteByNo">
@@ -24,11 +24,11 @@
 	        select * from view_all where studentNo=#{studentNo}
 	   </select>
 	    <select id="getStudentByName" resultType="ALLfield">
-	       select * from view_all where studentName like concat('%',#{0},'%') and stuType=#{1}
+	       select * from view_all where studentName like concat('%',#{arg0},'%') and stuType=#{arg1}
 	   </select>
 	    
 	    <select id="getStudentByNianji" resultType="ALLfield">
-	       select * from view_all where  termYear=#{0} and stuType=#{1}
+	       select * from view_all where  termYear=#{arg0} and stuType=#{arg1}
 	    </select>
 	 
 	   <insert id="setPunish">
@@ -55,7 +55,7 @@
 	
 	<select id="getLeaveTip" resultType="LeaveTip">
 	   select id,sno,major,classno,sname,studenttel,dormitory,reason,gowhere,dayofleave,parenttel,leavebegin,leaveend,leavedate,approve,status,userName from leavetip
-	    where sno=#{0} and leavebegin=#{1} and status=#{2}
+	    where sno=#{arg0} and leavebegin=#{arg1} and status=#{arg2}
 	</select>
 	
 	<insert id="addLeaveTip" parameterType="LeaveTip">
@@ -71,17 +71,17 @@
 	
 	<select id="listLeaveTip"  resultType="LeaveTip">
 	   select id,sno,major,classno,sname,studenttel,dormitory,reason,gowhere,dayofleave,parenttel,leavebegin,leaveend,leavedate,approve,status,userName from leavetip
-	   where sno=#{0}
+	   where sno=#{arg0}
 	</select> 
 	  
    <select id="getLeaveTipBystatus"  resultType="LeaveTip">
 	   select id,sno,major,classno,sname,studenttel,dormitory,reason,gowhere,dayofleave,parenttel,leavebegin,leaveend,leavedate,approve,status,userName from leavetip
-	   where status=#{0} and stuType=#{1}
+	   where status=#{arg0} and stuType=#{arg1}
 	</select>
 	
 	  <select id="getLeaveTipByTime"  resultType="LeaveTip">
 	   select l.id,l.sno,s.termYear,l.major,l.classno,l.sname,l.studenttel,l.dormitory,l.reason,l.gowhere,l.dayofleave,l.parenttel,l.leavebegin,l.leaveend,l.leavedate,l.approve,l.status,l.userName from leavetip l,student s
-	   where s.studentNo=l.sno and s.termYear=#{0} and  l.leavebegin like concat('%',#{1},'%') and l.stuType=#{2}
+	   where s.studentNo=l.sno and s.termYear=#{arg0} and  l.leavebegin like concat('%',#{arg1},'%') and l.stuType=#{arg2}
 	</select>    
 	 
 	 	<update id="approveLeaveTip" parameterType="LeaveTip">

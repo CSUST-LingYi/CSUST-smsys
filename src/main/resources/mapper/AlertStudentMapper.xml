@@ -5,7 +5,7 @@
 <mapper namespace="csust.mapper.AlertStudentMapper">
 
    <select id="selectAlertStudent" resultType="Student">
-    select * from alertstudent where studentNo=#{0} 
+    select * from alertstudent where studentNo=#{arg0}
    </select> 
    
    <select id="listAlertStudent"  resultType="Student">
@@ -13,7 +13,7 @@
    </select>
 
     <delete id="deleteAlertStudent">
-    delete from alertstudent where studentNo=#{0}   
+    delete from alertstudent where studentNo=#{arg0}
     </delete>
     
     <insert id="addAlertStudent">
@@ -25,8 +25,8 @@
 
    	<update id="updateStatus">
 		        update alertstudent set
-                      status=#{1}
-		       where studentNo=#{0}
+                      status=#{arg1}
+		       where studentNo=#{arg0}
 	</update>
 		
 	<update id="updateAlertStudent" parameterType="Student">

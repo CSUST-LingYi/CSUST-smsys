@@ -1,4 +1,25 @@
 ﻿
+function enterZc() {
+	location.href="./public/to_stu";
+}
+//进入综测前检查学生个人信息
+$(function(){
+	$("#to_stu").click(function() {
+        $.ajax({
+            url: "../public/getStudentInfo",
+            type: "get",
+            dataType: "json"
+        }).done((res) => {
+            $("#m_sno").text(res.studentNo);
+            $("#m_sname").text(res.studentName);
+            $("#m_major").text(res.major);
+            $("#m_termyear").text(res.termYear);
+            $("#m_class").text(res.className);
+            $("#delcfmModel").modal();
+
+        })
+    })
+});
 
 //查看个人的申请修改信息的审核状态
 $(function(){

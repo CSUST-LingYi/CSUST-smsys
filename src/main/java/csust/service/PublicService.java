@@ -1,16 +1,8 @@
 package csust.service;
 
-import java.util.List;
+import csust.bean.*;
 
-import csust.bean.BasicInfo;
-import csust.bean.Feedback;
-import csust.bean.MoralSummary;
-import csust.bean.PersonDeduction;
-import csust.bean.PersonKnowledge;
-import csust.bean.PersonMoral;
-import csust.bean.PersonSports;
-import csust.bean.PersonSummary;
-import csust.bean.Student;
+import java.util.List;
 
 /*次方法中所有增加，更新，修改数据都会在imp层调用一次更新综测汇总的接口*/
 public interface PublicService {
@@ -27,7 +19,7 @@ public interface PublicService {
 	//学习部 审核一个学生
 	public void checkOneStudentT(String xuenian, String studentNo, boolean status);
 	//查询用户是否上传分数
-	public PersonSummary getIsUpload(String studentNo);
+	public PersonSummary getIsUpload(String xuenian,String studentNo);
 	
 	public int getTban(String xuenian,String studentNo);
 	
@@ -132,7 +124,10 @@ public interface PublicService {
 	public void updateFeedbackStatus(String studentNo, int isRead);
 
 	public void resetStatus(String xuenian, String studentNo);
-		
-	
+
+	/**
+	 *查询综测状态
+	 */
+	Boolean getZcStatusByXuenian(String xuenian);
 
 }

@@ -15,7 +15,7 @@
 	</insert>
 	
 	<delete id="deleteTeacherinfo">
-	   delete from  teacherinfo where  teacherId=#{0}
+	   delete from  teacherinfo where  teacherId=#{arg0}
 	</delete>
 	
 	<update id="updateTeacherinfo" parameterType="TeacherInfo">

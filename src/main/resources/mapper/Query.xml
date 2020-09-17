@@ -6,7 +6,7 @@
 	<mapper namespace="csust.mapper.QueryMapper">
 	
 	<select id="getXjydView" resultType="XJYDView">
-	        select * from view_xjyd where stuType=#{0}
+	        select * from view_xjyd where stuType=#{arg0}
 	   </select>
 	
 	  <select id="getStudentByNo" resultType="Student">
@@ -26,14 +26,14 @@
 	    </select>
 	    
 	    <select id="getPractice" resultType="Practice">
-	        select * from practice where studentNo=#{0} and type=#{1}
+	        select * from practice where studentNo=#{arg0} and type=#{arg1}
 	   </select>
 	   
 	    <select id="getPunish" resultType="punish">
 	        select * from punish where studentNo=#{studentNo}
 	   </select>
 	    <select id="getPunishByType" resultType="punish">
-	        select * from punish where punishName=#{0} and stuType=#{1}
+	        select * from punish where punishName=#{arg0} and stuType=#{arg1}
 	   </select>
 	   
 	  <select id="getMonitorByStudent" resultType="String">
@@ -42,26 +42,26 @@
 	   
 	   
 	     <select id="getPS" resultType="psStudent">
-	        select * from pstudent where pstudentNo=#{0}
+	        select * from pstudent where pstudentNo=#{arg0}
 	   </select>
 	    
 	    <select id="getSkill" resultType="Skill">
 	        select * from skill where studentNo=#{studentNo}
 	    </select>
-	    
-	    <select id="getClassByMajorAndTerm" resultType="int">
-	        select distinct class from student where termYear=#{0} and major=#{1} and stuType=#{2}
+
+	    <select id="getClassByMajorAndTerm" resultType="java.lang.String">
+	        select distinct class from student where termYear=#{arg0} and major=#{arg1} and stuType=#{arg2}
 	    </select>
 	     <select id="getByNianjiAndMajor" resultType="ALLfield">
-	        select * from view_all where termYear=#{0} and major=#{1} and stuType=#{2}
+	        select * from view_all where termYear=#{arg0} and major=#{arg1} and stuType=#{arg2}
 	    </select>
 	    
 	    <select id="getStudentByClassName" resultType="ALLfield">
-	        select * from  view_all where termYear=#{0} and major=#{1} and class=#{2} and stuType=#{3}
+	        select * from  view_all where termYear=#{arg0} and major=#{arg1} and class=#{arg2} and stuType=#{arg3}
 	   </select>
 	    
 	    <select id="SelectAllField" resultType="ALLfield">
-        	select * from view_all where stuType=#{0}
+        	select * from view_all where stuType=#{arg0}
   		</select>
 
 	    
@@ -70,48 +70,48 @@
 	    </insert>
 	    
 	    <select id="getStudentByNianji" resultType="ALLfield">
-	       select * from  view_all where  termYear=#{0} and stuType=#{1}   order by class asc 
+	       select * from  view_all where  termYear=#{arg0} and stuType=#{arg1}   order by class asc
 	    </select>
 	   
 	    <select id="getStudentBySexAndNianji" resultType="ALLfield">
-	        select * from  view_all where termYear=#{0} and sex=#{1} and stuType=#{2}  order by class asc
+	        select * from  view_all where termYear=#{arg0} and sex=#{arg1} and stuType=#{arg2}  order by class asc
 	   </select>
 	    <select id="getStudentBySexAndMajor" resultType="ALLfield">
-	        select * from  view_all where termYear=#{0} and major=#{1} and sex=#{2} and stuType=#{3}  order by class asc
+	        select * from  view_all where termYear=#{arg0} and major=#{arg1} and sex=#{arg2} and stuType=#{arg3}  order by class asc
 	   </select>
 	    <select id="getStudentBySexAndClass" resultType="ALLfield">
-	        select * from  view_all where termYear=#{0} and major=#{1} and class=#{2} and sex=#{3} and stuType=#{4} order by class asc
+	        select * from  view_all where termYear=#{arg0} and major=#{arg1} and class=#{arg2} and sex=#{arg3} and stuType=#{arg4} order by class asc
 	   </select>
 	   
 	   	    <select id="getStudentByMZAndNianji" resultType="ALLfield">
-	        select * from  view_all where termYear=#{0} and MZ=#{1} and stuType=#{2}  order by class asc
+	        select * from  view_all where termYear=#{arg0} and MZ=#{arg1} and stuType=#{arg2}  order by class asc
 	   </select>
 	    <select id="getStudentByMZAndMajor" resultType="ALLfield">
-	        select * from  view_all where termYear=#{0} and major=#{1} and MZ=#{2} and stuType=#{3}  order by class asc
+	        select * from  view_all where termYear=#{arg0} and major=#{arg1} and MZ=#{arg2} and stuType=#{arg3}  order by class asc
 	   </select>
 	    <select id="getStudentByMZAndClass" resultType="ALLfield">
-	        select * from  view_all where termYear=#{0} and major=#{1} and class=#{2} and MZ=#{3} and stuType=#{4}  order by class asc
+	        select * from  view_all where termYear=#{arg0} and major=#{arg1} and class=#{arg2} and MZ=#{arg3} and stuType=#{arg4}  order by class asc
 	   </select>
 	   
 	   	   	    <select id="getStudentByZZMMAndNianji" resultType="ALLfield">
-	        select * from  view_all where termYear=#{0} and ZZMM=#{1} and stuType=#{2}  order by class asc
+	        select * from  view_all where termYear=#{arg0} and ZZMM=#{arg1} and stuType=#{arg2}  order by class asc
 	   </select>
 	    <select id="getStudentByZZMMAndMajor" resultType="ALLfield">
-	        select * from  view_all where termYear=#{0} and major=#{1} and ZZMM=#{2} and stuType=#{3}  order by class asc
+	        select * from  view_all where termYear=#{arg0} and major=#{arg1} and ZZMM=#{arg2} and stuType=#{arg3}  order by class asc
 	   </select>
 	    <select id="getStudentByZZMMAndClass" resultType="ALLfield">
-	        select * from  view_all where termYear=#{0} and major=#{1} and class=#{2} and ZZMM=#{3} and stuType=#{4} order by class asc
+	        select * from  view_all where termYear=#{arg0} and major=#{arg1} and class=#{arg2} and ZZMM=#{arg3} and stuType=#{arg4} order by class asc
 	   </select>
 	   
 	   
 	    <select id="getStudentByBuildingAndNianji" resultType="ALLfield">
-	        select * from  view_all where termYear=#{0} and buildingName=#{1} and roomNum=#{2} and stuType=#{3}  order by class asc
+	        select * from  view_all where termYear=#{arg0} and buildingName=#{arg1} and roomNum=#{arg2} and stuType=#{arg3}  order by class asc
 	   </select>
 	    <select id="getStudentByBuildingAndMajor" resultType="ALLfield">
-	        select * from  view_all where termYear=#{0} and major=#{1} and buildingName=#{2}  and roomNum=#{3} and stuType=#{4]  order by class asc
+	        select * from  view_all where termYear=#{arg0} and major=#{arg1} and buildingName=#{arg2}  and roomNum=#{arg3} and stuType=#{arg4}  order by class asc
 	   </select>
 	    <select id="getStudentByBuildingAndClass" resultType="ALLfield">
-	        select * from  view_all where termYear=#{0} and major=#{1} and class=#{2} and buildingName=#{3}  and roomNum=#{4} and stuType=#{5}  order by class asc
+	        select * from  view_all where termYear=#{arg0} and major=#{arg1} and class=#{arg2} and buildingName=#{arg3}  and roomNum=#{arg4} and stuType=#{arg5}  order by class asc
 	   </select>
 	   
 	    <select id="getStudentByCommonQuery" resultType="ALLfield">
@@ -141,13 +141,13 @@
 	    
 	    
 	     <select id="getStudentByBuildingAndNianji1" resultType="ALLfield">
-	        select * from  view_all where termYear=#{0} and buildingName=#{1} and stuType=#{2}
+	        select * from  view_all where termYear=#{arg0} and buildingName=#{arg1} and stuType=#{arg2}
 	   </select>
 	    <select id="getStudentByBuildingAndMajor1" resultType="ALLfield">
-	        select * from  view_all where termYear=#{0} and major=#{1} and buildingName=#{2}  and stuType=#{3}
+	        select * from  view_all where termYear=#{arg0} and major=#{arg1} and buildingName=#{arg2}  and stuType=#{arg3}
 	   </select>
 	    <select id="getStudentByBuildingAndClass1" resultType="ALLfield">
-	        select * from  view_all where termYear=#{0} and major=#{1} and class=#{2} and buildingName=#{3} and stuType=#{4}
+	        select * from  view_all where termYear=#{arg0} and major=#{arg1} and class=#{arg2} and buildingName=#{arg3} and stuType=#{arg4}
 	   </select>  
 	   
 	   
@@ -161,7 +161,7 @@
 	    </insert>
 	    
 	    <select id="isExistXJYD" resultType="XJYD">
-		        select * from xjyd where studentNo=#{0} and YDtime=#{1} and YDreason=#{2} and BZ=#{3}
+		        select * from xjyd where studentNo=#{arg0} and YDtime=#{arg1} and YDreason=#{arg2} and BZ=#{arg3}
 	    </select>
 	    
 	    <insert id="addXJZC" parameterType="XJZC">
@@ -169,7 +169,7 @@
 	    </insert>
 	    
 	    <select id="isExistXJZC" resultType="XJZC">
-		        select * from xjzc where studentNo=#{0} and ZCyear=#{1} and term=#{2} and ZCorNot=#{3}
+		        select * from xjzc where studentNo=#{arg0} and ZCyear=#{arg1} and term=#{arg2} and ZCorNot=#{arg3}
 	    </select>
 	    
 	    <insert id="addPunish" parameterType="punish">
@@ -181,11 +181,11 @@
 	    </insert>
 	    
 	    <select id="isExistJL" resultType="JL">
-		        select * from jl where studentNo=#{0} and JLname=#{1} and JLlevel=#{2} and getTime=#{3}
+		        select * from jl where studentNo=#{arg0} and JLname=#{arg1} and JLlevel=#{arg2} and getTime=#{arg3}
 		</select>
 		
 		  <select id="isExistPunish" resultType="punish">
-		        select * from punish where studentNo=#{0} and punishTime=#{1} and punishReason=#{2} and punishName=#{3}
+		        select * from punish where studentNo=#{arg0} and punishTime=#{arg1} and punishReason=#{arg2} and punishName=#{arg3}
 		</select>
 	    
 	    <insert id="addSkill" parameterType="Skill">
@@ -193,7 +193,7 @@
 	    </insert>
 	    
 	    <select id="isExistSkill" resultType="Skill">
-		        select * from skill where studentNo=#{0} and skillName=#{1} and getTime=#{2}
+		        select * from skill where studentNo=#{arg0} and skillName=#{arg1} and getTime=#{arg2}
 		</select>
 	    
 	    <insert id="addPractice" parameterType="Practice">
@@ -201,7 +201,7 @@
 	    </insert>
 	    
 	    <select id="isExistPractice" resultType="Practice">
-		        select * from practice where studentNo=#{0} and practiceName=#{1} and type=#{2} and startTime=#{3} and endTime=#{4}
+		        select * from practice where studentNo=#{arg0} and practiceName=#{arg1} and type=#{arg2} and startTime=#{arg3} and endTime=#{arg4}
 		</select>
 	    
 	    <insert id="addPstudent" parameterType="psStudent">
@@ -209,7 +209,7 @@
 	    </insert>
 	    
 	    <select id="isExistPstudent" resultType="psStudent">
-		        select * from pstudent where pstudentNo=#{0} and SFZK=#{1} and ZZname=#{2} and ZZtime=#{3}
+		        select * from pstudent where pstudentNo=#{arg0} and SFZK=#{arg1} and ZZname=#{arg2} and ZZtime=#{arg3}
 		</select>
 	    
 	    <insert id="addGrade" parameterType="Grade">
@@ -217,7 +217,7 @@
 	    </insert>
 	    
 	    <select id="isExistGrade" resultType="Grade">
-		        select * from grade where studentNo=#{0} and termNo=#{1}
+		        select * from grade where studentNo=#{arg0} and termNo=#{arg1}
 		</select>
 	    
 	    <select id="selectStudent" resultType="Student">
@@ -253,24 +253,24 @@
   		</select>
   		
   		<update id="updateGrade">
-        	update grade set avgGrade=#{2},avgCPA=#{3} where studentNo=#{0} and termNo=#{1}
+        	update grade set avgGrade=#{arg2},avgCPA=#{arg3} where studentNo=#{arg0} and termNo=#{arg1}
   		</update>
   		
   		<delete id="deleteGrade">
-        	delete from grade where studentNo=#{0} and termNo=#{1}
+        	delete from grade where studentNo=#{arg0} and termNo=#{arg1}
   		</delete>
   		
   		<update id="updatePractice">
-        	update practice set practiceName=#{1},type=#{2},startTime=#{3},endTime=#{4} 
-        	where studentNo=#{0} and practiceName=#{5} and type=#{6} and startTime=#{7} and endTime=#{8}
+        	update practice set practiceName=#{arg1},type=#{arg2},startTime=#{arg3},endTime=#{arg4} 
+        	where studentNo=#{arg0} and practiceName=#{arg5} and type=#{arg6} and startTime=#{arg7} and endTime=#{arg8}
   		</update>
   		
   		<delete id="deletePractice">
-        	delete from practice where studentNo=#{0} and practiceName=#{1} and type=#{2} and startTime=#{3} and endTime=#{4}
+        	delete from practice where studentNo=#{arg0} and practiceName=#{arg1} and type=#{arg2} and startTime=#{arg3} and endTime=#{arg4}
   		</delete>
   		
   		<update id="updatePstudent">
-        	update pstudent set ZZname=#{1},ZZtime=#{2},type={3} where pstudentNo=#{0} and ZZname=#{4} and ZZtime=#{5}
+        	update pstudent set ZZname=#{arg1},ZZtime=#{arg2},type=#{arg3} where pstudentNo=#{arg0} and ZZname=#{arg4} and ZZtime=#{arg5}
   		</update>
   		
   		
@@ -279,8 +279,8 @@
 		</select>
 		
 		<select id="isExistStudent2" resultType="Student">
-		        select * from student where studentNo=#{0} and studentName=#{1} and termYear=#{2} 
-		        and major=#{3} and class=#{4} and sex=#{5} and MZ=#{6} and ZZMM=#{7}
+		        select * from student where studentNo=#{arg0} and studentName=#{arg1} and termYear=#{arg2} 
+		        and major=#{arg3} and class=#{arg4} and sex=#{arg5} and MZ=#{arg6} and ZZMM=#{arg7}
 		</select>
 		
 		<update id="updateStudent" parameterType="Student">
@@ -292,11 +292,11 @@
 		</update>
 		
 		<delete id="deleteJL">
-		  delete from jl where JLId=#{0}
+		  delete from jl where JLId=#{arg0}
 		</delete>
 		
 			<delete id="deleteSkill">
-		  delete from skill where skillId=#{0}
+		  delete from skill where skillId=#{arg0}
 		</delete>
 		
    <select id="selectProject" parameterType="project" resultType="project">
@@ -323,7 +323,7 @@
    </insert>
    
    <select id="selectProject0000" resultType="Project">
-   select projectId,studentNo,projectName,isFirstCharge,time,image from project where studentNo=#{0}
+   select projectId,studentNo,projectName,isFirstCharge,time,image from project where studentNo=#{arg0}
    </select>
    
    <select id="selectSubmission" parameterType="Submission" resultType="Submission">
@@ -356,7 +356,7 @@
    </insert>
    
    <select id="selectLWFB" resultType="Submission">
-      select submissionId,studentNo,articleName,type,time,periodical,image from submissions where studentNo = #{0}
+      select submissionId,studentNo,articleName,type,time,periodical,image from submissions where studentNo = #{arg0}
    </select>
    
    

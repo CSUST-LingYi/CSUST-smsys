@@ -37,7 +37,7 @@
      </select>
      
      <select id="getIsUpload" resultType="PersonSummary">
-     	select moral,knowledge,sports,deduction from personsummary where studentNo = #{studentNo}
+     	select moral,knowledge,sports,deduction from personsummary where studentNo = #{studentNo} and xuenian=#{xuenian}
      </select>
      
       <select id="getStudentsByClass" resultType="Student">

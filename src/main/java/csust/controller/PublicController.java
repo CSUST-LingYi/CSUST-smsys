@@ -1,44 +1,30 @@
 package csust.controller;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import csust.bean.*;
+import csust.service.MonitorService;
+import csust.service.PublicService;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.Logical;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import com.fasterxml.jackson.core.JsonParseException;
-
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import csust.bean.BasicInfo;
-import csust.bean.Course;
-import csust.bean.Feedback;
-import csust.bean.MoralSummary;
-import csust.bean.PersonDeduction;
-import csust.bean.PersonKnowledge;
-import csust.bean.PersonMoral;
-import csust.bean.PersonSports;
-import csust.bean.PersonSummary;
-import csust.bean.Summary;
-import csust.mapper.PublicMapper;
-import csust.service.MonitorService;
-import csust.service.PublicService;
 import readExcel.imgPojo;
+
+import javax.servlet.http.HttpServletRequest;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @RequestMapping("/public")
@@ -49,6 +35,10 @@ public class PublicController {
 
 	@Autowired
 	MonitorService monitorService;
+
+	private Boolean isOpen(String xuenian){
+		return this.publicService.getZcStatusByXuenian(xuenian);
+	}
 
 	// 跳转到学生端综测界面
 	@RequestMapping(value = "/to_stu", method = RequestMethod.GET)
@@ -70,9 +60,10 @@ public class PublicController {
 	// 查询用户是否上传综测
 	@RequestMapping(value = "/getIsUpload",method = RequestMethod.POST)
 	@ResponseBody
-	public boolean getIsUpload(String xuenian,String studentNo) {
+	public boolean getIsUpload(@RequestParam("xuenian") String xuenian,
+							   @RequestParam("studentNo") String studentNo) {
 		
-		PersonSummary per = publicService.getIsUpload(studentNo);
+		PersonSummary per = publicService.getIsUpload(xuenian,studentNo);
 		Double moral = per.getMoral();
 		Double kn = per.getKnowledge();
 		//Double de =  per.getDeduction();
@@ -121,9 +112,12 @@ public class PublicController {
 	// 增加一项个人的智育成绩
 	@RequestMapping(value = "/addPersonKnowledge", method = RequestMethod.POST, produces = "text/html; charset=UTF-8")
 	@ResponseBody
-	public String addPersonKnowledge(@RequestParam("list") String jsonString)
+	public String addPersonKnowledge(@RequestParam("list") String jsonString,@RequestParam("xuenian") String xuenian)
 			throws JsonParseException, JsonMappingException, IOException {
 
+		if (!this.isOpen(xuenian)){
+			return "system did not open";
+		}
 		ObjectMapper mapper = new ObjectMapper();
 
 		List<PersonKnowledge> list = mapper.readValue(jsonString, new TypeReference<List<PersonKnowledge>>() {
@@ -160,7 +154,9 @@ public class PublicController {
 	@ResponseBody
 	public String deletePersonKnowledge(@RequestParam("xuenian") String xuenian,
 			@RequestParam("studentNo") String studentNo, @RequestParam("id") int id) {
-
+		if (!this.isOpen(xuenian)){
+			return "system did not open";
+		}
 		publicService.deletePersonKnowledge(xuenian, studentNo, id);
 
 		return "success";
@@ -175,8 +171,9 @@ public class PublicController {
 			@RequestParam("studentNo") String sno) {
 
 		PersonSports ps = publicService.getPersonSportsBySno(xuenian, sno);
-		 if(ps==null) ps= new PersonSports();
-
+		 if(ps==null) {
+			 ps= new PersonSports();
+		 }
 		return ps;
 	}
 
@@ -184,7 +181,9 @@ public class PublicController {
 	@RequestMapping(value = "/addPersonSports", method = RequestMethod.POST)
 	@ResponseBody
 	public String addPersonSports(PersonSports ps) {
-
+		if (!this.isOpen(ps.getXuenian())){
+			return "system did not open";
+		}
 		if (publicService.getPersonSportsBySno(ps.getXuenian(), ps.getStudentNo()) != null) {
 
 			publicService.updatePersonSports(ps);
@@ -240,7 +239,9 @@ public class PublicController {
 			@RequestParam(value = "studentNo") String sno, @RequestParam(value = "name") String name,
 			@RequestParam(value = "mid") int mid, @RequestParam(value = "score") double score,
 			@RequestParam(value = "getTime") String getTime, imgPojo image) {
-
+		if (!this.isOpen(xuenian)){
+			return "system did not open";
+		}
 		if (image.getImage().getName() == null || image.getImage() == null) {
 			return "上传的图片为空（注意上传图片时请关闭打开的图片）";
 		} else {
@@ -278,7 +279,9 @@ public class PublicController {
 	@RequestMapping(value = "/updatePersonMoral", method = RequestMethod.POST)
 	@ResponseBody
 	public String updatePersonMoral(PersonMoral m) {
-
+		if (!this.isOpen(m.getXuenian())){
+			return "system did not open";
+		}
 		publicService.updatePersonMoral(m);
 
 		return "success";
@@ -289,7 +292,9 @@ public class PublicController {
 	@ResponseBody
 	public String deletePersonMoral(@RequestParam("xuenian") String xuenian,
 			@RequestParam("studentNo") String studentNo, @RequestParam("id") int id) {
-
+		if (!this.isOpen(xuenian)){
+			return "system did not open";
+		}
 		publicService.deletePersonMoral(xuenian, studentNo, id);
 
 		return "success";
@@ -426,4 +431,10 @@ public class PublicController {
 		publicService.updateFeedback(fb);
 		return "success";
 	}*/
+
+	@RequestMapping(value = "getZcStatus",method = RequestMethod.GET)
+	public ResponseEntity<Boolean> getZcStatus(@RequestParam(value = "xuenian") String xuenian){
+		Boolean zcStatusByXuenian = this.publicService.getZcStatusByXuenian(xuenian);
+		return ResponseEntity.ok(zcStatusByXuenian);
+	}
 }

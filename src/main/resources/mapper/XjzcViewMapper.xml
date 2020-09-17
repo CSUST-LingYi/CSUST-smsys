@@ -7,86 +7,86 @@
 
 <select id="getXjzcViewByNianjiAll" resultType="XjzcView">
 	        select DISTINCT * from view_xjzc   
-	             where termYear=#{0}	      		      	   		     	    		    
-		 	         and stuType=#{3}	 
+	             where termYear=#{arg0}
+		 	         and stuType=#{arg3}
 	   </select>
 	   
 	     <select id="getXjzcViewByNianjiYes" resultType="XjzcView">
 	        select * from view_xjzc   
-	             where termYear=#{0}	      		      	     	 			    	   		     	    		    
-		 	 and ZCyear=#{1}
-		 	 and term=#{2}
-		 	 and ZCorNot="1"	 and stuType=#{3}	 	     	 
+	             where termYear=#{arg0}
+		 	 and ZCyear=#{arg1}
+		 	 and term=#{arg2}
+		 	 and ZCorNot="1"	 and stuType=#{arg3}
 	   </select>
 	   
 	   <select id="getXjzcViewByNianjiNot" resultType="ALLfield">
 	        select * from view_all   
-	             where termYear=#{0}	 and stuType=#{3}	       		      		   		     	    		    
-		 	 and  studentNO not in (select studentNo from view_xjzc where termYear=#{0} 
-		 	                                                          and ZCyear=#{1}
-		 	                                                          and term=#{2} 
+	             where termYear=#{arg0}	 and stuType=#{arg3}
+		 	 and  studentNO not in (select studentNo from view_xjzc where termYear=#{arg0}
+		 	                                                          and ZCyear=#{arg1}
+		 	                                                          and term=#{arg2}
 		 	                                                          and ZCorNot="1"
-		 	                                                           and stuType=#{3}	 )     	 
+		 	                                                           and stuType=#{arg3}	 )
 	   </select>
 	   
 	   <select id="getXjzcViewByMajorAll" resultType="XjzcView">
 	        select * from view_xjzc   
-	             where termYear=#{0}
-	          and major=#{1}	      		      	   		     	    		    
-              and stuType=#{4}	 	 
+	             where termYear=#{arg0}
+	          and major=#{arg1}
+              and stuType=#{arg4}
 	   </select>
 	   
 	     <select id="getXjzcViewByMajorYes" resultType="XjzcView">
 	        select * from view_xjzc   
-	             where termYear=#{0}
-	               and major=#{1}	      		      	     	 			    	   		     	    		    
-		 	 and ZCyear=#{2}
-		 	 and term=#{3}
-		 	 and ZCorNot="1"		  and stuType=#{4}	     	 
+	             where termYear=#{arg0}
+	               and major=#{arg1}
+		 	 and ZCyear=#{arg2}
+		 	 and term=#{arg3}
+		 	 and ZCorNot="1"		  and stuType=#{arg4}
 	   </select>
 	   
 	   <select id="getXjzcViewByMajorNot" resultType="ALLfield">
 	        select * from view_all   
-	             where termYear=#{0}
-	             and major=#{1}		 and stuType=#{4}	       		      		   		     	    		    
-		 	 and  studentNO not in (select studentNo from view_xjzc where termYear=#{0} 
-		 	                                                          and major=#{1}
-		 	                                                          and ZCyear=#{2}
-		 	                                                           and term=#{3}
+	             where termYear=#{arg0}
+	             and major=#{arg1}		 and stuType=#{arg4}
+		 	 and  studentNO not in (select studentNo from view_xjzc where termYear=#{arg0}
+		 	                                                          and major=#{arg1}
+		 	                                                          and ZCyear=#{arg2}
+		 	                                                           and term=#{arg3}
 		 	                                                            and ZCorNot="1"
-		 	                                                             and stuType=#{4}	 )     	 
+		 	                                                             and stuType=#{arg4}	 )
 	   </select>
 	   
 	   <select id="getXjzcViewByClassAll" resultType="XjzcView">
 	        select * from view_xjzc   
-	             where termYear=#{0}
-	             and major=#{1}
-	             and class=#{2}	      		      	   		     	    		    
-                 and stuType=#{5}	  	 
+	             where termYear=#{arg0}
+	             and major=#{arg1}
+	             and class=#{arg2}
+                 and stuType=#{arg5}
 	   </select>
 	   
 	     <select id="getXjzcViewByClassYes" resultType="XjzcView">
 	        select * from view_xjzc   
-	             where termYear=#{0}	      		      	     	 			    	   		     	    		    
-		 	      and major=#{1}
-	             and class=#{2}	      		      	   		     	    		    
-		 	 and ZCyear=#{3}
-		 	 and term=#{4} 
-		 	 and ZCorNot="1"    and stuType=#{5}	 		     	 
+	             where termYear=#{arg0}
+		 	      and major=#{arg1}
+	             and class=#{arg2}
+		 	 and ZCyear=#{arg3}
+		 	 and term=#{arg4}
+		 	 and ZCorNot="1"    and stuType=#{arg5}
 	   </select>
 	   
 	   <select id="getXjzcViewByClassNot" resultType="ALLfield">
 	        select * from view_all   
-	             where termYear=#{0}
-	               and major=#{1}
-	             and class=#{2}	  and stuType=#{5}	 	      		      		   		     	    		    
-		 	and  studentNO not in (select studentNo from view_xjzc where termYear=#{0} 
-		 	                                                          and major=#{1}
-		 	                                                          and class=#{2}
-		 	                                                          and ZCyear=#{3}
-		 	                                                          and term=#{4}
+	             where termYear=#{arg0}
+	               and major=#{arg1}
+	             and class=#{arg2}	  and stuType=#{arg5}
+		 	and  studentNO not in (select studentNo from view_xjzc where termYear=#{arg0}
+		 	                                                          and major=#{arg1}
+		 	                                                          and class=#{arg2}
+		 	                                                          and ZCyear=#{arg3}
+		 	                                                          and term=#{arg4}
 		 	                                                          and ZCorNot="1"
-		 	                                                           and stuType=#{5}	 )       	 
+		 	                                                           and stuType=#{arg5}	 )
 	   </select>
 	     
 	   

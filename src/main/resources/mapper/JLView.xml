@@ -6,96 +6,96 @@
 	
 	<select id="getJLByNianji0" resultType="JLView">
 	    select * from view_jl where 
-	             termYear=#{0}
-	          and getTime like concat('%',#{1},'%')	 and stuType=#{2}  
+	             termYear=#{arg0}
+	          and getTime like concat('%',#{arg1},'%')	 and stuType=#{arg2}
 	</select>
 	<select id="getJLByNianji1" resultType="JLView">
 	    select * from view_jl where 
-	             termYear=#{0}
-	           and getTime like concat('%',#{1},'%')	
-	           and JLlevel=#{2}  and stuType=#{3}
+	             termYear=#{arg0}
+	           and getTime like concat('%',#{arg1},'%')
+	           and JLlevel=#{arg2}  and stuType=#{arg3}
 	</select>
 	<select id="getJLByNianji2" resultType="JLView">
 	    select * from view_jl where 
-	             termYear=#{0}
-	         and getTime like concat('%',#{1},'%')	
-             and stuType=#{4}
-	         and JLlevel in (#{2},#{3})
+	             termYear=#{arg0}
+	         and getTime like concat('%',#{arg1},'%')
+             and stuType=#{arg4}
+	         and JLlevel in (#{arg2},#{arg3})
 	</select>
 	<select id="getJLByNianji3" resultType="JLView">
 	    select * from view_jl   
-	             where termYear=#{0}
-	               and getTime like concat('%',#{1},'%')		  		      	   		     
-                   and stuType=#{5}
-	               and JLlevel in (#{2},#{3},#{4})
+	             where termYear=#{arg0}
+	               and getTime like concat('%',#{arg1},'%')
+                   and stuType=#{arg5}
+	               and JLlevel in (#{arg2},#{arg3},#{arg4})
 	</select>
 	
 		<select id="getJLByMajor0" resultType="JLView">
 	    select * from view_jl where 
-	             termYear=#{0}
-	       and      major=#{1}
-	               and getTime like concat('%',#{2},'%') and stuType=#{3}	
+	             termYear=#{arg0}
+	       and      major=#{arg1}
+	               and getTime like concat('%',#{arg2},'%') and stuType=#{arg3}
 	</select>
 	<select id="getJLByMajor1" resultType="JLView">
 	    select * from view_jl where 
-	             termYear=#{0}
-	            and major=#{1}
-	            and getTime like concat('%',#{2},'%')	 
-	           and JLlevel=#{3}   and stuType=#{4}
+	             termYear=#{arg0}
+	            and major=#{arg1}
+	            and getTime like concat('%',#{arg2},'%')
+	           and JLlevel=#{arg3}   and stuType=#{arg4}
 	</select>
 	<select id="getJLByMajor2" resultType="JLView">
 	    select * from view_jl where 
-	             termYear=#{0}
-	          and   major=#{1}
-	            and getTime like concat('%',#{2},'%')	
-              and stuType=#{5}
-	          and JLlevel in (#{3},#{4})
+	             termYear=#{arg0}
+	          and   major=#{arg1}
+	            and getTime like concat('%',#{arg2},'%')
+              and stuType=#{arg5}
+	          and JLlevel in (#{arg3},#{arg4})
 	</select>
 	<select id="getJLByMajor3" resultType="JLView">
 	    select * from view_jl   
-	             where termYear=#{0}
-	          and   major=#{1}
-	          and getTime like concat('%',#{2},'%')			      	   		     
-              and stuType=#{6}
-	          and JLlevel in (#{3},#{4},#{5})
+	             where termYear=#{arg0}
+	          and   major=#{arg1}
+	          and getTime like concat('%',#{arg2},'%')
+              and stuType=#{arg6}
+	          and JLlevel in (#{arg3},#{arg4},#{arg5})
 	</select>
 	
 		<select id="getJLByClass0" resultType="JLView">
 	    select * from view_skill where 
-	             termYear=#{0}
-	               and   major=#{1}
-	               and class=#{2}
-	            and getTime like concat('%',#{3},'%')  and stuType=#{4}		
+	             termYear=#{arg0}
+	               and   major=#{arg1}
+	               and class=#{arg2}
+	            and getTime like concat('%',#{arg3},'%')  and stuType=#{arg4}
 	</select>
 	<select id="getJLByClass1" resultType="JLView">
 	    select * from view_skill where 
-	             termYear=#{0}
-	          and   major=#{1}
-	          and class=#{2}
-	          and getTime like concat('%',#{3},'%')		
-	           and JLlevel=#{4}   and stuType=#{5}
+	             termYear=#{arg0}
+	          and   major=#{arg1}
+	          and class=#{arg2}
+	          and getTime like concat('%',#{arg3},'%')
+	           and JLlevel=#{arg4}   and stuType=#{arg5}
 	</select>
 	<select id="getJLByClass2" resultType="JLView">
 	    select * from view_jl where 
-	             termYear=#{0}
-	               and   major=#{1}
-	               and class=#{2}
-	          and getTime like concat('%',#{3},'%')		
-              and stuType=#{6}
-	          and JLlevel in (#{4},#{5})
+	             termYear=#{arg0}
+	               and   major=#{arg1}
+	               and class=#{arg2}
+	          and getTime like concat('%',#{arg3},'%')
+              and stuType=#{arg6}
+	          and JLlevel in (#{arg4},#{arg5})
 	</select>
 	<select id="getJLByClass3" resultType="JLView">
 	    select * from view_jl   
-	             where termYear=#{0}
-	               and   major=#{1}
-	            and class=#{2}
-	          and getTime like concat('%',#{3},'%')			      	   		     
-              and stuType=#{7}
-	          and JLlevel in (#{4},#{5},#{6})
+	             where termYear=#{arg0}
+	               and   major=#{arg1}
+	            and class=#{arg2}
+	          and getTime like concat('%',#{arg3},'%')
+              and stuType=#{arg7}
+	          and JLlevel in (#{arg4},#{arg5},#{arg6})
 	</select>
 	
 	<select id="listRewardinfo"  resultType="Rewardinfo">
-	  select rewardId,rewardTime,rewardName,rewardLevel,sponsor,termOrindividual from rewardinfo where stuType=#{0}
+	  select rewardId,rewardTime,rewardName,rewardLevel,sponsor,termOrindividual from rewardinfo where stuType=#{arg0}
 	</select>
 	
 	<select id="getRewardinfo" parameterType="Rewardinfo"   resultType="Rewardinfo">
